@@ -8,6 +8,8 @@ public class AppHandler {
         // I dont feel comfortable with this code. Too much reduntand code and dupliactes
         // I wonder to change everything so you modyfi the statment before you run the connection
         // and pass the statment as ana argument to querry making function
+
+        System.out.println("testing");
     }
 
     public static void queryAllLevels() {
