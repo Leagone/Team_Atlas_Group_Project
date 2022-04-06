@@ -9,7 +9,7 @@ public class AppHandler {
         // I wonder to change everything so you modyfi the statment before you run the connection
         // and pass the statment as ana argument to querry making function
 
-        System.out.println("testing");
+        System.out.println("testing 2");
     }
 
     public static void queryAllLevels() {
