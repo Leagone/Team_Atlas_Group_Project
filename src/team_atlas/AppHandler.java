@@ -1,15 +1,20 @@
 package team_atlas;
 
+import javax.swing.*;
 import java.sql.*;
 
 public class AppHandler {
+    static final JFrame MAIN_FRAME = new JFrame("Team Atlas Language App"); // The main window of the application
 
     public static void main(String[] args) {
-        // I dont feel comfortable with this code. Too much reduntand code and dupliactes
-        // I wonder to change everything so you modyfi the statment before you run the connection
-        // and pass the statment as ana argument to querry making function
+        MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        LoginScreen loginScreen = new LoginScreen();
+        MAIN_FRAME.setContentPane(loginScreen.loginPanel);
 
-        System.out.println("testing 2");
+        MAIN_FRAME.setSize(600, 900);
+        MAIN_FRAME.setResizable(false); // Disables resizing
+        MAIN_FRAME.setLocationRelativeTo(null); // Centers frame on screen
+        MAIN_FRAME.setVisible(true);
     }
 
     public static void queryAllLevels() {
