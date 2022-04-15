@@ -10,4 +10,7 @@ public class LoginScreen {
     JTextField passwordField;
     JButton registerButton;
     JButton loginButton;
+
+    LoginScreen() {
+    }
 }
