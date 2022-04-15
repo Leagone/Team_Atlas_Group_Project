@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.sql.*;
 
 public class AppHandler {
-    static final JFrame MAIN_FRAME = new JFrame("Team Atlas Language App"); // The main window of the application
+    static final JFrame MAIN_FRAME = new JFrame(""); // The main window of the application
 
     public static void main(String[] args) {
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -12,8 +12,8 @@ public class AppHandler {
         MAIN_FRAME.setContentPane(loginScreen.loginPanel);
 
         MAIN_FRAME.setSize(600, 900);
-        MAIN_FRAME.setResizable(false); // Disables resizing
-        MAIN_FRAME.setLocationRelativeTo(null); // Centers frame on screen
+        MAIN_FRAME.setResizable(false);
+        MAIN_FRAME.setLocationRelativeTo(null);
         MAIN_FRAME.setVisible(true);
     }
 
