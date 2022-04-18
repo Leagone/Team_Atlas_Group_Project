@@ -15,6 +15,7 @@ public class AppHandler {
         MAIN_FRAME.setResizable(false);
         MAIN_FRAME.setLocationRelativeTo(null);
         MAIN_FRAME.setVisible(true);
+        System.out.println("test");
     }
 
     public static void queryAllLevels() {
