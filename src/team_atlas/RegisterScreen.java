@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterScreen {
+
     JPanel registerPanel;
     JLabel firstNameLabel;
     JTextField firstNameField;
@@ -17,7 +18,7 @@ public class RegisterScreen {
     JButton registerButton;
 
     RegisterScreen() {
-        AppHandler.MAIN_FRAME.setTitle("Team Atlas Language App - Register Screen");
+        AppHandler.MAIN_FRAME.setTitle("Team Atlas Language App - Register");
 
         registerButton.addActionListener(e -> {
             String firstName = firstNameField.getText();

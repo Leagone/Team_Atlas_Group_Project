@@ -3,6 +3,7 @@ package team_atlas;
 import javax.swing.*;
 
 public class LoginScreen {
+
     JPanel loginPanel;
     JLabel emailLabel;
     JTextField emailField;
@@ -12,7 +13,7 @@ public class LoginScreen {
     JButton loginButton;
 
     LoginScreen() {
-        AppHandler.MAIN_FRAME.setTitle("Team Atlas Language App - Login Screen");
+        AppHandler.MAIN_FRAME.setTitle("Team Atlas Language App - Login");
 
         // Switch to register screen
         registerButton.addActionListener(e -> {
