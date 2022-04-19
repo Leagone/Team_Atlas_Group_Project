@@ -2,6 +2,7 @@ package team_atlas;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -27,13 +28,17 @@ public class AppHandler {
      * The main method where the application starts.
      * Starts the login screen.
      * @param args The command line arguments
-     */
+//     */
     public static void main(String[] args) {
         System.out.println("Application started");
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MAIN_FRAME.setSize(600, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        startLoginScreen();
+        //startLoginScreen();
+
+        User ziomek = new User("jajajaj","ziomek", "ziomek"," ziomek", "user3", true );
+
+        addNewUser(ziomek);
     }
 
     /**
@@ -106,6 +111,89 @@ public class AppHandler {
         }
         return null;
     }
+
+    /**
+     * Function to pass INSERT statements to the DB.
+     */
+
+
+    private static void insert(String toQuery) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        //String toFind = toQuery;
+        try {
+            statement = connection.createStatement();
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Adds new user
+     */
+
+
+    public static void addNewUser(User newUser){
+
+        String emailAddress = newUser.getEmailAddress();
+        String password = newUser.getPassword();
+        String firstName = newUser.getFirstName();
+        String lastName = newUser.getLastName();
+        String userID = newUser.getUserID();
+        boolean isTeacherInfo = newUser.isTeacher();
+        int isTeacher;
+
+        if(isTeacherInfo == true){
+            isTeacher = 1;
+        } else{
+            isTeacher = 0;
+        }
+
+        String Statement = "INSERT INTO RegularUser (\n" +
+                "                            EmailAddress,\n" +
+                "                            Pass,\n" +
+                "                            UserID,\n" +
+                "                            FirstName,\n" +
+                "                            LastName,\n" +
+                "                            IsTeacher\n" +
+                "                        )\n" +
+                "                        VALUES (\n" +
+                "                            '" + emailAddress + "',\n" +
+                "                            '" + password + "',\n" +
+                "                            '" + userID + "',\n" +
+                "                            '" + firstName + "',\n" +
+                "                            '" + lastName + "',\n" +
+                "                            "+ isTeacher +"\n" +
+                "                        );";
+
+        insert(Statement);
+    }
+
+    public static ArrayList<String> queryAllIDs() {
+
+        // Gotta finish this part
+
+        return null;
+    }
+
+
 
     public static HashMap<String, String> querySubContext(String subContextID) {
         String toFind = subContextID.toUpperCase();
