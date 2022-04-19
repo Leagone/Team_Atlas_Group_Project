@@ -2,6 +2,10 @@ package team_atlas;
 
 import javax.swing.*;
 
+/**
+ * The login panel of the application.
+ * @author Dominik Deak
+ */
 public class LoginScreen {
 
     JPanel loginPanel;
@@ -13,28 +17,32 @@ public class LoginScreen {
     JButton loginButton;
 
     LoginScreen() {
-        AppHandler.MAIN_FRAME.setTitle("Team Atlas Language App - Login");
+        System.out.println("Login panel started");
+        loginButton.addActionListener(e -> loginUser());
+        registerButton.addActionListener(e -> AppHandler.startRegisterScreen());
+    }
 
-        // Switch to register screen
-        registerButton.addActionListener(e -> {
-            RegisterScreen registerScreen = new RegisterScreen();
-            AppHandler.MAIN_FRAME.setContentPane(registerScreen.registerPanel);
-            AppHandler.MAIN_FRAME.setSize(600, 900);
-            AppHandler.MAIN_FRAME.setResizable(false);
-            AppHandler.MAIN_FRAME.setLocationRelativeTo(null);
-            AppHandler.MAIN_FRAME.setVisible(true);
-        });
+    /**
+     * Queries the database with the entered details,
+     * if they exist, logs the user in and switches to the home panel.
+     */
+    private void loginUser() {
+        String emailInput = emailField.getText();
+        String passwordInput = passwordField.getText();
 
-        loginButton.addActionListener(e -> {
-            String emailInput = emailField.getText();
-            String passwordInput = passwordField.getText();
-            if (emailInput.isEmpty() || passwordInput.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "You must fill out both fields");
-            } else if (emailInput.contains(" ") || passwordInput.contains(" ")) {
-                JOptionPane.showMessageDialog(null, "You must not enter any whitespaces");
+        if (emailInput.isEmpty() || passwordInput.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You must fill out both fields");
+        } else if (emailInput.contains(" ") || passwordInput.contains(" ")) {
+            JOptionPane.showMessageDialog(null, "You must not enter any whitespaces");
+        } else {
+            User user = AppHandler.queryUserWithPass(emailInput, passwordInput);
+            if (user == null) {
+                JOptionPane.showMessageDialog(null, "Incorrect login details entered");
             } else {
-                // TODO Query database for entered login details
+                AppHandler.currentUser = user;
+                System.out.println("User '" + user.getEmailAddress() + "' logged in");
+                // TODO Switch to the home panel
             }
-        });
+        }
     }
 }

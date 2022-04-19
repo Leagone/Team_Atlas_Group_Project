@@ -1,23 +1,45 @@
 package team_atlas;
 
+/**
+ * The User class holding all attributes of a user.
+ * Includes getters for all attributes.
+ * @author Andrzej Baum, Dominik Deak
+ */
 public class User {
-    private String password, emailAddress, firstName, lastName, userID;
-    private boolean isTeacher;
 
-    User(String userID, String password, String emailAddress, String firstName, String lastName, Boolean isTeacher) {
-        this.userID = userID;
-        this.password = password;
+    private final String password, emailAddress, firstName, lastName, userID;
+    private final boolean isTeacher;
+
+    User(String emailAddress, String password, String firstName, String lastName, String userID, Boolean isTeacher) {
         this.emailAddress = emailAddress;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userID = userID;
         this.isTeacher = isTeacher;
     }
 
-    public void getInfo() {
-        System.out.println(userID);
-        System.out.println(firstName);
-        System.out.println(lastName);
-        System.out.println(emailAddress);
-        System.out.println("Teacher: " + isTeacher);
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public boolean isTeacher() {
+        return isTeacher;
     }
 }
