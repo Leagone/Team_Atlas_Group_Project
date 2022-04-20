@@ -43,7 +43,7 @@ public class RegisterScreen {
                 String userID = "u" + (100000000 + new Random().nextInt(900000000));
                 User user = new User(emailAddress, password, firstName, lastName, userID, false);
                 // TODO Use hashing on user details
-                // TODO Insert hashed details into database
+                AppHandler.addUser(user);
                 JOptionPane.showMessageDialog(null, "Registration successful");
                 AppHandler.startLoginScreen();
             } else {

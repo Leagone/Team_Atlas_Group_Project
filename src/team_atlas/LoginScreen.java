@@ -35,13 +35,20 @@ public class LoginScreen {
         } else if (emailInput.contains(" ") || passwordInput.contains(" ")) {
             JOptionPane.showMessageDialog(null, "You must not enter any whitespaces");
         } else {
-            User user = AppHandler.queryUserWithPass(emailInput, passwordInput);
-            if (user == null) {
-                JOptionPane.showMessageDialog(null, "Incorrect login details entered");
+            Admin admin = AppHandler.queryAdminWithPass(emailInput, passwordInput);
+            if (admin != null) {
+                AppHandler.currentAdmin = admin;
+                System.out.println("Admin '" + admin.getEmailAddress() + "' logged in");
+                // TODO Switch to the admin home panel
             } else {
-                AppHandler.currentUser = user;
-                System.out.println("User '" + user.getEmailAddress() + "' logged in");
-                // TODO Switch to the home panel
+                User user = AppHandler.queryUserWithPass(emailInput, passwordInput);
+                if (user != null) {
+                    AppHandler.currentUser = user;
+                    System.out.println("User '" + user.getEmailAddress() + "' logged in");
+                    // TODO Switch to the user home panel
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect login details entered");
+                }
             }
         }
     }

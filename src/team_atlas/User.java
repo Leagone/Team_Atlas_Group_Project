@@ -1,7 +1,9 @@
 package team_atlas;
 
 /**
- * The User class holding all attributes of a user.
+ * The user class holding all attributes of a user.
+ * Holds the following attributes:
+ * email address, password, first name, last name, user ID, and whether the user is a teacher or not.
  * Includes getters for all attributes.
  * @author Andrzej Baum, Dominik Deak
  */

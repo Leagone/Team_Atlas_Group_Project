@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS Administrator;
 CREATE TABLE Administrator (
     EmailAddress VARCHAR (99),
     Pass         VARCHAR (99) NOT NULL,
-    AdminID      INTEGER      UNIQUE
+    AdminID      VARCHAR (99) UNIQUE
                               NOT NULL,
     CONSTRAINT email_pk PRIMARY KEY (
         EmailAddress
@@ -309,7 +309,7 @@ INSERT INTO Conversations (
                               'cash, card, insert, touch, hasn''t worked, PIN',
                               '[''Hi there. May I pay for these items please?'', ''Card, please. '', ''Thank you. '', "I''m sorry about that. I will use my PIN.", ''Have a good day! Goodbye. '']',
                               '['''', '''', '''', ''PIN'', '''']',
-                              '[''Hello, yes of course. Your total is £35. Will you be paying by cash or card?'', ''No problem. You can insert or touch your card to the machine. '', "I''m sorry your card hasn''t worked. Can you try again?", ''That is all done. Thank you for shopping with us. Have a good day!'']',
+                              '[''Hello, yes of course. Your total is ï¿½35. Will you be paying by cash or card?'', ''No problem. You can insert or touch your card to the machine. '', "I''m sorry your card hasn''t worked. Can you try again?", ''That is all done. Thank you for shopping with us. Have a good day!'']',
                               '[''en efectivo / con tarjeta'', ''insertar/ tocar'', ''no ha funcionado'', '''']'
                           );
 
@@ -391,7 +391,7 @@ INSERT INTO Conversations (
                               '[''Hello, is the manager there?'', "Can you tell them that I am sick and can''t come to work today.", "I''ve got a cold.", ''Not yet.'', ''I will do that now, thank you.'', ''Thank you, speak to you soon. Goodbye.'']',
                               '[''jefe,a'', '''', ''Tengo un resfriado'', '''', '''', '''']',
                               '[''They will arrive in an hour, do you want to call back or I can take a message?'', "What''s the matter?", ''Did you find cover?'', ''Send a message in the group chat, hopefully someone can cover your shift.'', ''Well, I hope you get well soon.'', ''Goodbye.'']',
-                              '[''llamar de nuevo  / darle el mensaje'', '''', ''encontraste una sustitución'', ''Envía un mensaje al grupo de chat / turno'', '''', '''']'
+                              '[''llamar de nuevo  / darle el mensaje'', '''', ''encontraste una sustituciï¿½n'', ''Envï¿½a un mensaje al grupo de chat / turno'', '''', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -416,7 +416,7 @@ INSERT INTO Conversations (
                               '',
                               'refund, items, unfortunately, to use, exchange, gift voucher, manager',
                               '[''Hello there. I would like a refund for these items please. '', ''That will not work. I want my money back.'', ''Fine. But I will take this up with your manager. '', ''Oh. Well, in that case I will just take the gift voucher. Thank you and have a good day. '']',
-                              '[''reembolso / artículos'', '''', ''jefe,a'', '''']',
+                              '[''reembolso / artï¿½culos'', '''', ''jefe,a'', '''']',
                               '[''Hi there. Unfortunately, these items look like they have been used. I can offer an exchange or a gift voucher instead.'', ''We cannot offer a refund for used items. You can exchange it for another item or I can issue you a gift voucher. '', ''I am the manager. '', ''You too. Bye! '']',
                               '[''desgraciadamente / usados / intercambio / vale regalo'', '''', '''', '''']'
                           );
@@ -445,7 +445,7 @@ INSERT INTO Conversations (
                               '[''Hello there. Is this Mary?'', ''This is John, the delivery driver. I am having trouble finding your apartment. '', "I can''t see a statue. Are you sure it''s correct?", ''Oh yes, I see it. I will be there soon. Goodbye!'']',
                               '['''', ''conductor,a de reparto  / tengo un problema'', '''', '''']',
                               '["Hi, yes it is. Who''s speaking?", ''Yes it can be a little tricky. Go past the big black gates, turn left at the statue and you should see my building. I live on the 4th floor so I would recommend taking the lift.'', ''It is a big stone statue, round and grey in colour. '', ''See you soon. Goodbye!'']',
-                              '['''', ''complicado / verjas / estatua / recomendaría / ascensor'', ''piedra / redonda'', '''']'
+                              '['''', ''complicado / verjas / estatua / recomendarï¿½a / ascensor'', ''piedra / redonda'', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -472,7 +472,7 @@ INSERT INTO Conversations (
                               '[''Hi excuse me? I think I have the wrong order. '', ''I asked for a vegan pizza and this seems to have cheese and meat all over it.'', ''That is not good enough. My friends and I have been waiting over an hour already. I want a new pizza and my money back.'', ''Apology accepted. Now please hurry up, I am starving. '', ''Thank you. '']',
                               '[''pedido incorrecto'', ''vegana'', ''Eso no es suficiente / esperando sobre'', ''dese prisa / muerto,a de hambre'', '''']',
                               '[''Hi there, what seems to be the problem?'', "I''m so sorry about that there must have been a mix up. I will bring you a new one immediately. ", ''I will see if I can get that done for you. And please accept our sincere apologies.'', ''I will let the kitchen know and your pizza should be with you as soon as possible. '']',
-                              '['''', ''confusión'', ''acepte nuestras más sinceras disculpas '', ''cocina'']'
+                              '['''', ''confusiï¿½n'', ''acepte nuestras mï¿½s sinceras disculpas '', ''cocina'']'
                           );
 
 INSERT INTO Conversations (
@@ -499,7 +499,7 @@ INSERT INTO Conversations (
                               '[''Hi Derreck. How was your weekend?'', ''That is great news! Give me all the details.'', ''Will it be face-to-face or online?'', ''Good luck, my friend I will be thinking of you. You will do great!'']',
                               '['''', '''', ''presencial / en linea'', '''']',
                               '["Hi Pete. Well, I actually secured a job interview for this admin role. I''m so excited!", ''Well, the interview is at 10:00 tomorrow. The dress code is smart-casual so I need to wear a shirt and jeans. '', "Face-to-face so I need to be prepared. It''s not far from here, only 3 stops on the no.32 bus. ", ''Thank you! I will let you know how it goes. '']',
-                              '[''conseguido una entrevista de trabajo / papel administrativo'', ''código de vestir / informal'', ''solo 3 paradas en la línea 32  de autobús'', ''haré saber'']'
+                              '[''conseguido una entrevista de trabajo / papel administrativo'', ''cï¿½digo de vestir / informal'', ''solo 3 paradas en la lï¿½nea 32  de autobï¿½s'', ''harï¿½ saber'']'
                           );
 
 INSERT INTO Conversations (
@@ -524,9 +524,9 @@ INSERT INTO Conversations (
                               'comparative',
                               'put you down, done my teeth, trust, sooner, cancellation, appointment',
                               '[''Hi there. I would like to book an appointment with my dentist, Clara. '', ''Clara has done my teeth for the past 10 years. She is very professional and I trust her. Where is she?'', ''That is too long to wait. Do you not have anything sooner?'', ''Yes please. Thank you for that. I will see you then. Bye!'']',
-                              '['''', ''cuidado mis dientes / confío'', ''antes'', '''']',
+                              '['''', ''cuidado mis dientes / confï¿½o'', ''antes'', '''']',
                               '["Hi there, I''m sorry but Clara is not available at the moment. Could I put you down with someone else?", ''She is on holiday until the 22nd. I can book you in with Clara on the 30th.'', ''Let me check for you. There is a cancellation on the 25th at 13:00. Would you like this appointment?'', ''No problem, Clara will see you then. Goodbye! '']',
-                              '[''darle cita'', '''', ''cancelación / cita'', '''']'
+                              '[''darle cita'', '''', ''cancelaciï¿½n / cita'', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -551,9 +551,9 @@ INSERT INTO Conversations (
                               'questions',
                               'decafe latte, iced, sugar-free syrup, caramel, vanilla, hazelnut, oat milk, is that to have here or to go?',
                               '[''Could I please have a regular decafe latte.'', "That''s okay, I''ll just have a regular latte then, and could I get that iced.", ''And, do you have sugar-free syrup?'', ''Could I get the sugar-free vanilla please, and could I get that with oat milk please.'', ''To go please.'']',
-                              '[''descafeinado con leche'', ''con hielo'', ''almíbar sin azúcar '', ''leche de avena'', '''']',
+                              '[''descafeinado con leche'', ''con hielo'', ''almï¿½bar sin azï¿½car '', ''leche de avena'', '''']',
                               '[''We have no decafe, sorry about that.'', ''Yes.'', ''We have sugar-free caramel, vanilla and hazelnut.'', ''Is that to have in or to go?'']',
-                              '['''', '''', '''', ''Es para tomar aquí o para llevar'']'
+                              '['''', '''', '''', ''Es para tomar aquï¿½ o para llevar'']'
                           );
 
 INSERT INTO Conversations (
@@ -661,7 +661,7 @@ INSERT INTO Conversations (
                               '[''Hi there. Do you have a table for 4?'', ''Yes, I do, for 8 pm'', "It''s Jones.", "I''m sorry, but I booked the table for 8pm - and it is now 8pm. ", ''Well, I suggest that you ask them to hurry up. We are going to sit down. '', "Ha! That''s a typical trick! You delay the table and ask me to wait in the bar so that I have to buy some drinks!", ''That sounds more like it. '']',
                               '['''', '''', '''', '''', '''', ''retrasa '', ''gratuita'']',
                               '[''Good evening. Do you have a reservation with us?'', ''What is your name?'', "Ok, I can see your booking. I am sorry, the table isn''t ready yet. It will be about 30 minutes. ", ''I do understand, but the people who booked the table at 6pm have not finished their meal. '', ''May I ask you to wait in the bar while I get your table ready. '', ''That is not what I intended. I am sorry that your table is not ready. Please can you wait in the bar. May I get you a drink on the house?'']',
-                              '[''reservación'', '''', '''', '''', '''', ''pretendía'']'
+                              '[''reservaciï¿½n'', '''', '''', '''', '''', ''pretendï¿½a'']'
                           );
 
 INSERT INTO Conversations (
@@ -687,7 +687,7 @@ INSERT INTO Conversations (
                               'cash, card, insert, touch, hasn''t worked, ',
                               '[''Hi there. May I pay for these items please?'', ''Card, please. '', ''Thank you. '', ''Let me try another card. Here it is!'', ''How embarassing. I will go and get some cash from the bank. '', ''I will be back as soon as possible. '']',
                               '['''', '''', '''', '''', '''', '''']',
-                              '[''Hello, yes of course. Your total is £35. Will you be paying by cash or card?'', ''No problem. You can insert or touch your card to the machine. '', "I''m sorry your card hasn''t worked. Can you try again?", "I''m sorry, but this card hasn''t worked either. ", ''Ok. No problem. I can hold onto your shopping for 30 minutes. '']',
+                              '[''Hello, yes of course. Your total is ï¿½35. Will you be paying by cash or card?'', ''No problem. You can insert or touch your card to the machine. '', "I''m sorry your card hasn''t worked. Can you try again?", "I''m sorry, but this card hasn''t worked either. ", ''Ok. No problem. I can hold onto your shopping for 30 minutes. '']',
                               '[''en efectivo o con tarjeta'', ''insertar/ toque'', ''no ha funcionado'', '''', '''']'
                           );
 
@@ -712,9 +712,9 @@ INSERT INTO Conversations (
                               'S3',
                               'passive voice',
                               'cash, card',
-                              '[''Hi there. May I pay for these items please?'', ''£255! Are you sure? '', ''Oh. That is too much. I will only buy one of the pairs of trousers. '', "The blue. I''m so sorry about this. ", "Ok. Here''s my card. ", "Oh dear. I think I''ll leave it. Bye. "]',
+                              '[''Hi there. May I pay for these items please?'', ''ï¿½255! Are you sure? '', ''Oh. That is too much. I will only buy one of the pairs of trousers. '', "The blue. I''m so sorry about this. ", "Ok. Here''s my card. ", "Oh dear. I think I''ll leave it. Bye. "]',
                               '['''', '''', '''', '''', '''', '''']',
-                              '[''Hello, yes of course. Your total is £255. Will you be paying by cash or card?'', "Yes. You have bought 2 pairs of trousers at £65 each, and a jumper - that''s £125. That''s £255 in total. ", ''Which one - the blue or the black. '', "Not a problem. Right, so, that''s one pair of trousers at £65 and a jumper at £125. So, £190 please.", "Right, please can you insert your card. Oh, I''m sorry, the payment has not been authorised. "]',
+                              '[''Hello, yes of course. Your total is ï¿½255. Will you be paying by cash or card?'', "Yes. You have bought 2 pairs of trousers at ï¿½65 each, and a jumper - that''s ï¿½125. That''s ï¿½255 in total. ", ''Which one - the blue or the black. '', "Not a problem. Right, so, that''s one pair of trousers at ï¿½65 and a jumper at ï¿½125. So, ï¿½190 please.", "Right, please can you insert your card. Oh, I''m sorry, the payment has not been authorised. "]',
                               '[''en efectivo o con tarjeta'', '''', '''', '''', ''autorizado'']'
                           );
 
@@ -742,7 +742,7 @@ INSERT INTO Conversations (
                               '[''Hi there. Do you have a table for 4?'', "I''m sorry I don''t. ", ''How long is the wait for a table? '', ''Yes, no problem at all. We know this restaurant is popular. '', ''Smith.'']',
                               '['''', '''', ''espera'', '''', '''']',
                               '[''Good evening. Do you have a reservation with us?'', "I''m afraid we''re very busy tonight so there are no free tables. Would you like to wait or come back later?", "It is about one hour. I''m sorry about that. Are you happy to wait at the bar? ", ''I need to book you in. What is your name?'', "Great. You are booked in for 9 o''clock. The bar is over there. I will call you when your table is ready. "]',
-                              '[''reservación'', '''', ''sobre '', '''', '''']'
+                              '[''reservaciï¿½n'', '''', ''sobre '', '''', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -821,9 +821,9 @@ INSERT INTO Conversations (
                               'present + infinitive',
                               'charitable organisation, don''t give to charity, choose, sign up, leave me alone',
                               '[''Good morning sir, can I speak with you for a moment?'', ''It will just take a second.'', ''I just wanted to speak to you about our charitable organisation.'', "So you don''t give to charity?", ''But sir, if you give me your email then you can choose to sign up or not in your own time.'']',
-                              '['''', '''', ''organización benéfica'', ''no dona a organizaciones benéficas'', ''elegir / inscribirse'']',
+                              '['''', '''', ''organizaciï¿½n benï¿½fica'', ''no dona a organizaciones benï¿½ficas'', ''elegir / inscribirse'']',
                               '[''No, I am busy.'', ''I am going to work.'', ''I am not interested.'', ''Stop following me.'', ''Leave me alone.'']',
-                              '['''', '''', '''', '''', ''Déjeme en paz'']'
+                              '['''', '''', '''', '''', ''Dï¿½jeme en paz'']'
                           );
 
 INSERT INTO Conversations (
@@ -848,7 +848,7 @@ INSERT INTO Conversations (
                               '',
                               'to go for lunch, I''m afraid not, days do you have off, free, that''s a shame',
                               '[''Do you want to go for lunch at the weekend?'', ''Which days do you have off next week?'', ''I go to University on those days unfortunately.'', ''I am also free on Monday morning. How about we meet at 10 at the cafe near your house.'', ''See you then!'']',
-                              '[''salir a comer fuera'', ''días estás libre'', '''', '''', '''']',
+                              '[''salir a comer fuera'', ''dï¿½as estï¿½s libre'', '''', '''', '''']',
                               '["I''m afraid not, I work on weekends.", ''I am free on Tuesday and Wednesday'', "That''s a shame, what about on Monday morning?", ''Perfect, see you on Monday.'']',
                               '[''Me temo que no'', ''libre'', ''Es una pena'', '''']'
                           );
@@ -904,7 +904,7 @@ INSERT INTO Conversations (
                               '["Excuse me, where is my coffee. I''ve been waiting over 20 minutes.", ''This is unacceptable, I am very busy this morning. Some people who ordered after me have already got their drinks.'', ''Thank you, I ordered a mocha.'', ''Thank you very much.'']',
                               '['''', '''', '''', '''']',
                               '["We''re really busy, they are making the drinks as fast as they can, can you wait a little longer?", "I''m sorry, I will check how long it will be. What did you order?", ''Sorry there was a mix up, I will make it for you right away.'']',
-                              '['''', '''', ''confusión'']'
+                              '['''', '''', ''confusiï¿½n'']'
                           );
 
 INSERT INTO Conversations (
@@ -929,7 +929,7 @@ INSERT INTO Conversations (
                               '',
                               'head off, give out, I suppose, username',
                               '["It''s getting late, I think I''m gonna head off.", ''I know. But I have to work. '', ''Well, bye.'', "Sorry, I don''t give out my number.", ''Sure, I suppose.'']',
-                              '[''marchar'', '''', '''', ''doy'', ''supongo que sí'']',
+                              '[''marchar'', '''', '''', ''doy'', ''supongo que sï¿½'']',
                               '["That''s a shame, it was nice getting to know you.", ''I understand. I work too.'', ''Oh, can I get your number?'', ''What about your instagram?'', "What''s your username?"]',
                               '['''', '''', '''', '''', ''nombre de usuario'']'
                           );
@@ -956,7 +956,7 @@ INSERT INTO Conversations (
                               '',
                               'half-sister, only child, noisy',
                               '[''Who were you chatting to in the cafe?'', ''How do you know each other?'', "Really? But you don''t look alike.", "No, I''m an only child.", ''I think you are lucky. How nice to have a big family.'', ''No, my mum hates animals.'', ''Yes, it was very quiet. But I had many good friends. '']',
-                              '['''', '''', '''', ''hijo,a único,a'', '''', '''', '''']',
+                              '['''', '''', '''', ''hijo,a ï¿½nico,a'', '''', '''', '''']',
                               '["Oh, that''s Suzanna.", "She''s my sister.", "Yes, she''s my half sister actually. Do you have any siblings?", ''You are lucky!  I have five sisters - it is very noisy at home.'', ''Yes, we are. And we also have 3 dogs and 2 cats. How about you?'', ''Must have been very quiet at home then!'']',
                               '['''', '''', ''media hermana'', ''ruidoso'', '''', '''']'
                           );
@@ -983,7 +983,7 @@ INSERT INTO Conversations (
                               '',
                               'almond, oat, soya, peppermint, subscription, scan',
                               '[''Good morning, can I get a large almond milk latte please?'', "In that case I''ll just have a peppermint tea.", ''No, thank you.'', ''I have a subscription with you.'', ''No problem. '', ''You too!'']',
-                              '[''almendra'', '''', '''', ''suscripción'', '''', '''']',
+                              '[''almendra'', '''', '''', ''suscripciï¿½n'', '''', '''']',
                               '[''Sorry about this but, we are all out of almond milk. We do have oat milk or soya milk though. '', ''Sorry about that, can I get you anything else?'', "That''ll be 2.40 please.", ''Can you scan the QR code for me?'', ''Thank you. Have a nice day.'']',
                               '[''avena / soja'', ''menta'', '''', ''escanear'', '''']'
                           );
@@ -1010,7 +1010,7 @@ INSERT INTO Conversations (
                               'I would like',
                               'earache, flujab',
                               '["Good Morning, I''d like to make an appointment with Dr Tiberal.", ''27th of June 1989'', "It''s Jane Brown.", ''I have had an earache for the last two days and I would like to see the doctor.'', ''Can I have 14:45 please.'', ''Actually, I would prefer to do it another time.'', ''I will, goodbye.'']',
-                              '['''', '''', '''', ''dolor de oído'', '''', '''', '''']',
+                              '['''', '''', '''', ''dolor de oï¿½do'', '''', '''', '''']',
                               '["What''s your date of birth?", ''And your name?'', "Thank you. So, Ms Brown, what''s the problem?", ''Okay, we have nothing today. However, we have appointments tomorrow at 10:00 or 14:45.'', ''Of course, and I can also see from your record that you need a flu jab. Can I book you in for that too?'', "That''s fine, but please book for your flu jab soon.", ''Goodbye.'']',
                               '['''', '''', '''', '''', ''vacuna de la gripe'', '''', '''']'
                           );
@@ -1063,8 +1063,8 @@ INSERT INTO Conversations (
                               'S27',
                               '',
                               'valid, misunderstood, outstanding',
-                              '[''Good morning, tickets please. '', "Your ticket isn''t valid for this part of the journey. You can pay the rest by card now. ", "I''m sorry you must have misunderstood. Your ticket expired 3 stops ago so you have to pay up or I''m going to have to ask you to get off at the next station.", ''£3.20 please. '', ''Thank you. Have a good day. '']',
-                              '['''', ''válido'', ''malentendido'', '''', '''']',
+                              '[''Good morning, tickets please. '', "Your ticket isn''t valid for this part of the journey. You can pay the rest by card now. ", "I''m sorry you must have misunderstood. Your ticket expired 3 stops ago so you have to pay up or I''m going to have to ask you to get off at the next station.", ''ï¿½3.20 please. '', ''Thank you. Have a good day. '']',
+                              '['''', ''vï¿½lido'', ''malentendido'', '''', '''']',
                               '[''Good morning, here you go. '', ''But the lady at the ticket office told me it will be okay for the whole journey. '', ''Fine. How much is the outstanding amount?'', "Here''s my card.", ''You too. '']',
                               '['''', '''', ''pendiente'', '''', '''']'
                           );
@@ -1091,7 +1091,7 @@ INSERT INTO Conversations (
                               '',
                               'QR code, rail card',
                               '[''Good morning, tickets please. '', ''Would you like to buy one now? '', "if you can''t find the paper copy, the ticket is also available on your phone sir. ", ''Just show me the QR code. Thank you. Now, I see you have a rail card. Please may I see it? '', ''Thank you that is all done. Have a nice day!'']',
-                              '['''', '''', '''', ''código QR / tarjeta de tren'', '''']',
+                              '['''', '''', '''', ''cï¿½digo QR / tarjeta de tren'', '''']',
                               '[''Good morning. Oh no..I think I forgot my ticket. Can you wait a moment?'', "No, I''m sure I have it somewhere just give me a minute. I printed off a copy yesterday evening. ", "You''re right, it''s right here. What do I do now?  ", ''Here it is. I know that this is stored on my phone. '', ''Have a good day!'']',
                               '['''', '''', '''', '''', '''']'
                           );
@@ -1199,7 +1199,7 @@ INSERT INTO Conversations (
                               'present continuous',
                               'following, position, paperwork',
                               '[''Good morning, am I speaking to Lucy?'', "Hi Lucy. I''m calling from H&M, following your interview we are delighted to offer you a position. When can you start?", "That''s perfect. When you come in to the shop, just ask for me, my name is Tim Brown. Can you please bring your passport so we can get the necessary paperwork done.", ''How about 10am?'', ''Great I will see you Monday at 10 am. Bye now!'']',
-                              '['''', ''después / posición'', ''papeleo'', '''', '''']',
+                              '['''', ''despuï¿½s / posiciï¿½n'', ''papeleo'', '''', '''']',
                               '["Hi, yes that''s me. ", "That''s brilliant news! I am busy this weekend but I can start as soon as Monday.", ''Yes I will do. Thank you so much again. What time should we meet?'', "That''s perfect. See you then!", ''Bye-bye!'']',
                               '['''', '''', '''', '''', '''']'
                           );
@@ -1252,10 +1252,10 @@ INSERT INTO Conversations (
                               'S34',
                               ' ',
                               'notice, cancellation charge, walk-ins, last minute',
-                              '[''Good morning, how can I help?'', ''When is your appointment?'', "We require 24 hours notice to cancel appointments, otherwise there''s a cancellation charge of £20.", "Because our salon is very popular and we are often booked in advance and we don''t do walk-ins. Next time, please book at time that you can make.", "Unfortunately, that''s the agreement you made when making the appointment."]',
-                              '['''', '''', ''aviso / coste de cancelación'', ''tratamientos sin cita previa'', '''']',
+                              '[''Good morning, how can I help?'', ''When is your appointment?'', "We require 24 hours notice to cancel appointments, otherwise there''s a cancellation charge of ï¿½20.", "Because our salon is very popular and we are often booked in advance and we don''t do walk-ins. Next time, please book at time that you can make.", "Unfortunately, that''s the agreement you made when making the appointment."]',
+                              '['''', '''', ''aviso / coste de cancelaciï¿½n'', ''tratamientos sin cita previa'', '''']',
                               '["Good morning, I''d like to cancel my appointment please.", ''Today at 4pm.'', ''Why do I have to pay to cancel my appointment?'', "I have to work last minute and can''t make it at 4pm anymore, I can''t afford to pay for a haircut that I didn''t get.", ''Well, I will not be coming back here again.'']',
-                              '['''', '''', '''', ''hasta el último minuto'', '''']'
+                              '['''', '''', '''', ''hasta el ï¿½ltimo minuto'', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -1279,10 +1279,10 @@ INSERT INTO Conversations (
                               'S35',
                               '',
                               'a tab, 2 for 1 offer, valid',
-                              '[''Hi there we would like to order 2 cocktails please.'', ''Pay now please.'', ''I thought cocktails were on a 2 for 1 offer?'', ''Well it didn’t say that anywhere. We will leave it for now, thank you.'', ''Thanks, you too.'']',
+                              '[''Hi there we would like to order 2 cocktails please.'', ''Pay now please.'', ''I thought cocktails were on a 2 for 1 offer?'', ''Well it didnï¿½t say that anywhere. We will leave it for now, thank you.'', ''Thanks, you too.'']',
                               '['''', '''', ''oferta de dos por uno'', '''', '''']',
-                              '[''Coming right up. Would you like to start a tab for your table or pay now?'', ''Okay your total is £22.50 please.'', ''That deal is only valid from Monday to Thursday I’m afraid.'', ''I’m sorry to hear that. I hope you have a good night.'']',
-                              '[''una cuenta'', '''', ''válido'', '''']'
+                              '[''Coming right up. Would you like to start a tab for your table or pay now?'', ''Okay your total is ï¿½22.50 please.'', ''That deal is only valid from Monday to Thursday Iï¿½m afraid.'', ''Iï¿½m sorry to hear that. I hope you have a good night.'']',
+                              '[''una cuenta'', '''', ''vï¿½lido'', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -1414,9 +1414,9 @@ INSERT INTO Conversations (
                               'S40',
                               'past perfect, subsitution',
                               'in stock, similar, recommend, memory, processor, discount',
-                              '[''Hi, can I buy this laptop?'', ''Thank you.'', ''I was hoping for a more neutral colour.'', ''No thank you, I have already travelled 40 minutes to come here. Are there any other similar laptops you can recommend to me?'', "It''s £50 outside of my price range.", "That''s perfect, can I buy this one?", ''Thank you very much.'']',
+                              '[''Hi, can I buy this laptop?'', ''Thank you.'', ''I was hoping for a more neutral colour.'', ''No thank you, I have already travelled 40 minutes to come here. Are there any other similar laptops you can recommend to me?'', "It''s ï¿½50 outside of my price range.", "That''s perfect, can I buy this one?", ''Thank you very much.'']',
                               '['''', '''', '''', ''similares / recomendar'', '''', '''', '''']',
-                              '["That one is quite popular, let me check if it''s in stock.", "I''ve had a look and we don''t have the black or grey in stock, however we do have the pink avaliable.", ''Unfortunately this one is very popular, the black is avaliable in another store half an hour away. Would you like me to reserve it for you? '', "There is one here in grey, that has more memory and a better processor but it''s more expensive.", ''Are you a student? Because we have a student discount and that will make it £40 cheaper.'', "Of course, I''ll put it behind the till for you."]',
+                              '["That one is quite popular, let me check if it''s in stock.", "I''ve had a look and we don''t have the black or grey in stock, however we do have the pink avaliable.", ''Unfortunately this one is very popular, the black is avaliable in another store half an hour away. Would you like me to reserve it for you? '', "There is one here in grey, that has more memory and a better processor but it''s more expensive.", ''Are you a student? Because we have a student discount and that will make it ï¿½40 cheaper.'', "Of course, I''ll put it behind the till for you."]',
                               '[''en stock'', '''', '''', ''memoria / procesador '', ''descuento'', '''']'
                           );
 
@@ -1468,9 +1468,9 @@ INSERT INTO Conversations (
                               'S42',
                               '',
                               'blowdry',
-                              '[''Hiya, long time no see!'', "I''ve been good, yourself? You look great by the way, did you change your hair?", ''Where is it?'', ''Let me write that down, I might just check it out. How much was it?'', "£200! That''s too expensive.", "Thank you for saying that, but I dye my hair at home on my own. It''s about £10 at the drugstore.", ''You as well, bye.'']',
+                              '[''Hiya, long time no see!'', "I''ve been good, yourself? You look great by the way, did you change your hair?", ''Where is it?'', ''Let me write that down, I might just check it out. How much was it?'', "ï¿½200! That''s too expensive.", "Thank you for saying that, but I dye my hair at home on my own. It''s about ï¿½10 at the drugstore.", ''You as well, bye.'']',
                               '['''', '''', '''', '''', '''', '''', '''']',
-                              '["Hi, yeah, it''s been ages. How are you getting on?", ''Thanks for noticing, I found this excellent new hairdresser.'', "It''s not far from my house? Maybe 20 minutes by bus. It''s called Serenity Salon.", ''I had a cut and blowdry and a full head of colour so it was £200.'', "Well it is worth to have good colour. Your hair is lovely natural anyway, you don''t need an expensive colour.", "I couldn''t even tell, it looks amazing. Anyway I''ve got to run. It was lovely seeing you."]',
+                              '["Hi, yeah, it''s been ages. How are you getting on?", ''Thanks for noticing, I found this excellent new hairdresser.'', "It''s not far from my house? Maybe 20 minutes by bus. It''s called Serenity Salon.", ''I had a cut and blowdry and a full head of colour so it was ï¿½200.'', "Well it is worth to have good colour. Your hair is lovely natural anyway, you don''t need an expensive colour.", "I couldn''t even tell, it looks amazing. Anyway I''ve got to run. It was lovely seeing you."]',
                               '['''', '''', '''', ''secado'', '''', '''']'
                           );
 
@@ -1498,7 +1498,7 @@ INSERT INTO Conversations (
                               '["Hey why weren''t you at class this morning?", "Tell me about it. It was meant to be sunny, so I didn''t bring an umbrella and got completely soaked. ", ''Anyway, do you want the notes from the class this morning?'', ''I will take a picture and send it to you later. I have to run now but it was nice talking you!'', ''Bye. And good luck for your journey home. '']',
                               '['''', ''empapado'', '''', '''', '''']',
                               '[''Hi! Well because of the rain my station was completely flooded. I had to get a replacement bus which was 30 minutes late. '', ''This is why I always carry an umbrella. You never know. '', ''Yes please, that would be great. '', ''Same here. See you later!'', ''Thanks, bye!'']',
-                              '[''inundada / autobús de reemplazo'', '''', '''', '''', '''']'
+                              '[''inundada / autobï¿½s de reemplazo'', '''', '''', '''', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -1577,9 +1577,9 @@ INSERT INTO Conversations (
                               'gerund',
                               'wedding, RSVP',
                               '[''Hey Bill, did you get my wedding invitation?'', "I didn''t recieve your RSVP yet.", ''So sorry to hear that, hopefully we can all get together another time.'', "That''s okay. Have a good one!"]',
-                              '[''boda'', ''confirmación'', '''', '''']',
+                              '[''boda'', ''confirmaciï¿½n'', '''', '''']',
                               '[''I did, yes.'', "Unfortunately, we won''t be able to come, the invitation said that it''s adults only but there won''t be anyone to look after our daughter.", ''Congratulations and thank you for inviting us anyway.'', ''You too. '']',
-                              '['''', ''confirmación'', '''', '''']'
+                              '['''', ''confirmaciï¿½n'', '''', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -1714,7 +1714,7 @@ INSERT INTO Conversations (
                               '[''Hi there, can we order some cocktails please?'', "We have already waited half an hour for a table. Can''t I just pay you and have my drinks?", "I understand that but it will be another hour until we get our drinks and I''m not willing to wait that long. ", ''We will see about that. '']',
                               '['''', '''', '''', '''']',
                               '["Good evening, I''m sorry but we''re only taking orders through our app at the moment. If you take a seat at your table you can scan the barcode and your drinks will be delivered right to your table. ", "Unfortunately, not. It is a Friday night, we''re extremely busy and this system ensures everyone gets their orders on time. ", "You''re welcome to go somewhere else, but I can assure you all bars operate under the same policy at the moment. "]',
-                              '[''escanee el código de barrras '', ''sistema asegura que'', ''asegurarle / política '']'
+                              '[''escanee el cï¿½digo de barrras '', ''sistema asegura que'', ''asegurarle / polï¿½tica '']'
                           );
 
 INSERT INTO Conversations (
@@ -1820,9 +1820,9 @@ INSERT INTO Conversations (
                               'conditional',
                               'notice, reception, dress code, uniform, insurance card, attire',
                               '[''Good morning, am I speaking to Lucy?'', "Hi Lucy. I''m calling from H&M head office, following your interview we are delighted to offer you a position. Would you be able to start on Monday?", "That''s perfect. When you come in ask for me at reception, my name is Tim Brown. Can you please bring your passport so we can get the necessary paperwork done.", ''How about 10 am?'', "If you have an insurance card/ national insurance number bring that along too. There''s no uniform but dress smartly. Blazer, black trousers, basic office attire. ", ''My pleasure Lucy, welcome to the team. Bye! '', ''Hello? who is it?'']',
-                              '['''', '''', ''recepción'', '''', ''tarjeta de seguro / número de la Seguridad Social/ indumentaria'', '''', '''']',
+                              '['''', '''', ''recepciï¿½n'', '''', ''tarjeta de seguro / nï¿½mero de la Seguridad Social/ indumentaria'', '''', '''']',
                               '["Hi, yes that''s me. ", "That''s brilliant news! I had to give 2 weeks notice at work, so I can start on Monday in 2 weeks.", ''Yes I will do. Thank you so much again. What time should we meet?'', "That''s perfect. Is there anything else I should bring? And is there a dress code or uniform? ", ''Okay, thank you so much. See you soon!'']',
-                              '['''', ''aviso'', '''', ''código de vestir / uniforme'', '''']'
+                              '['''', ''aviso'', '''', ''cï¿½digo de vestir / uniforme'', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -1901,9 +1901,9 @@ INSERT INTO Conversations (
                               'past perfect, past simple',
                               'a date, ghosted, keen, such a shame, there''s plenty more fish in the sea',
                               '[''Hi Peter. How was your weekend?'', ''What happened?'', "That''s awful.", ''Do you have a picture of her?'', "Oh wow, she looks like a model. Are you sure she wasn''t a catfish.", "Best to just forget about it, there''s plenty more fish in the sea."]',
-                              '['''', '''', '''', '''', '''', ''hay muchos más peces en el mar '']',
+                              '['''', '''', '''', '''', '''', ''hay muchos mï¿½s peces en el mar '']',
                               '[''Could have been better.'', ''I was supposed to go on a date but she ghosted me.'', "She seemed keen but then on the day I just didn''t hear from her at all. Such a shame because we really clicked, we like the same music and we had a lot to talk about. ", ''Here'', "I didn''t think about it, I guessed she was real when she agreed to meet up. You could be right."]',
-                              '['''', ''una fecha / me desertó'', ''entusiasta / Una pena'', '''', '''']'
+                              '['''', ''una fecha / me desertï¿½'', ''entusiasta / Una pena'', '''', '''']'
                           );
 
 INSERT INTO Conversations (
@@ -1930,7 +1930,7 @@ INSERT INTO Conversations (
                               '[''Hi there. Do you have a table for 2?'', "I''m sorry I don''t. ", ''How long is the wait for a table? I am very hungry. '', ''Yes please. I will have two burgers and two portions of fries. Oh and two large drinks. Thank you very much.'', ''You too. '']',
                               '['''', '''', ''espera'', '''', '''']',
                               '[''Good evening. Do you have a reservation with us?'', "I''m afraid we''re very busy tonight so there are no free tables. Would you like to wait or come back later?", "It is about one hour. I''m sorry about that. Would you like to order your food for takeaway instead? ", ''No problem. Your food should be here soon. Have a nice evening!'']',
-                              '[''reservación'', '''', ''sobre / llevar '', '''']'
+                              '[''reservaciï¿½n'', '''', ''sobre / llevar '', '''']'
                           );
 
 
@@ -2054,7 +2054,7 @@ DROP TABLE IF EXISTS RegularUser;
 CREATE TABLE RegularUser (
     EmailAddress VARCHAR (99),
     Pass         VARCHAR (99) NOT NULL,
-    UserID       INTEGER      UNIQUE
+    UserID       VARCHAR (99) UNIQUE
                               NOT NULL,
     FirstName    VARCHAR (99) NOT NULL,
     LastName     VARCHAR (99) NOT NULL,

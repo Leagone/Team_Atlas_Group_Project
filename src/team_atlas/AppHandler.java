@@ -18,6 +18,12 @@ public class AppHandler {
     static final JFrame MAIN_FRAME = new JFrame("");
 
     /**
+     * The currently logged-in admin.
+     * If no admin is logged-in, the object is null.
+     */
+    static Admin currentAdmin = null;
+
+    /**
      * The currently logged-in user.
      * If no user is logged-in, the object is null.
      */
@@ -68,6 +74,11 @@ public class AppHandler {
 
     // TODO Add additional methods to start the other panels
 
+    // TODO Define return value and get rid of the warning
+    /**
+     * Passes SELECT statements to the database.
+     * @param toQuery The SELECT statement to pass
+     */
     private static HashMap<String, String> query(String toQuery) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -81,7 +92,6 @@ public class AppHandler {
             while (resultSet.next()) {
                 int numColumns = resultSet.getMetaData().getColumnCount();
                 for (int i = 1; i <= numColumns; i++) {
-
                     output.put(resultSet.getString(1), resultSet.getString(2));
                 }
             }
@@ -105,6 +115,75 @@ public class AppHandler {
             }
         }
         return null;
+    }
+
+    // TODO Get rid of the warning
+    /**
+     * Passes INSERT statements to the database.
+     * @param toQuery The INSERT statement to pass
+     */
+    private static void insert(String toQuery) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        //String toFind = toQuery;
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * Adds users to the database.
+     * @param user The user object to be added to the database
+     */
+    public static void addUser(User user) {
+        String emailAddress = user.getEmailAddress();
+        String password = user.getPassword();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String userID = user.getUserID();
+        boolean isTeacher = user.isTeacher();
+        int isTeacherInt;
+
+        if (isTeacher) {
+            isTeacherInt = 1;
+        } else {
+            isTeacherInt = 0;
+        }
+
+        String statement = "INSERT INTO RegularUser (\n" +
+                "                            EmailAddress,\n" +
+                "                            Pass,\n" +
+                "                            UserID,\n" +
+                "                            FirstName,\n" +
+                "                            LastName,\n" +
+                "                            IsTeacher\n" +
+                "                        )\n" +
+                "                        VALUES (\n" +
+                "                            '" + emailAddress + "',\n" +
+                "                            '" + password + "',\n" +
+                "                            '" + userID + "',\n" +
+                "                            '" + firstName + "',\n" +
+                "                            '" + lastName + "',\n" +
+                "                            "+ isTeacherInt +"\n" +
+                "                        );";
+        insert(statement);
     }
 
     public static HashMap<String, String> querySubContext(String subContextID) {
@@ -145,6 +224,12 @@ public class AppHandler {
         return query(Statement);
     }
 
+    // TODO Get rid of the warning
+    /**
+     * Finds a user with a certain email address in the database.
+     * @param emailAddress The email address of the user
+     * @return A user object of the found user, null if no user is found
+     */
     public static User queryUser(String emailAddress) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -187,6 +272,13 @@ public class AppHandler {
         return null;
     }
 
+    // TODO Get rid of the warning
+    /**
+     * Finds a user with a certain email address and password in the database.
+     * @param emailAddress The email address of the user
+     * @param password The password of the user
+     * @return A user object of the found user, null if no user is found
+     */
     public static User queryUserWithPass(String emailAddress, String password) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -207,6 +299,50 @@ public class AppHandler {
                 boolean isTeacher = rs.getBoolean("IsTeacher");
 
                 return new User(email, pass, fName, lName, userID, isTeacher);
+            }
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds an admin with a certain email address and password in the database.
+     * @param emailAddress The email address of the admin
+     * @param password The password of the admin
+     * @return An admin object of the found admin, null if no admin is found
+     */
+    public static Admin queryAdminWithPass(String emailAddress, String password) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM Administrator WHERE EmailAddress='" + emailAddress + "' AND Pass = '" + password + "'";
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(toQuery);
+            if (!rs.isBeforeFirst()) {
+                System.out.println("No Data");
+                return null;
+            } else {
+                String email = rs.getString("EmailAddress");
+                String pass = rs.getString("Pass");
+                String adminID = rs.getString("UserID");
+
+                return new Admin(email, pass, adminID);
             }
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
