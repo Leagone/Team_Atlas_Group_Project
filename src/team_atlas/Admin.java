@@ -2,17 +2,18 @@ package team_atlas;
 
 /**
  * The admin class holding the following attributes of an admin:
- * email address, password, admin ID.
+ * email address, password, salt, admin ID.
  * Includes getters for all attributes.
  * @author Dominik Deak
  */
 public class Admin {
 
-    private final String emailAddress, password, adminID;
+    private final String emailAddress, password, salt, adminID;
 
-    Admin(String emailAddress, String password, String adminID) {
+    Admin(String emailAddress, String password, String salt, String adminID) {
         this.emailAddress = emailAddress;
         this.password = password;
+        this.salt = salt;
         this.adminID = adminID;
     }
 
@@ -22,6 +23,10 @@ public class Admin {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getSalt() {
+        return salt;
     }
 
     public String getAdminID() {

@@ -19,10 +19,16 @@ public class PasswordUtility {
     private static final String ALPHABET_AND_NUMBERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int ITERATIONS = 100;
     private static final int KEY_LENGTH = 256;
+    private static final int SALT_LENGTH = 99;
 
-    static String generateSalt(int length) {
-        StringBuilder salt = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
+    static String generatePassWithSalt(String password, String salt) {
+        byte[] hashedPassword = hash(password.toCharArray(), salt.getBytes());
+        return Base64.getEncoder().encodeToString(hashedPassword);
+    }
+
+    static String generateSalt() {
+        StringBuilder salt = new StringBuilder(SALT_LENGTH);
+        for (int i = 0; i < SALT_LENGTH; i++) {
             salt.append(ALPHABET_AND_NUMBERS.charAt(RANDOM.nextInt(ALPHABET_AND_NUMBERS.length())));
         }
         return new String(salt);
@@ -40,15 +46,5 @@ public class PasswordUtility {
             keySpec.clearPassword();
             System.gc();
         }
-    }
-
-    static String generatePassWithSalt(String password, String salt) {
-        byte[] hashedPassword = hash(password.toCharArray(), salt.getBytes());
-        return Base64.getEncoder().encodeToString(hashedPassword);
-    }
-
-    static boolean verifyPassword(String password, String saltedPassword, String salt) {
-        String newSaltedPass = generatePassWithSalt(password, salt);
-        return newSaltedPass.equals(saltedPassword);
     }
 }

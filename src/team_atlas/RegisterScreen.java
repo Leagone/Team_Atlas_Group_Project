@@ -53,8 +53,9 @@ public class RegisterScreen {
                     JOptionPane.showMessageDialog(MAIN_FRAME, "Email address is already in use");
                 } else {
                     String userID = "u" + new Random().nextInt(10) + (10000000 + new Random().nextInt(90000000));
-                    // TODO Use hashing on password before adding it to the database
-                    user = new User(emailAddress, password, firstName, lastName, userID, false);
+                    String salt = PasswordUtility.generateSalt();
+                    String saltedPassword = PasswordUtility.generatePassWithSalt(password, salt);
+                    user = new User(emailAddress, saltedPassword, salt, firstName, lastName, userID, false);
                     AppHandler.addUser(user);
                     JOptionPane.showMessageDialog(MAIN_FRAME, "Registration successful");
                     AppHandler.startLoginScreen();

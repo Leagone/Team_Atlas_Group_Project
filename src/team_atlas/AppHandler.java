@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.HashMap;
 
+// TODO Get rid of all warnings
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database queries.
@@ -63,6 +64,27 @@ public class AppHandler {
     }
 
     /**
+     * Switches the application to the admin home panel.
+     */
+    static void startAdminHomeScreen() {
+        // TODO Switch to the admin home panel
+    }
+
+    /**
+     * Switches the application to the teacher home panel.
+     */
+    static void startTeacherHomeScreen() {
+        // TODO Switch to the teacher home panel
+    }
+
+    /**
+     * Switches the application to the student home panel.
+     */
+    static void startStudentHomeScreen() {
+        // TODO Switch to the student home panel
+    }
+
+    /**
      * Switches the application to the pair interaction monitoring panel.
      */
     static void startPairMonitoringScreen() {
@@ -74,7 +96,6 @@ public class AppHandler {
 
     // TODO Add additional methods to start the other panels
 
-    // TODO Get rid of the warning
     /**
      * Passes SELECT statements to the database.
      * @param toQuery The SELECT statement to pass
@@ -117,7 +138,6 @@ public class AppHandler {
         return null;
     }
 
-    // TODO Get rid of the warning
     /**
      * Passes INSERT statements to the database.
      * @param toQuery The INSERT statement to pass
@@ -155,6 +175,7 @@ public class AppHandler {
     public static void addUser(User user) {
         String emailAddress = user.getEmailAddress();
         String password = user.getPassword();
+        String salt = user.getSalt();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String userID = user.getUserID();
@@ -170,6 +191,7 @@ public class AppHandler {
         String statement = "INSERT INTO RegularUser (\n" +
                 "                            EmailAddress,\n" +
                 "                            Pass,\n" +
+                "                            Salt,\n" +
                 "                            UserID,\n" +
                 "                            FirstName,\n" +
                 "                            LastName,\n" +
@@ -178,6 +200,7 @@ public class AppHandler {
                 "                        VALUES (\n" +
                 "                            '" + emailAddress + "',\n" +
                 "                            '" + password + "',\n" +
+                "                            '" + salt + "',\n" +
                 "                            '" + userID + "',\n" +
                 "                            '" + firstName + "',\n" +
                 "                            '" + lastName + "',\n" +
@@ -224,7 +247,6 @@ public class AppHandler {
         return query(Statement);
     }
 
-    // TODO Get rid of the warning
     /**
      * Finds a user with a certain email address in the database.
      * @param emailAddress The email address of the user
@@ -244,12 +266,13 @@ public class AppHandler {
             } else {
                 String email = rs.getString("EmailAddress");
                 String pass = rs.getString("Pass");
+                String salt = rs.getString("Salt");
                 String fName = rs.getString("FirstName");
                 String lName = rs.getString("LastName");
                 String userID = rs.getString("UserID");
                 boolean isTeacher = rs.getBoolean("IsTeacher");
 
-                return new User(email, pass, fName, lName, userID, isTeacher);
+                return new User(email, pass, salt, fName, lName, userID, isTeacher);
             }
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
@@ -272,7 +295,6 @@ public class AppHandler {
         return null;
     }
 
-    // TODO Get rid of the warning
     /**
      * Finds a user with a certain email address and password in the database.
      * @param emailAddress The email address of the user
@@ -293,12 +315,58 @@ public class AppHandler {
             } else {
                 String email = rs.getString("EmailAddress");
                 String pass = rs.getString("Pass");
+                String salt = rs.getString("Salt");
                 String fName = rs.getString("FirstName");
                 String lName = rs.getString("LastName");
                 String userID = rs.getString("UserID");
                 boolean isTeacher = rs.getBoolean("IsTeacher");
 
-                return new User(email, pass, fName, lName, userID, isTeacher);
+                return new User(email, pass, salt, fName, lName, userID, isTeacher);
+            }
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds an admin with a certain email address in the database.
+     * @param emailAddress The email address of the admin
+     * @return An admin object of the found admin, null if no admin is found
+     */
+    public static Admin queryAdmin(String emailAddress) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM Administrator WHERE EmailAddress='" + emailAddress + "'";
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(toQuery);
+
+            if (!rs.isBeforeFirst()) {
+                System.out.println("No Data");
+                return null;
+            } else {
+                String email = rs.getString("EmailAddress");
+                String pass = rs.getString("Pass");
+                String salt = rs.getString("Salt");
+                String adminID = rs.getString("AdminID");
+
+                return new Admin(email, pass, salt, adminID);
             }
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
@@ -340,9 +408,10 @@ public class AppHandler {
             } else {
                 String email = rs.getString("EmailAddress");
                 String pass = rs.getString("Pass");
-                String adminID = rs.getString("UserID");
+                String salt = rs.getString("Salt");
+                String adminID = rs.getString("AdminID");
 
-                return new Admin(email, pass, adminID);
+                return new Admin(email, pass, salt, adminID);
             }
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());

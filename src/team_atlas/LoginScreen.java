@@ -24,11 +24,10 @@ public class LoginScreen {
         loginButton.addActionListener(e -> loginUser());
     }
 
-    // TODO Hash passwords before attempting to log in
     // TODO Record login times
     /**
      * Queries the database with the entered details,
-     * if they exist, logs the user in and switches to the appropriate home panel.
+     * if they exist, logs the person in and switches to the appropriate home panel.
      */
     private void loginUser() {
         String emailInput = emailField.getText();
@@ -39,22 +38,35 @@ public class LoginScreen {
         } else if (emailInput.contains(" ") || passwordInput.contains(" ")) {
             JOptionPane.showMessageDialog(MAIN_FRAME, "You must not enter any whitespaces");
         } else {
-            Admin admin = AppHandler.queryAdminWithPass(emailInput, passwordInput);
+            Admin admin = AppHandler.queryAdmin(emailInput);
             if (admin != null) {
-                AppHandler.currentAdmin = admin;
-                System.out.println("Admin '" + admin.getEmailAddress() + "' logged in");
-                // TODO Switch to the admin home panel
+                String salt = admin.getSalt();
+                String saltedPassword = PasswordUtility.generatePassWithSalt(passwordInput, salt);
+                admin = AppHandler.queryAdminWithPass(emailInput, saltedPassword);
+                if (admin != null) {
+                    AppHandler.currentAdmin = admin;
+                    System.out.println("Admin '" + admin.getEmailAddress() + "' logged in");
+                    AppHandler.startAdminHomeScreen();
+                } else {
+                    JOptionPane.showMessageDialog(MAIN_FRAME, "Incorrect login details entered");
+                }
             } else {
-                User user = AppHandler.queryUserWithPass(emailInput, passwordInput);
+                User user = AppHandler.queryUser(emailInput);
                 if (user != null) {
-                    if (user.isTeacher()) {
+                    String salt = user.getSalt();
+                    String saltedPassword = PasswordUtility.generatePassWithSalt(passwordInput, salt);
+                    user = AppHandler.queryUserWithPass(emailInput, saltedPassword);
+                    if (user != null) {
                         AppHandler.currentUser = user;
-                        System.out.println("Teacher '" + user.getEmailAddress() + "' logged in");
-                        // TODO Switch to the teacher home panel
+                        if (user.isTeacher()) {
+                            System.out.println("Teacher '" + user.getEmailAddress() + "' logged in");
+                            AppHandler.startTeacherHomeScreen();
+                        } else {
+                            System.out.println("Student '" + user.getEmailAddress() + "' logged in");
+                            AppHandler.startStudentHomeScreen();
+                        }
                     } else {
-                        AppHandler.currentUser = user;
-                        System.out.println("Student '" + user.getEmailAddress() + "' logged in");
-                        // TODO Switch to the student home panel
+                        JOptionPane.showMessageDialog(MAIN_FRAME, "Incorrect login details entered");
                     }
                 } else {
                     JOptionPane.showMessageDialog(MAIN_FRAME, "Incorrect login details entered");
