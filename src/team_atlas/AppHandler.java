@@ -37,7 +37,7 @@ public class AppHandler {
     public static void main(String[] args) {
         System.out.println("Application started");
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        MAIN_FRAME.setSize(600, 800);
+        MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
         startLoginScreen();
     }
@@ -74,7 +74,7 @@ public class AppHandler {
 
     // TODO Add additional methods to start the other panels
 
-    // TODO Define return value and get rid of the warning
+    // TODO Get rid of the warning
     /**
      * Passes SELECT statements to the database.
      * @param toQuery The SELECT statement to pass

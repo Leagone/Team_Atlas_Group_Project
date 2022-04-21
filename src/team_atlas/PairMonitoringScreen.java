@@ -3,6 +3,8 @@ package team_atlas;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import static team_atlas.AppHandler.MAIN_FRAME;
+
 /**
  * The pair interaction monitoring panel of the application.
  * @author Dominik Deak
@@ -39,20 +41,20 @@ public class PairMonitoringScreen {
         String firstPersonEmail = firstPersonField.getText();
         String secondPersonEmail = secondPersonField.getText();
         if (firstPersonEmail.isEmpty() || secondPersonEmail.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "You must fill out all fields");
+            JOptionPane.showMessageDialog(MAIN_FRAME, "You must fill out all fields");
         } else if (firstPersonEmail.contains(" ") || secondPersonEmail.contains(" ")) {
-            JOptionPane.showMessageDialog(null, "You must not enter any whitespaces");
+            JOptionPane.showMessageDialog(MAIN_FRAME, "You must not enter any whitespaces");
         } else {
             User firstUser = AppHandler.queryUser(firstPersonEmail);
             User secondUser = AppHandler.queryUser(secondPersonEmail);
             if (firstUser == null && secondUser == null) {
-                JOptionPane.showMessageDialog(null, "No users found");
+                JOptionPane.showMessageDialog(MAIN_FRAME, "No users found");
             } else {
                 if (firstUser == null) {
-                    JOptionPane.showMessageDialog(null, "First user not found");
+                    JOptionPane.showMessageDialog(MAIN_FRAME, "First user not found");
                 }
                 if (secondUser == null) {
-                    JOptionPane.showMessageDialog(null, "Second user not found");
+                    JOptionPane.showMessageDialog(MAIN_FRAME, "Second user not found");
                 }
                 displayInteractionHistory(firstUser, secondUser);
             }

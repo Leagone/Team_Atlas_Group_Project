@@ -1,8 +1,7 @@
 package team_atlas;
 
 /**
- * The admin class holding all attributes of an admin.
- * Holds the following attributes:
+ * The admin class holding the following attributes of an admin:
  * email address, password, admin ID.
  * Includes getters for all attributes.
  * @author Dominik Deak
