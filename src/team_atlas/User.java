@@ -7,16 +7,17 @@ package team_atlas;
  */
 public class User {
 
-    private final String password, emailAddress, firstName, lastName, userID;
+    private final String password, emailAddress, firstName, lastName, userID, salt;
     private final boolean isTeacher;
 
-    User(String emailAddress, String password, String firstName, String lastName, String userID, Boolean isTeacher) {
+    User(String emailAddress, String password, String firstName, String lastName, String userID, Boolean isTeacher, String salt) {
         this.emailAddress = emailAddress;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userID = userID;
         this.isTeacher = isTeacher;
+        this.salt = salt;
     }
 
     public String getEmailAddress() {
@@ -41,5 +42,9 @@ public class User {
 
     public boolean isTeacher() {
         return isTeacher;
+    }
+
+    public String getSalt() {
+        return salt;
     }
 }

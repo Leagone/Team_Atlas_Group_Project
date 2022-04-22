@@ -32,6 +32,7 @@ public class RegisterScreen {
         String lastName = lastNameField.getText();
         String emailAddress = emailField.getText();
         String password = passwordField.getText();
+        String tempSalt = "tempSalt";
 
         if (firstName.isEmpty() || lastName.isEmpty() || emailAddress.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "You must fill out all fields");
@@ -41,7 +42,7 @@ public class RegisterScreen {
             boolean detailsValid = validateInput(firstName, lastName, emailAddress, password);
             if (detailsValid) {
                 String userID = "u" + (100000000 + new Random().nextInt(900000000));
-                User user = new User(emailAddress, password, firstName, lastName, userID, false);
+                User user = new User(emailAddress, password, firstName, lastName, userID, false, tempSalt);
                 // TODO Use hashing on user details
                 // TODO Insert hashed details into database
                 JOptionPane.showMessageDialog(null, "Registration successful");
