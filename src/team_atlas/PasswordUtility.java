@@ -10,7 +10,7 @@ import java.util.Base64;
 import java.util.Random;
 
 /**
- * Password utility class demonstrated in the lectures.
+ * Password utility class.
  * @author Dominik Deak
  */
 public class PasswordUtility {

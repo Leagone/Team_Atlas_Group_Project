@@ -24,7 +24,7 @@ public class LoginScreen {
         loginButton.addActionListener(e -> loginUser());
     }
 
-    // TODO Record login times
+    // TODO Record login times for students/teacher
     /**
      * Queries the database with the entered details,
      * if they exist, logs the person in and switches to the appropriate home panel.

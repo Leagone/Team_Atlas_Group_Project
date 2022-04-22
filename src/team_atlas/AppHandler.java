@@ -32,7 +32,7 @@ public class AppHandler {
 
     /**
      * The main method where the application starts.
-     * Starts the login screen.
+     * Starts the login screen upon launching the app.
      * @param args The command line arguments
      */
     public static void main(String[] args) {
@@ -64,37 +64,93 @@ public class AppHandler {
     }
 
     /**
-     * Switches the application to the admin home panel.
+     * Switches the application to the student home panel.
      */
-    static void startAdminHomeScreen() {
-        // TODO Switch to the admin home panel
+    static void startStudentHomeScreen() {
+        StudentHomeScreen studentHomeScreen = new StudentHomeScreen();
+        MAIN_FRAME.setContentPane(studentHomeScreen.studentHomePanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Student Home");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
      * Switches the application to the teacher home panel.
      */
     static void startTeacherHomeScreen() {
-        // TODO Switch to the teacher home panel
+        TeacherHomeScreen teacherHomeScreen = new TeacherHomeScreen();
+        MAIN_FRAME.setContentPane(teacherHomeScreen.teacherHomePanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Teacher Home");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
-     * Switches the application to the student home panel.
+     * Switches the application to the admin home panel.
      */
-    static void startStudentHomeScreen() {
-        // TODO Switch to the student home panel
+    static void startAdminHomeScreen() {
+        AdminHomeScreen adminHomeScreen = new AdminHomeScreen();
+        MAIN_FRAME.setContentPane(adminHomeScreen.adminHomePanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Admin Home");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
-     * Switches the application to the pair interaction monitoring panel.
+     * Switches the application to the language selection panel.
      */
-    static void startPairMonitoringScreen() {
+    static void startLangSelectionScreen() {
+        // TODO Switch to the language selection panel
+    }
+
+    /**
+     * Switches the application to the level/context/sub-context selection panel.
+     */
+    static void startLvlConSubConSelectionScreen() {
+        // TODO Switch to the level/context/sub-context selection panel
+    }
+
+    /**
+     * Switches the application to the interaction pair selection panel.
+     */
+    static void startPairSelectionScreen() {
+        // TODO Switch to the interaction pair selection panel
+    }
+
+    /**
+     * Switches the application to the personal student progress analytics panel.
+     */
+    static void startPersonalProgressScreen() {
+        // TODO Switch to the personal student progress analytics panel
+    }
+
+    /**
+     * Switches the application to the searched student progress analytics panel.
+     */
+    static void startStudentProgressScreen() {
+        // TODO Switch the application to the searched student progress analytics panel
+    }
+
+    /**
+     * Switches the application to the overall progress analytics panel.
+     */
+    static void startOverallProgressScreen() {
+        // TODO Switch to the overall progress analytics panel
+    }
+
+    /**
+     * Switches the application to the user data monitoring panel.
+     */
+    static void startUserDataMonitoringScreen() {
+        // TODO Switch to the user data monitoring panel
+    }
+
+    /**
+     * Switches the application to the pair interaction history monitoring panel.
+     */
+    static void startPairHistoryScreen() {
         PairMonitoringScreen pairMonitoringScreen = new PairMonitoringScreen();
         MAIN_FRAME.setContentPane(pairMonitoringScreen.pairMonitoringPanel);
         MAIN_FRAME.setTitle("Team Atlas Language App - Pair Interaction History");
         MAIN_FRAME.setVisible(true);
     }
-
-    // TODO Add additional methods to start the other panels
 
     /**
      * Passes SELECT statements to the database.
