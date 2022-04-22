@@ -22,7 +22,7 @@ public class PairMonitoringScreen {
     /**
      * The table data displayed to the user.
      */
-    private Object[] tableData;
+    private Object[][] tableData;
 
     /**
      * The table column names.

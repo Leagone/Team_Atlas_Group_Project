@@ -21,10 +21,6 @@ public class AdminHomeScreen {
         overallProgressButton.addActionListener(e -> AppHandler.startOverallProgressScreen());
         pairHistoryButton.addActionListener(e -> AppHandler.startPairHistoryScreen());
         userDataButton.addActionListener(e -> AppHandler.startUserDataMonitoringScreen());
-        logoutButton.addActionListener(e -> {
-            System.out.println("Admin: '" + AppHandler.currentUser.getEmailAddress() + "' logged out");
-            AppHandler.currentAdmin = null;
-            AppHandler.startLoginScreen();
-        });
+        logoutButton.addActionListener(e -> AppHandler.logout());
     }
 }

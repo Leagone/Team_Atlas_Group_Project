@@ -24,7 +24,6 @@ public class LoginScreen {
         loginButton.addActionListener(e -> loginUser());
     }
 
-    // TODO Record login times for students/teacher
     /**
      * Queries the database with the entered details,
      * if they exist, logs the person in and switches to the appropriate home panel.
@@ -38,33 +37,34 @@ public class LoginScreen {
         } else if (emailInput.contains(" ") || passwordInput.contains(" ")) {
             JOptionPane.showMessageDialog(MAIN_FRAME, "You must not enter any whitespaces");
         } else {
-            Admin admin = AppHandler.queryAdmin(emailInput);
-            if (admin != null) {
-                String salt = admin.getSalt();
+            User user = AppHandler.queryUser(emailInput);
+            if (user != null) {
+                String salt = user.getSalt();
                 String saltedPassword = PasswordUtility.generatePassWithSalt(passwordInput, salt);
-                admin = AppHandler.queryAdminWithPass(emailInput, saltedPassword);
-                if (admin != null) {
-                    AppHandler.currentAdmin = admin;
-                    System.out.println("Admin '" + admin.getEmailAddress() + "' logged in");
-                    AppHandler.startAdminHomeScreen();
+                user = AppHandler.queryUserWithPass(emailInput, saltedPassword);
+                if (user != null) {
+                    AppHandler.currentUser = user;
+                    AppHandler.currentActivity = new UserActivity(emailInput);
+                    if (user.isTeacher()) {
+                        System.out.println("Teacher '" + user.getEmailAddress() + "' logged in");
+                        AppHandler.startTeacherHomeScreen();
+                    } else {
+                        System.out.println("Student '" + user.getEmailAddress() + "' logged in");
+                        AppHandler.startStudentHomeScreen();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(MAIN_FRAME, "Incorrect login details entered");
                 }
             } else {
-                User user = AppHandler.queryUser(emailInput);
-                if (user != null) {
-                    String salt = user.getSalt();
+                Admin admin = AppHandler.queryAdmin(emailInput);
+                if (admin != null) {
+                    String salt = admin.getSalt();
                     String saltedPassword = PasswordUtility.generatePassWithSalt(passwordInput, salt);
-                    user = AppHandler.queryUserWithPass(emailInput, saltedPassword);
-                    if (user != null) {
-                        AppHandler.currentUser = user;
-                        if (user.isTeacher()) {
-                            System.out.println("Teacher '" + user.getEmailAddress() + "' logged in");
-                            AppHandler.startTeacherHomeScreen();
-                        } else {
-                            System.out.println("Student '" + user.getEmailAddress() + "' logged in");
-                            AppHandler.startStudentHomeScreen();
-                        }
+                    admin = AppHandler.queryAdminWithPass(emailInput, saltedPassword);
+                    if (admin != null) {
+                        AppHandler.currentAdmin = admin;
+                        System.out.println("Admin '" + admin.getEmailAddress() + "' logged in");
+                        AppHandler.startAdminHomeScreen();
                     } else {
                         JOptionPane.showMessageDialog(MAIN_FRAME, "Incorrect login details entered");
                     }

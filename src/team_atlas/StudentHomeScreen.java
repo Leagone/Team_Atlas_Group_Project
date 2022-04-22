@@ -17,11 +17,6 @@ public class StudentHomeScreen {
         System.out.println("Student home panel started");
         rolePlayButton.addActionListener(e -> AppHandler.startLangSelectionScreen());
         progressButton.addActionListener(e -> AppHandler.startPersonalProgressScreen());
-        logoutButton.addActionListener(e -> {
-            System.out.println("Student: '" + AppHandler.currentUser.getEmailAddress() + "' logged out");
-            AppHandler.currentUser = null;
-            // TODO Record logout time
-            AppHandler.startLoginScreen();
-        });
+        logoutButton.addActionListener(e -> AppHandler.logout());
     }
 }

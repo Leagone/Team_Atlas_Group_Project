@@ -19,11 +19,6 @@ public class TeacherHomeScreen {
         rolePlayButton.addActionListener(e -> AppHandler.startLangSelectionScreen());
         studentProgressButton.addActionListener(e -> AppHandler.startStudentProgressScreen());
         overallProgressButton.addActionListener(e -> AppHandler.startOverallProgressScreen());
-        logoutButton.addActionListener(e -> {
-            System.out.println("Teacher: '" + AppHandler.currentUser.getEmailAddress() + "' logged out");
-            AppHandler.currentUser = null;
-            // TODO Record logout time
-            AppHandler.startLoginScreen();
-        });
+        logoutButton.addActionListener(e -> AppHandler.logout());
     }
 }

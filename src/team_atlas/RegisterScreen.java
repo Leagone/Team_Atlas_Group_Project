@@ -53,6 +53,7 @@ public class RegisterScreen {
                     JOptionPane.showMessageDialog(MAIN_FRAME, "Email address is already in use");
                 } else {
                     String userID = "u" + new Random().nextInt(10) + (10000000 + new Random().nextInt(90000000));
+                    // TODO Check if the ID exists in the database
                     String salt = PasswordUtility.generateSalt();
                     String saltedPassword = PasswordUtility.generatePassWithSalt(password, salt);
                     user = new User(emailAddress, saltedPassword, salt, firstName, lastName, userID, false);

@@ -31,6 +31,11 @@ public class AppHandler {
     static User currentUser = null;
 
     /**
+     * The activity of the current user.
+     */
+    static UserActivity currentActivity = null;
+
+    /**
      * The main method where the application starts.
      * Starts the login screen upon launching the app.
      * @param args The command line arguments
@@ -140,6 +145,30 @@ public class AppHandler {
      */
     static void startUserDataMonitoringScreen() {
         // TODO Switch to the user data monitoring panel
+    }
+
+    /**
+     * Logs the current user or admin out of the application and switches back to the login screen.
+     * Sets the logout timestamp for users and saves their user activity into the database.
+     */
+    static void logout() {
+        if (currentUser != null) {
+            if (currentUser.isTeacher()) {
+                System.out.println("Teacher: '" + currentUser.getEmailAddress() + "' logged out");
+            } else {
+                System.out.println("Student: '" + currentUser.getEmailAddress() + "' logged out");
+            }
+            currentActivity.setLogoutTimestamp();
+            // TODO Save activity into database
+            currentUser = null;
+            currentActivity = null;
+            startLoginScreen();
+        }
+        if (currentAdmin != null) {
+            System.out.println("Admin: '" + currentAdmin.getEmailAddress() + "' logged out");
+            currentAdmin = null;
+            startLoginScreen();
+        }
     }
 
     /**
