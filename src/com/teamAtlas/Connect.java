@@ -13,13 +13,13 @@ public class Connect {
         String sqliteURL = "jdbc:sqlite:teamAtlas.db";
 
         // Downloading the driver
-        try {
-            Driver sqliteDriver = new org.sqlite.JDBC();
-            DriverManager.registerDriver(sqliteDriver);
-            System.out.println("Driver for SQLite downloaded");
-        } catch (SQLException exception) {
-            System.err.println("Error with driver download: " + exception.getMessage());
-        }
+       // try {
+          //  Driver sqliteDriver = new org.sqlite.JDBC();
+           // DriverManager.registerDriver(sqliteDriver);            //ERRORS WHEN UNCOMMENTED
+           // System.out.println("Driver for SQLite downloaded");
+       // } catch (SQLException exception) {
+           // System.err.println("Error with driver download: " + exception.getMessage());
+       // }
 
         // Creating the database if it doesn't exist
         try {
