@@ -2,6 +2,7 @@ package team_atlas;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.Date;
 import java.util.HashMap;
 
 // TODO Get rid of all warnings
@@ -313,12 +314,12 @@ public class AppHandler {
         insert(Statement);
     }
 
-    public static void addActivity(Activity activity) {
+    public static void addActivity(UserActivity activity) {
 
-        String loginTimeStamp = activity.getLoginTimeStamp();
-        String logutTimeStamp = activity.getLogoutTimeStamp();
+        Date loginTimeStamp = activity.getLoginTimestamp();
+        Date logutTimeStamp = activity.getLogoutTimestamp();
         String emailAddres = activity.getEmailAddress();
-        String ID = activity.getID();
+        String ID = activity.getActivityID();
 
 
         String Statement = "INSERT INTO UserActivity (" +
@@ -329,8 +330,8 @@ public class AppHandler {
                 ")" +
                 " VALUES (" +
                 "'" + ID + "'," +
-                "'" + loginTimeStamp + "'," +
-                "'" + logutTimeStamp + "'," +
+                "" + loginTimeStamp + "," +
+                "" + logutTimeStamp + "," +
                 "'" + emailAddres + "'" +
                 ");";
 
