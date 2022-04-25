@@ -2,6 +2,7 @@ package team_atlas;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -44,12 +45,13 @@ public class AppHandler {
      *
      * @param args The command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         System.out.println("Application started");
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
         startLoginScreen();
+
     }
 
     /**
@@ -183,49 +185,6 @@ public class AppHandler {
         MAIN_FRAME.setContentPane(pairMonitoringScreen.pairMonitoringPanel);
         MAIN_FRAME.setTitle("Team Atlas Language App - Pair Interaction History");
         MAIN_FRAME.setVisible(true);
-    }
-
-    /**
-     * Passes SELECT statements to the database.
-     *
-     * @param toQuery The SELECT statement to pass
-     */
-    private static HashMap<String, String> query(String toQuery) {
-        Connection connection = ConnectDatabase.getConnection();
-        Statement statement = null;
-        //String toFind = toQuery;
-        try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(toQuery);
-
-            HashMap<String, String> output = new HashMap<>();
-
-            while (resultSet.next()) {
-                int numColumns = resultSet.getMetaData().getColumnCount();
-                for (int i = 1; i <= numColumns; i++) {
-                    output.put(resultSet.getString(1), resultSet.getString(2));
-                }
-            }
-            return output;
-        } catch (SQLException exception) {
-            System.err.println("SQLException: " + exception.getMessage());
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException exception) {
-                    System.err.println("SQLException: " + exception.getMessage());
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException exception) {
-                    System.err.println("SQLException: " + exception.getMessage());
-                }
-            }
-        }
-        return null;
     }
 
     /**
@@ -386,73 +345,445 @@ public class AppHandler {
 
     }
 
-    public static HashMap<String, String> querryAllInteractions() {
+    public static ArrayList<Interaction> querryAllInteractions() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM UserConversationInteraction";
+        //String toFind = toQuery;
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
 
-        String Statement = "SELECT * FROM UserConversationInteraction";
-        return query(Statement);
+            ArrayList<Interaction> output = new ArrayList<>();
 
-    }
+            while (resultSet.next()) {
+                Interaction temp = new Interaction(
+                        resultSet.getString(1),
+                        resultSet.getString(7),
+                        resultSet.getString(3),
+                        resultSet.getString(2),
+                        resultSet.getDate(4),
+                        resultSet.getInt(5),
+                        resultSet.getBoolean(6));
+                output.add(temp);
+            }
+            return output;
 
-    public static HashMap<String, String> querryInteraction(String emailAddres) {
 
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static Interaction querryInteraction(String emailAddres) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
         String toFind = emailAddres.toLowerCase();
-        String Statement = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + toFind + "' OR EmailAddress2='" + toFind + "'";
-        return query(Statement);
+        String toQuery = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + toFind + "' OR EmailAddress2='" + toFind + "'";
+        //String toFind = toQuery;
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
 
-    }
+            Interaction output = new Interaction(
+                    resultSet.getString(1),
+                    resultSet.getString(7),
+                    resultSet.getString(3),
+                    resultSet.getString(2),
+                    resultSet.getDate(4),
+                    resultSet.getInt(5),
+                    resultSet.getBoolean(6));
 
-    public static HashMap<String, String> querryAllActivity() {
+            return output;
 
-        String Statement = "SELECT * FROM UserActivity";
-        return query(Statement);
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
 
-    } // NEW TESTED
+    public static ArrayList<UserActivity> querryAllActivity() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM UserActivity";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
 
-    public static HashMap<String, String> querryActivity(String emailAddres) {
+            ArrayList<UserActivity> output = new ArrayList<>();
 
+            while (resultSet.next()) {
+                UserActivity temp = new UserActivity(
+                        resultSet.getString(4),
+                        resultSet.getDate(2),
+                        resultSet.getString(1),
+                        resultSet.getDate(1)
+
+                );
+                output.add(temp);
+            }
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static UserActivity querryActivity(String emailAddres) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
         String toFind = emailAddres.toLowerCase();
-        String Statement = "SELECT * FROM UserActivity WHERE EmailAddress='" + toFind + "'";
-        return query(Statement);
+        String toQuery = "SELECT * FROM UserActivity WHERE EmailAddress='" + toFind + "'";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
 
-    }
+            UserActivity output = new UserActivity(
+                    resultSet.getString(4),
+                    resultSet.getDate(2),
+                    resultSet.getString(1),
+                    resultSet.getDate(1));
 
-    public static HashMap<String, String> querySubContext(String subContextID) {
+
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static SubContext querySubContext(String subContextID) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
         String toFind = subContextID.toUpperCase();
-        String Statement = "SELECT * FROM SubContext WHERE SubContextID='" + toFind + "'";
-        return query(Statement);
-    }
+        String toQuery = "SELECT * FROM SubContext WHERE SubContextID='" + toFind + "'";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
 
-    public static HashMap<String, String> queryAllSubContext() {
-        String Statement = "SELECT * FROM SubContext";
-        return query(Statement);
-    }
 
-    public static HashMap<String, String> queryAllLevels() {
-        String Statement = "Select * from Levels";
-        return query(Statement);
-    }
+            SubContext output = new SubContext(
+                    resultSet.getString(1),
+                    resultSet.getString(2));
 
-    public static HashMap<String, String> queryContext(String contextID) {
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static ArrayList<SubContext> queryAllSubContext() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM SubContext";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+
+            ArrayList<SubContext> output = new ArrayList<>();
+
+            while (resultSet.next()) {
+                SubContext temp = new SubContext(
+                        resultSet.getString(1),
+                        resultSet.getString(2));
+                output.add(temp);
+            }
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static ArrayList<Level> queryAllLevels() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM Levels";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+
+            ArrayList<Level> output = new ArrayList<>();
+
+            while (resultSet.next()) {
+
+                Level temp = new Level(
+                        resultSet.getString(1),
+                        resultSet.getString(2));
+                output.add(temp);
+            }
+
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static Context queryContext(String contextID) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
         String toFind = contextID.toUpperCase();
-        String Statement = "SELECT Context FROM Context WHERE contextID = '" + toFind + "'";
-        return query(Statement);
-    }
+        String toQuery = "SELECT * FROM Context WHERE contextID = '" + toFind + "'";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
 
-    public static HashMap<String, String> queryAllContext() {
-        String Statement = "SELECT Context FROM Context";
-        return query(Statement);
-    }
+            Context output = new Context(
+                    resultSet.getString(1),
+                    resultSet.getString(2));
 
-    public static HashMap<String, String> queryLanguage(String languageID) {
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static ArrayList<Context> queryAllContext() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM Context";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+
+            ArrayList<Context> output = new ArrayList<>();
+
+            while (resultSet.next()) {
+
+                Context temp = new Context(
+                        resultSet.getString(1),
+                        resultSet.getString(2));
+                output.add(temp);
+            }
+
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static Language queryLanguage(String languageID) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
         String toFind = languageID.toUpperCase();
-        String Statement = "SELECT lang FROM Lang WHERE languageID='" + toFind + "'";
-        return query(Statement);
-    }
+        String toQuery = "SELECT * FROM Lang WHERE languageID='" + toFind + "'";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
 
-    public static HashMap<String, String> queryAllLanguages() {
-        String Statement = "SELECT lang FROM Lang";
-        return query(Statement);
-    }
+            Language output = new Language(
+                    resultSet.getString(1),
+                    resultSet.getString(2));
+
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static ArrayList<Language> queryAllLanguages() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM Lang";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+
+            ArrayList<Language> output = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Language temp = new Language(
+                        resultSet.getString(1),
+                        resultSet.getString(2));
+                output.add(temp);
+
+            }
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
 
     /**
      * Finds a user with a certain email address in the database.
