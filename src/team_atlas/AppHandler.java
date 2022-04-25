@@ -47,7 +47,7 @@ public class AppHandler {
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        //startLoginScreen();
+        startLoginScreen();
     }
 
     /**
@@ -226,7 +226,8 @@ public class AppHandler {
     }
 
     /**
-     * Function to pass INSERT statements to the DB.
+     * Passes INSERT statements to the database.
+     * @param toQuery The INSERT statement to pass
      */
 
 
@@ -262,19 +263,20 @@ public class AppHandler {
 
 
     /**
-     * Adds new user
+     *Adds users to the database.
+     *@param user The user object to be added to the database
      */
 
 
-    public static void addUser(User newUser){
+    public static void addUser(User user){
 
-        String emailAddress = newUser.getEmailAddress();
-        String password = newUser.getPassword();
-        String firstName = newUser.getFirstName();
-        String lastName = newUser.getLastName();
-        String userID = newUser.getUserID();
-        String salt = newUser.getSalt();
-        boolean isTeacherInfo = newUser.isTeacher();
+        String emailAddress = user.getEmailAddress();
+        String password = user.getPassword();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String userID = user.getUserID();
+        String salt = user.getSalt();
+        boolean isTeacherInfo = user.isTeacher();
         int isTeacher;
 
         if(isTeacherInfo == true){
