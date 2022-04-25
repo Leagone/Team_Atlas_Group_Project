@@ -10,7 +10,7 @@ public class Connect {
     private Connection sqliteConnection;
 
     public Connect() {
-        String sqliteURL = "jdbc:sqlite:teamAtlas.db";
+        String sqliteURL = "jdbc:sqlite:Database/teamAtlas.db";
 
         // Downloading the driver
         try {
