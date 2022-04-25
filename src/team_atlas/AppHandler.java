@@ -5,9 +5,11 @@ import java.sql.*;
 import java.util.HashMap;
 
 // TODO Get rid of all warnings
+
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database queries.
+ *
  * @author Andrzej Baum, Dominik Deak
  */
 public class AppHandler {
@@ -38,6 +40,7 @@ public class AppHandler {
     /**
      * The main method where the application starts.
      * Starts the login screen upon launching the app.
+     *
      * @param args The command line arguments
      */
     public static void main(String[] args) {
@@ -183,6 +186,7 @@ public class AppHandler {
 
     /**
      * Passes SELECT statements to the database.
+     *
      * @param toQuery The SELECT statement to pass
      */
     private static HashMap<String, String> query(String toQuery) {
@@ -225,14 +229,21 @@ public class AppHandler {
 
     /**
      * Passes INSERT statements to the database.
+     *
      * @param toQuery The INSERT statement to pass
      */
+
+
     private static void insert(String toQuery) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         //String toFind = toQuery;
         try {
+            System.out.println("Inserting");
+            System.out.println(toQuery);
             statement = connection.createStatement();
+            statement.executeQuery(toQuery);
+
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -253,17 +264,22 @@ public class AppHandler {
         }
     }
 
+
     /**
      * Adds users to the database.
+     *
      * @param user The user object to be added to the database
      */
+
+
     public static void addUser(User user) {
+
         String emailAddress = user.getEmailAddress();
         String password = user.getPassword();
-        String salt = user.getSalt();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String userID = user.getUserID();
+        String salt = user.getSalt();
         boolean isTeacher = user.isTeacher();
         int isTeacherInt;
 
@@ -273,25 +289,130 @@ public class AppHandler {
             isTeacherInt = 0;
         }
 
-        String statement = "INSERT INTO RegularUser (\n" +
-                "                            EmailAddress,\n" +
-                "                            Pass,\n" +
-                "                            Salt,\n" +
-                "                            UserID,\n" +
-                "                            FirstName,\n" +
-                "                            LastName,\n" +
-                "                            IsTeacher\n" +
-                "                        )\n" +
-                "                        VALUES (\n" +
-                "                            '" + emailAddress + "',\n" +
-                "                            '" + password + "',\n" +
-                "                            '" + salt + "',\n" +
-                "                            '" + userID + "',\n" +
-                "                            '" + firstName + "',\n" +
-                "                            '" + lastName + "',\n" +
-                "                            "+ isTeacherInt +"\n" +
-                "                        );";
-        insert(statement);
+        String Statement = "INSERT INTO RegularUser (" +
+                "EmailAddress," +
+                "Pass," +
+                "UserID," +
+                "FirstName," +
+                "LastName," +
+                "IsTeacher," +
+                "Salt" +
+                ")" +
+                " VALUES (" +
+                "'" + emailAddress + "'," +
+                "'" + password + "'," +
+                "'" + userID + "'," +
+                "'" + firstName + "'," +
+                "'" + lastName + "'," +
+                "" + isTeacher + "," +
+                "'" + salt + "'" +
+                ");";
+
+        System.out.println(Statement);
+
+        insert(Statement);
+    }
+
+    public static void addActivity(Activity activity) {
+
+        String loginTimeStamp = activity.getLoginTimeStamp();
+        String logutTimeStamp = activity.getLogoutTimeStamp();
+        String emailAddres = activity.getEmailAddress();
+        String ID = activity.getID();
+
+
+        String Statement = "INSERT INTO UserActivity (" +
+                "activityID," +
+                "loginTimestamp," +
+                "logoutTimestam," +
+                "EmailAddress" +
+                ")" +
+                " VALUES (" +
+                "'" + ID + "'," +
+                "'" + loginTimeStamp + "'," +
+                "'" + logutTimeStamp + "'," +
+                "'" + emailAddres + "'" +
+                ");";
+
+
+        System.out.println(Statement);
+
+        insert(Statement);
+
+
+    }
+
+    public static void addInteraction(Interaction interaction) {
+
+        String User1 = interaction.getEmailAddressUser1();
+        String User2 = interaction.getEmailAddressUser2();
+        String pairID = interaction.getPairID();
+        String conversationID = interaction.getConversationID();
+        String dateAndTime = interaction.getInteractionDateAndTime();
+        int hintsUSed = interaction.getHintsUsed();
+        boolean isCompletedInfo = interaction.isConversationCompleted();
+
+
+        int isCompleted;
+
+        if (isCompletedInfo) {
+            isCompleted = 1;
+        } else {
+            isCompleted = 0;
+        }
+
+        String Statement = "INSERT INTO UserConversationInteraction (" +
+                "EmailAddress1," +
+                "ConversationID," +
+                "pairID," +
+                "interactionDateAndTime," +
+                "NumOfHintsUSed," +
+                "ConversationCompleted," +
+                "EmailAddress2" +
+                ")" +
+                " VALUES (" +
+                "'" + User1 + "'," +
+                "'" + conversationID + "'," +
+                "'" + pairID + "'," +
+                "'" + dateAndTime + "'," +
+                "" + hintsUSed + "," +
+                "" + isCompleted + "," +
+                "'" + User2 + "'" +
+                ");";
+
+        insert(Statement);
+
+
+    }
+
+    public static HashMap<String, String> querryAllInteractions() {
+
+        String Statement = "SELECT * FROM UserConversationInteraction";
+        return query(Statement);
+
+    }
+
+    public static HashMap<String, String> querryInteraction(String emailAddres) {
+
+        String toFind = emailAddres.toLowerCase();
+        String Statement = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + toFind + "' OR EmailAddress2='" + toFind + "'";
+        return query(Statement);
+
+    }
+
+    public static HashMap<String, String> querryAllActivity() {
+
+        String Statement = "SELECT * FROM UserActivity";
+        return query(Statement);
+
+    } // NEW TESTED
+
+    public static HashMap<String, String> querryActivity(String emailAddres) {
+
+        String toFind = emailAddres.toLowerCase();
+        String Statement = "SELECT * FROM UserActivity WHERE EmailAddress='" + toFind + "'";
+        return query(Statement);
+
     }
 
     public static HashMap<String, String> querySubContext(String subContextID) {
@@ -334,6 +455,7 @@ public class AppHandler {
 
     /**
      * Finds a user with a certain email address in the database.
+     *
      * @param emailAddress The email address of the user
      * @return A user object of the found user, null if no user is found
      */
@@ -382,8 +504,9 @@ public class AppHandler {
 
     /**
      * Finds a user with a certain email address and password in the database.
+     *
      * @param emailAddress The email address of the user
-     * @param password The password of the user
+     * @param password     The password of the user
      * @return A user object of the found user, null if no user is found
      */
     public static User queryUserWithPass(String emailAddress, String password) {
@@ -431,6 +554,7 @@ public class AppHandler {
 
     /**
      * Finds an admin with a certain email address in the database.
+     *
      * @param emailAddress The email address of the admin
      * @return An admin object of the found admin, null if no admin is found
      */
@@ -476,8 +600,9 @@ public class AppHandler {
 
     /**
      * Finds an admin with a certain email address and password in the database.
+     *
      * @param emailAddress The email address of the admin
-     * @param password The password of the admin
+     * @param password     The password of the admin
      * @return An admin object of the found admin, null if no admin is found
      */
     public static Admin queryAdminWithPass(String emailAddress, String password) {
