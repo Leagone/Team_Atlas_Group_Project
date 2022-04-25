@@ -102,14 +102,20 @@ public class AppHandler {
      * Switches the application to the language selection panel.
      */
     static void startLangSelectionScreen() {
-        // TODO Switch to the language selection panel
+        LanguageScreen languageScreen = new LanguageScreen();
+        MAIN_FRAME.setContentPane(languageScreen.jp);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Language Selection");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
      * Switches the application to the level/context/sub-context selection panel.
      */
     static void startLvlConSubConSelectionScreen() {
-        // TODO Switch to the level/context/sub-context selection panel
+        SelectScreen selectScreen = new SelectScreen();
+        MAIN_FRAME.setContentPane(selectScreen.Main);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Selection Screen");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
