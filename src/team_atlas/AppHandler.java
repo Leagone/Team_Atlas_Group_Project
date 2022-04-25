@@ -2,14 +2,14 @@ package team_atlas;
 
 import javax.swing.*;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 // TODO Get rid of all warnings
+
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database queries.
+ *
  * @author Andrzej Baum, Dominik Deak
  */
 public class AppHandler {
@@ -40,6 +40,7 @@ public class AppHandler {
     /**
      * The main method where the application starts.
      * Starts the login screen upon launching the app.
+     *
      * @param args The command line arguments
      */
     public static void main(String[] args) {
@@ -185,6 +186,7 @@ public class AppHandler {
 
     /**
      * Passes SELECT statements to the database.
+     *
      * @param toQuery The SELECT statement to pass
      */
     private static HashMap<String, String> query(String toQuery) {
@@ -227,6 +229,7 @@ public class AppHandler {
 
     /**
      * Passes INSERT statements to the database.
+     *
      * @param toQuery The INSERT statement to pass
      */
 
@@ -263,12 +266,13 @@ public class AppHandler {
 
 
     /**
-     *Adds users to the database.
-     *@param user The user object to be added to the database
+     * Adds users to the database.
+     *
+     * @param user The user object to be added to the database
      */
 
 
-    public static void addUser(User user){
+    public static void addUser(User user) {
 
         String emailAddress = user.getEmailAddress();
         String password = user.getPassword();
@@ -276,13 +280,13 @@ public class AppHandler {
         String lastName = user.getLastName();
         String userID = user.getUserID();
         String salt = user.getSalt();
-        boolean isTeacherInfo = user.isTeacher();
-        int isTeacher;
+        boolean isTeacher = user.isTeacher();
+        int isTeacherInt;
 
-        if(isTeacherInfo == true){
-            isTeacher = 1;
-        } else{
-            isTeacher = 0;
+        if (isTeacher) {
+            isTeacherInt = 1;
+        } else {
+            isTeacherInt = 0;
         }
 
         String Statement = "INSERT INTO RegularUser (" +
@@ -300,7 +304,7 @@ public class AppHandler {
                 "'" + userID + "'," +
                 "'" + firstName + "'," +
                 "'" + lastName + "'," +
-                ""+ isTeacher +"," +
+                "" + isTeacher + "," +
                 "'" + salt + "'" +
                 ");";
 
@@ -309,7 +313,7 @@ public class AppHandler {
         insert(Statement);
     }
 
-    public static void addActivity(Activity activity){
+    public static void addActivity(Activity activity) {
 
         String loginTimeStamp = activity.getLoginTimeStamp();
         String logutTimeStamp = activity.getLogoutTimeStamp();
@@ -324,7 +328,7 @@ public class AppHandler {
                 "EmailAddress" +
                 ")" +
                 " VALUES (" +
-                "'" + ID+ "'," +
+                "'" + ID + "'," +
                 "'" + loginTimeStamp + "'," +
                 "'" + logutTimeStamp + "'," +
                 "'" + emailAddres + "'" +
@@ -336,10 +340,9 @@ public class AppHandler {
         insert(Statement);
 
 
-
     }
 
-    public static void addInteraction(Interaction interaction){
+    public static void addInteraction(Interaction interaction) {
 
         String User1 = interaction.getEmailAddressUser1();
         String User2 = interaction.getEmailAddressUser2();
@@ -352,9 +355,9 @@ public class AppHandler {
 
         int isCompleted;
 
-        if(isCompletedInfo == true){
+        if (isCompletedInfo) {
             isCompleted = 1;
-        } else{
+        } else {
             isCompleted = 0;
         }
 
@@ -374,24 +377,22 @@ public class AppHandler {
                 "'" + dateAndTime + "'," +
                 "" + hintsUSed + "," +
                 "" + isCompleted + "," +
-                "'" + User2 +"'" +
+                "'" + User2 + "'" +
                 ");";
 
         insert(Statement);
 
 
-
-
     }
 
-    public static HashMap<String, String> querryAllInteractions(){
+    public static HashMap<String, String> querryAllInteractions() {
 
         String Statement = "SELECT * FROM UserConversationInteraction";
         return query(Statement);
 
     }
 
-    public static HashMap<String, String> querryInteraction(String emailAddres){
+    public static HashMap<String, String> querryInteraction(String emailAddres) {
 
         String toFind = emailAddres.toLowerCase();
         String Statement = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + toFind + "' OR EmailAddress2='" + toFind + "'";
@@ -399,14 +400,14 @@ public class AppHandler {
 
     }
 
-    public static HashMap<String, String> querryAllActivity(){
+    public static HashMap<String, String> querryAllActivity() {
 
         String Statement = "SELECT * FROM UserActivity";
         return query(Statement);
 
     } // NEW TESTED
 
-    public static HashMap<String, String> querryActivity(String emailAddres){
+    public static HashMap<String, String> querryActivity(String emailAddres) {
 
         String toFind = emailAddres.toLowerCase();
         String Statement = "SELECT * FROM UserActivity WHERE EmailAddress='" + toFind + "'";
@@ -454,6 +455,7 @@ public class AppHandler {
 
     /**
      * Finds a user with a certain email address in the database.
+     *
      * @param emailAddress The email address of the user
      * @return A user object of the found user, null if no user is found
      */
@@ -502,8 +504,9 @@ public class AppHandler {
 
     /**
      * Finds a user with a certain email address and password in the database.
+     *
      * @param emailAddress The email address of the user
-     * @param password The password of the user
+     * @param password     The password of the user
      * @return A user object of the found user, null if no user is found
      */
     public static User queryUserWithPass(String emailAddress, String password) {
@@ -551,6 +554,7 @@ public class AppHandler {
 
     /**
      * Finds an admin with a certain email address in the database.
+     *
      * @param emailAddress The email address of the admin
      * @return An admin object of the found admin, null if no admin is found
      */
@@ -596,8 +600,9 @@ public class AppHandler {
 
     /**
      * Finds an admin with a certain email address and password in the database.
+     *
      * @param emailAddress The email address of the admin
-     * @param password The password of the admin
+     * @param password     The password of the admin
      * @return An admin object of the found admin, null if no admin is found
      */
     public static Admin queryAdminWithPass(String emailAddress, String password) {
