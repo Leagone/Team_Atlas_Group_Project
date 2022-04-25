@@ -47,7 +47,7 @@ public class AppHandler {
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        startLoginScreen();
+        //startLoginScreen();
     }
 
     /**
@@ -266,7 +266,7 @@ public class AppHandler {
      */
 
 
-    public static void addNewUser(User newUser){
+    public static void addUser(User newUser){
 
         String emailAddress = newUser.getEmailAddress();
         String password = newUser.getPassword();
@@ -305,7 +305,7 @@ public class AppHandler {
         System.out.println(Statement);
 
         insert(Statement);
-    } // TESTED
+    }
 
     public static void addActivity(Activity activity){
 
@@ -335,12 +335,12 @@ public class AppHandler {
 
 
 
-    } // NEW TESTED
+    }
 
     public static void addInteraction(Interaction interaction){
 
-        String User1 = interaction.getEmailAddresUser1();
-        String User2 = interaction.getEmailAddresUser2();
+        String User1 = interaction.getEmailAddressUser1();
+        String User2 = interaction.getEmailAddressUser2();
         String pairID = interaction.getPairID();
         String conversationID = interaction.getConversationID();
         String dateAndTime = interaction.getInteractionDateAndTime();
@@ -380,14 +380,14 @@ public class AppHandler {
 
 
 
-    } // NEW TESTED
+    }
 
     public static HashMap<String, String> querryAllInteractions(){
 
         String Statement = "SELECT * FROM UserConversationInteraction";
         return query(Statement);
 
-    } // NEW TESTED
+    }
 
     public static HashMap<String, String> querryInteraction(String emailAddres){
 
@@ -395,7 +395,7 @@ public class AppHandler {
         String Statement = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + toFind + "' OR EmailAddress2='" + toFind + "'";
         return query(Statement);
 
-    } // NEW TESTED
+    }
 
     public static HashMap<String, String> querryAllActivity(){
 
@@ -410,7 +410,7 @@ public class AppHandler {
         String Statement = "SELECT * FROM UserActivity WHERE EmailAddress='" + toFind + "'";
         return query(Statement);
 
-    } // NEW TESTED
+    }
 
     public static HashMap<String, String> querySubContext(String subContextID) {
         String toFind = subContextID.toUpperCase();
