@@ -20,6 +20,13 @@ public class UserActivity {
         // TODO Check if the ID exists in the database
     }
 
+    UserActivity(String emailAddress, Date loginTimestamp ,String activityID ,Date logoutTimestamp) {
+        this.emailAddress = emailAddress;
+        this.loginTimestamp = loginTimestamp;
+        this.activityID = activityID;
+        this.logoutTimestamp = logoutTimestamp;
+    }
+
     public void setLogoutTimestamp() {
         logoutTimestamp = new Date();
     }
