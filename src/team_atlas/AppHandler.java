@@ -7,11 +7,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 // TODO Get rid of all warnings
-
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database queries.
- *
  * @author Andrzej Baum, Dominik Deak
  */
 public class AppHandler {
@@ -42,16 +40,14 @@ public class AppHandler {
     /**
      * The main method where the application starts.
      * Starts the login screen upon launching the app.
-     *
      * @param args The command line arguments
      */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         System.out.println("Application started");
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
         startLoginScreen();
-
     }
 
     /**
@@ -154,6 +150,16 @@ public class AppHandler {
     }
 
     /**
+     * Switches the application to the pair interaction history monitoring panel.
+     */
+    static void startPairHistoryScreen() {
+        PairMonitoringScreen pairMonitoringScreen = new PairMonitoringScreen();
+        MAIN_FRAME.setContentPane(pairMonitoringScreen.pairMonitoringPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Pair Interaction History");
+        MAIN_FRAME.setVisible(true);
+    }
+
+    /**
      * Logs the current user or admin out of the application and switches back to the login screen.
      * Sets the logout timestamp for users and saves their user activity into the database.
      */
@@ -189,11 +195,8 @@ public class AppHandler {
 
     /**
      * Passes INSERT statements to the database.
-     *
      * @param toQuery The INSERT statement to pass
      */
-
-
     private static void insert(String toQuery) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -224,16 +227,11 @@ public class AppHandler {
         }
     }
 
-
     /**
      * Adds users to the database.
-     *
      * @param user The user object to be added to the database
      */
-
-
     public static void addUser(User user) {
-
         String emailAddress = user.getEmailAddress();
         String password = user.getPassword();
         String firstName = user.getFirstName();
@@ -277,7 +275,7 @@ public class AppHandler {
 
         Date loginTimeStamp = activity.getLoginTimestamp();
         Date logutTimeStamp = activity.getLogoutTimestamp();
-        String emailAddres = activity.getEmailAddress();
+        String emailAddress = activity.getEmailAddress();
         String ID = activity.getActivityID();
 
 
@@ -291,30 +289,23 @@ public class AppHandler {
                 "'" + ID + "'," +
                 "" + loginTimeStamp + "," +
                 "" + logutTimeStamp + "," +
-                "'" + emailAddres + "'" +
+                "'" + emailAddress + "'" +
                 ");";
 
-
         System.out.println(Statement);
-
         insert(Statement);
-
-
     }
 
     public static void addInteraction(Interaction interaction) {
-
         String User1 = interaction.getEmailAddressUser1();
         String User2 = interaction.getEmailAddressUser2();
         String pairID = interaction.getPairID();
         String conversationID = interaction.getConversationID();
-        String dateAndTime = interaction.getInteractionDateAndTime();
+        String dateAndTime = interaction.getInteractionDateAndTime().toString();
         int hintsUSed = interaction.getHintsUsed();
         boolean isCompletedInfo = interaction.isConversationCompleted();
 
-
         int isCompleted;
-
         if (isCompletedInfo) {
             isCompleted = 1;
         } else {
@@ -339,10 +330,7 @@ public class AppHandler {
                 "" + isCompleted + "," +
                 "'" + User2 + "'" +
                 ");";
-
         insert(Statement);
-
-
     }
 
     public static Conversation querryConversation(String conversationID){
