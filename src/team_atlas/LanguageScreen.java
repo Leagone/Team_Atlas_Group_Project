@@ -5,28 +5,28 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+
 public class LanguageScreen  {
-    private JButton italianButton;
-    private JButton russianButton;
-    private JButton frenchButton;
-    private JButton spanishButton;
-    private JButton germanButton;
-    private JButton portugeseButton;
-    public JPanel BluePanel;
+    JButton italianButton;
+    JButton russianButton;
+    JButton frenchButton;
+    JButton spanishButton;
+    JButton germanButton;
+    JButton portugeseButton;
+    JPanel BluePanel;
+    JPanel MainLangPanel;
 
-
-   JPanel jp = new JPanel();
 
     public LanguageScreen(){
 
-        jp.setSize(775, 250);
 
         //listeners For the French Button
 
         frenchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //PANELS REQUIRED TO MAKE THIS FUNCTION
             }
         });
 
@@ -35,7 +35,7 @@ public class LanguageScreen  {
         russianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //PANELS REQUIRED TO MAKE THIS FUNCTION
             }
         });
 
@@ -43,7 +43,7 @@ public class LanguageScreen  {
         spanishButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //PANELS REQUIRED TO MAKE THIS FUNCTION
             }
         });
 
@@ -52,7 +52,7 @@ public class LanguageScreen  {
         italianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //PANELS REQUIRED TO MAKE THIS FUNCTION
             }
         });
 
@@ -61,7 +61,7 @@ public class LanguageScreen  {
         germanButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //PANELS REQUIRED TO MAKE THIS FUNCTION
             }
         });
 
@@ -70,11 +70,9 @@ public class LanguageScreen  {
         portugeseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //PANELS REQUIRED TO MAKE THIS FUNCTION
             }
         });
     }
-
-
 
 }
