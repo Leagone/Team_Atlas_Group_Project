@@ -272,7 +272,7 @@ public class AppHandler {
         String Statement = "INSERT INTO UserActivity (" +
                 "activityID," +
                 "loginTimestamp," +
-                "logoutTimestam," +
+                "logoutTimestamp," +
                 "EmailAddress" +
                 ")" +
                 " VALUES (" +
