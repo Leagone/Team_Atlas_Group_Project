@@ -45,9 +45,8 @@ public class AppHandler {
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        //startLoginScreen();
-        //startLangSelectionScreen();
-        selectionScreen();
+        startLoginScreen();
+
 
     }
 
