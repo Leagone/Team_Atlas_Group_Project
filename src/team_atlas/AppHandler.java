@@ -345,6 +345,54 @@ public class AppHandler {
 
     }
 
+    public static Conversation querryConversation(String conversationID){
+        {
+            Connection connection = ConnectDatabase.getConnection();
+            Statement statement = null;
+            String toFind = conversationID.toUpperCase();
+            String toQuery = "SELECT * FROM Conversations WHERE ConversationID='" + toFind + "'";
+            //String toFind = toQuery;
+            try {
+                statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(toQuery);
+
+                Conversation output = new Conversation(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7),
+                        resultSet.getString(8),
+                        resultSet.getString(9),
+                        resultSet.getString(11),
+                        resultSet.getString(10));
+
+                return output;
+
+            } catch (SQLException exception) {
+                System.err.println("SQLException: " + exception.getMessage());
+            } finally {
+                if (statement != null) {
+                    try {
+                        statement.close();
+                    } catch (SQLException exception) {
+                        System.err.println("SQLException: " + exception.getMessage());
+                    }
+                }
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (SQLException exception) {
+                        System.err.println("SQLException: " + exception.getMessage());
+                    }
+                }
+            }
+            return null;
+        } // TESTED
+    } // TESTED
+
     public static ArrayList<Interaction> querryAllInteractions() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -569,6 +617,43 @@ public class AppHandler {
                 output.add(temp);
             }
             return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    } // TESTED
+
+    public static Level queryLevel(String levelID){
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toFind = levelID.toUpperCase();
+        String toQuery = "SELECT * FROM Levels WHERE levelID='" + toFind + "'";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+
+
+                Level temp = new Level(
+                        resultSet.getString(1),
+                        resultSet.getString(2));
+
+            return temp;
 
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
