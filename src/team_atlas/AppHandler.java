@@ -184,16 +184,6 @@ public class AppHandler {
     }
 
     /**
-     * Switches the application to the pair interaction history monitoring panel.
-     */
-    static void startPairHistoryScreen() {
-        PairMonitoringScreen pairMonitoringScreen = new PairMonitoringScreen();
-        MAIN_FRAME.setContentPane(pairMonitoringScreen.pairMonitoringPanel);
-        MAIN_FRAME.setTitle("Team Atlas Language App - Pair Interaction History");
-        MAIN_FRAME.setVisible(true);
-    }
-
-    /**
      * Passes INSERT statements to the database.
      * @param toQuery The INSERT statement to pass
      */
@@ -379,7 +369,7 @@ public class AppHandler {
             }
             return null;
         } // TESTED
-    } // TESTED
+    }
 
     public static ArrayList<Interaction> querryAllInteractions() {
         Connection connection = ConnectDatabase.getConnection();
@@ -425,29 +415,32 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
-    public static Interaction querryInteraction(String emailAddres) {
+    public static ArrayList<Interaction> queryInteractionsBetween(String person1Email, String person2Email) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
-        String toFind = emailAddres.toLowerCase();
-        String toQuery = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + toFind + "' OR EmailAddress2='" + toFind + "'";
+        String toQuery =
+                "SELECT * FROM UserConversationInteraction" +
+                        "WHERE (EmailAddress1='" + person1Email + "' AND EmailAddress2='" + person2Email + "')" +
+                        "OR (EmailAddress1='" + person2Email + "' AND EmailAddress2='" + person1Email + "')";
         //String toFind = toQuery;
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
-            Interaction output = new Interaction(
-                    resultSet.getString(1),
-                    resultSet.getString(7),
-                    resultSet.getString(3),
-                    resultSet.getString(2),
-                    resultSet.getDate(4),
-                    resultSet.getInt(5),
-                    resultSet.getBoolean(6));
-
+            ArrayList<Interaction> output = new ArrayList<>();
+            while (resultSet.next()) {
+                Interaction temp = new Interaction(
+                        resultSet.getString(1),
+                        resultSet.getString(7),
+                        resultSet.getString(3),
+                        resultSet.getString(2),
+                        resultSet.getDate(4),
+                        resultSet.getInt(5),
+                        resultSet.getBoolean(6));
+                output.add(temp);
+            }
             return output;
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -467,7 +460,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static ArrayList<UserActivity> querryAllActivity() {
         Connection connection = ConnectDatabase.getConnection();
@@ -510,7 +503,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static UserActivity querryActivity(String emailAddres) {
         Connection connection = ConnectDatabase.getConnection();
@@ -549,7 +542,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static SubContext querySubContext(String subContextID) {
         Connection connection = ConnectDatabase.getConnection();
@@ -586,7 +579,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static ArrayList<SubContext> queryAllSubContext() {
         Connection connection = ConnectDatabase.getConnection();
@@ -625,7 +618,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static Level queryLevel(String levelID){
         Connection connection = ConnectDatabase.getConnection();
@@ -662,7 +655,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static ArrayList<Level> queryAllLevels() {
         Connection connection = ConnectDatabase.getConnection();
@@ -703,7 +696,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static Context queryContext(String contextID) {
         Connection connection = ConnectDatabase.getConnection();
@@ -739,7 +732,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static ArrayList<Context> queryAllContext() {
         Connection connection = ConnectDatabase.getConnection();
@@ -780,7 +773,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static Language queryLanguage(String languageID) {
         Connection connection = ConnectDatabase.getConnection();
@@ -816,7 +809,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     public static ArrayList<Language> queryAllLanguages() {
         Connection connection = ConnectDatabase.getConnection();
@@ -856,7 +849,7 @@ public class AppHandler {
             }
         }
         return null;
-    } // TESTED
+    }
 
     /**
      * Finds a user with a certain email address in the database.
