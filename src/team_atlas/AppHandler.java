@@ -7,9 +7,11 @@ import java.util.Date;
 import java.util.HashMap;
 
 // TODO Get rid of all warnings
+
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database queries.
+ *
  * @author Andrzej Baum, Dominik Deak
  */
 public class AppHandler {
@@ -40,6 +42,7 @@ public class AppHandler {
     /**
      * The main method where the application starts.
      * Starts the login screen upon launching the app.
+     *
      * @param args The command line arguments
      */
     public static void main(String[] args) {
@@ -186,6 +189,7 @@ public class AppHandler {
 
     /**
      * Passes INSERT statements to the database.
+     *
      * @param toQuery The INSERT statement to pass
      */
     private static void insert(String toQuery) {
@@ -220,6 +224,7 @@ public class AppHandler {
 
     /**
      * Adds users to the database.
+     *
      * @param user The user object to be added to the database
      */
     public static void addUser(User user) {
@@ -324,7 +329,7 @@ public class AppHandler {
         insert(Statement);
     }
 
-    public static Conversation querryConversation(String conversationID){
+    public static Conversation querryConversation(String conversationID) {
         {
             Connection connection = ConnectDatabase.getConnection();
             Statement statement = null;
@@ -621,7 +626,7 @@ public class AppHandler {
         return null;
     }
 
-    public static Level queryLevel(String levelID){
+    public static Level queryLevel(String levelID) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toFind = levelID.toUpperCase();
@@ -631,9 +636,9 @@ public class AppHandler {
             ResultSet resultSet = statement.executeQuery(toQuery);
 
 
-                Level temp = new Level(
-                        resultSet.getString(1),
-                        resultSet.getString(2));
+            Level temp = new Level(
+                    resultSet.getString(1),
+                    resultSet.getString(2));
 
             return temp;
 
@@ -851,7 +856,8 @@ public class AppHandler {
         }
         return null;
     }
-    public static ArrayList<String> queryAllActivityID(){
+
+    public static ArrayList<String> queryAllActivityID() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toQuery = "SELECT activityID FROM UserActivity";
@@ -889,7 +895,7 @@ public class AppHandler {
         return null;
     }
 
-    public static ArrayList<String> queryAllUserID(){
+    public static ArrayList<String> queryAllUserID() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toQuery = "SELECT UserID FROM RegularUser";
