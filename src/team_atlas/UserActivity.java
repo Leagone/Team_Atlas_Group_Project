@@ -15,7 +15,7 @@ public class UserActivity {
 
     UserActivity(String emailAddress) {
         this.emailAddress = emailAddress;
-        loginTimestamp = new Date();
+        this.loginTimestamp = new Date();
         activityID = "ua" + new Random().nextInt(10) + (10000000 + new Random().nextInt(90000000));
         // TODO Check if the ID exists in the database
     }
@@ -28,7 +28,7 @@ public class UserActivity {
     }
 
     public void setLogoutTimestamp() {
-        logoutTimestamp = new Date();
+        this.logoutTimestamp = new Date();
     }
 
     public String getEmailAddress() {

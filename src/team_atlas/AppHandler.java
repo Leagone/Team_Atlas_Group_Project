@@ -48,6 +48,7 @@ public class AppHandler {
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
         startLoginScreen();
+
     }
 
     /**
@@ -171,7 +172,7 @@ public class AppHandler {
                 System.out.println("Student: '" + currentUser.getEmailAddress() + "' logged out");
             }
             currentActivity.setLogoutTimestamp();
-            // TODO Save activity into database
+            addActivity(currentActivity);
             currentUser = null;
             currentActivity = null;
             startLoginScreen();
@@ -277,8 +278,8 @@ public class AppHandler {
                 ")" +
                 " VALUES (" +
                 "'" + ID + "'," +
-                "" + loginTimeStamp + "," +
-                "" + logutTimeStamp + "," +
+                "'" + loginTimeStamp + "'," +
+                "'" + logutTimeStamp + "'," +
                 "'" + emailAddress + "'" +
                 ");";
 
@@ -825,6 +826,81 @@ public class AppHandler {
                 Language temp = new Language(
                         resultSet.getString(1),
                         resultSet.getString(2));
+                output.add(temp);
+
+            }
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+    public static ArrayList<String> queryAllActivityID(){
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT activityID FROM UserActivity";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+
+            ArrayList<String> output = new ArrayList<>();
+
+            while (resultSet.next()) {
+                String temp = resultSet.getString(1);
+                output.add(temp);
+
+            }
+            return output;
+
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<String> queryAllUserID(){
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT UserID FROM RegularUser";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+
+            ArrayList<String> output = new ArrayList<>();
+
+            while (resultSet.next()) {
+                String temp = resultSet.getString(1);
                 output.add(temp);
 
             }
