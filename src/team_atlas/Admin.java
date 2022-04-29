@@ -1,9 +1,7 @@
 package team_atlas;
 
 /**
- * The admin class holding the following attributes of an admin:
- * email address, password, salt, admin ID.
- * Includes getters for all attributes.
+ * The class representing the admin entities in the database.
  * @author Dominik Deak
  */
 public class Admin {

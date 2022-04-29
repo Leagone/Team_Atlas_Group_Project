@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * The class that connects the application to the database.
+ * @author Andrzej Baum
+ */
 public class ConnectDatabase {
 
     public static Connection getConnection() {
@@ -12,9 +16,10 @@ public class ConnectDatabase {
             // Create database if it doesn't exist
             String sqliteURL = "jdbc:sqlite:teamAtlas.db";
             Connection sqliteConnection = DriverManager.getConnection(sqliteURL);
-            JOptionPane.showMessageDialog(null, "Connection Established");
+            System.out.println("Connection Established");
             return sqliteConnection;
         } catch (Exception exception) {
+            System.err.println("Exception: " + exception);
             JOptionPane.showMessageDialog(null, exception);
             return null;
         }
