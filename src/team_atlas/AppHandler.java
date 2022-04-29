@@ -60,6 +60,8 @@ public class AppHandler {
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
         startLoginScreen();
+
+
     }
 
     /**
@@ -121,14 +123,20 @@ public class AppHandler {
      * Switches the application to the language selection panel.
      */
     static void startLangSelectionScreen() {
-        // TODO Switch to the language selection panel
+        LanguageScreen languageScreen = new LanguageScreen();
+        MAIN_FRAME.setContentPane(languageScreen.MainLangPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Language Selection");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
      * Switches the application to the level/context/sub-context selection panel.
      */
-    static void startLvlConSubConSelectionScreen() {
-        // TODO Switch to the level/context/sub-context selection panel
+    static void selectionScreen() {
+        SelectScreen selectScreen = new SelectScreen();
+        MAIN_FRAME.setContentPane(selectScreen.Main);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Selection Screen");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
