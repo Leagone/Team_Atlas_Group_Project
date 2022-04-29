@@ -12,14 +12,12 @@ public class Interaction {
     private final String pairID;
     private final String conversationID;
     private final Date interactionDateAndTime;
-    private final Conversation conversation;
     private final String language;
     private final String level;
     private final String context;
     private final String subContext;
     private final int hintsUsed;
     private final boolean conversationCompleted;
-
 
     Interaction(String user1Email, String user2email, String pairID, String conversationID, Date interactionDateAndTime, int hintsUsed, boolean conversationCompleted) {
         this.user1Email = user1Email;
@@ -29,7 +27,7 @@ public class Interaction {
         this.interactionDateAndTime = interactionDateAndTime;
         this.hintsUsed = hintsUsed;
         this.conversationCompleted = conversationCompleted;
-        this.conversation = AppHandler.querryConversation(conversationID);
+        Conversation conversation = AppHandler.queryConversation(conversationID);
         this.language = AppHandler.queryLanguage(conversation.getLanguageID()).getLanguage();
         this.level = AppHandler.queryLevel(conversation.getLevelID()).getLevel();
         this.context = AppHandler.queryContext(conversation.getContextID()).getContext();
@@ -40,8 +38,8 @@ public class Interaction {
         return conversationID;
     }
 
-    public String getInteractionDateAndTime() {
-        return interactionDateAndTime.toString();
+    public Date getInteractionDateAndTime() {
+        return interactionDateAndTime;
     }
 
     public String getLanguage() {

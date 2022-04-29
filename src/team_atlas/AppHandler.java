@@ -1,12 +1,15 @@
 package team_atlas;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Locale;
 
-// TODO Get rid of all warnings
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database queries.
@@ -45,6 +48,12 @@ public class AppHandler {
     public static void main(String[] args) {
         System.out.println("Application started");
         MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        MAIN_FRAME.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exit();
+            }
+        });
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
         startLoginScreen();
@@ -162,6 +171,7 @@ public class AppHandler {
     /**
      * Logs the current user or admin out of the application and switches back to the login screen.
      * Sets the logout timestamp for users and saves their user activity into the database.
+     * Intended to be called when a logged-in user/admin presses the logout button on any screen.
      */
     static void logout() {
         if (currentUser != null) {
@@ -171,7 +181,7 @@ public class AppHandler {
                 System.out.println("Student: '" + currentUser.getEmailAddress() + "' logged out");
             }
             currentActivity.setLogoutTimestamp();
-            // TODO Save activity into database
+            addActivity(currentActivity);
             currentUser = null;
             currentActivity = null;
             startLoginScreen();
@@ -180,6 +190,25 @@ public class AppHandler {
             System.out.println("Admin: '" + currentAdmin.getEmailAddress() + "' logged out");
             currentAdmin = null;
             startLoginScreen();
+        }
+    }
+
+    /**
+     * Sets the logout timestamp for users and saves their user activity into the database.
+     * Intended to be called when a logged-in user/admin closes the application window.
+     */
+    static void exit() {
+        if (currentUser != null) {
+            if (currentUser.isTeacher()) {
+                System.out.println("Teacher: '" + currentUser.getEmailAddress() + "' exited the application and was logged out");
+            } else {
+                System.out.println("Student: '" + currentUser.getEmailAddress() + "' exited the application and was logged out");
+            }
+            currentActivity.setLogoutTimestamp();
+            addActivity(currentActivity);
+        }
+        if (currentAdmin != null) {
+            System.out.println("Admin: '" + currentAdmin.getEmailAddress() + "' exited the application and was logged out");
         }
     }
 
@@ -262,12 +291,10 @@ public class AppHandler {
     }
 
     public static void addActivity(UserActivity activity) {
-
         Date loginTimeStamp = activity.getLoginTimestamp();
-        Date logutTimeStamp = activity.getLogoutTimestamp();
+        Date logoutTimeStamp = activity.getLogoutTimestamp();
         String emailAddress = activity.getEmailAddress();
         String ID = activity.getActivityID();
-
 
         String Statement = "INSERT INTO UserActivity (" +
                 "activityID," +
@@ -277,8 +304,8 @@ public class AppHandler {
                 ")" +
                 " VALUES (" +
                 "'" + ID + "'," +
-                "" + loginTimeStamp + "," +
-                "" + logutTimeStamp + "," +
+                "'" + loginTimeStamp + "'," +
+                "'" + logoutTimeStamp + "'," +
                 "'" + emailAddress + "'" +
                 ");";
 
@@ -323,8 +350,7 @@ public class AppHandler {
         insert(Statement);
     }
 
-    public static Conversation querryConversation(String conversationID){
-        {
+    public static Conversation queryConversation(String conversationID) {
             Connection connection = ConnectDatabase.getConnection();
             Statement statement = null;
             String toFind = conversationID.toUpperCase();
@@ -334,7 +360,7 @@ public class AppHandler {
                 statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(toQuery);
 
-                Conversation output = new Conversation(
+                return new Conversation(
                         resultSet.getString(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
@@ -345,10 +371,8 @@ public class AppHandler {
                         resultSet.getString(8),
                         resultSet.getString(9),
                         resultSet.getString(11),
-                        resultSet.getString(10));
-
-                return output;
-
+                        resultSet.getString(10)
+                );
             } catch (SQLException exception) {
                 System.err.println("SQLException: " + exception.getMessage());
             } finally {
@@ -368,10 +392,9 @@ public class AppHandler {
                 }
             }
             return null;
-        } // TESTED
-    }
+    } // TESTED
 
-    public static ArrayList<Interaction> querryAllInteractions() {
+    public static ArrayList<Interaction> queryAllInteractions() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toQuery = "SELECT * FROM UserConversationInteraction";
@@ -420,22 +443,25 @@ public class AppHandler {
     public static ArrayList<Interaction> queryInteractionsBetween(String person1Email, String person2Email) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
-        String toQuery =
-                "SELECT * FROM UserConversationInteraction" +
-                        "WHERE (EmailAddress1='" + person1Email + "' AND EmailAddress2='" + person2Email + "')" +
-                        "OR (EmailAddress1='" + person2Email + "' AND EmailAddress2='" + person1Email + "')";
-        //String toFind = toQuery;
+        String toQuery = "SELECT * FROM UserConversationInteraction " +
+                         "WHERE EmailAddress1='" + person1Email + "' AND EmailAddress2='" + person2Email + "' " +
+                         "UNION ALL " +
+                         "SELECT * FROM UserConversationInteraction " +
+                         "WHERE EmailAddress1='" + person2Email + "' AND EmailAddress2='" + person1Email + "'";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
             ArrayList<Interaction> output = new ArrayList<>();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            Date date;
             while (resultSet.next()) {
+                date = dateFormat.parse(resultSet.getString(4));
                 Interaction temp = new Interaction(
                         resultSet.getString(1),
                         resultSet.getString(7),
                         resultSet.getString(3),
                         resultSet.getString(2),
-                        resultSet.getDate(4),
+                        date,
                         resultSet.getInt(5),
                         resultSet.getBoolean(6));
                 output.add(temp);
@@ -443,6 +469,8 @@ public class AppHandler {
             return output;
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
+        } catch (ParseException exception) {
+            System.err.println("ParseException: " + exception.getMessage());
         } finally {
             if (statement != null) {
                 try {
@@ -462,7 +490,7 @@ public class AppHandler {
         return null;
     }
 
-    public static ArrayList<UserActivity> querryAllActivity() {
+    public static ArrayList<UserActivity> queryAllActivity() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toQuery = "SELECT * FROM UserActivity";
@@ -505,23 +533,21 @@ public class AppHandler {
         return null;
     }
 
-    public static UserActivity querryActivity(String emailAddres) {
+    public static UserActivity queryActivity(String emailAddress) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
-        String toFind = emailAddres.toLowerCase();
+        String toFind = emailAddress.toLowerCase();
         String toQuery = "SELECT * FROM UserActivity WHERE EmailAddress='" + toFind + "'";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
 
-            UserActivity output = new UserActivity(
+            return new UserActivity(
                     resultSet.getString(4),
                     resultSet.getDate(2),
                     resultSet.getString(1),
-                    resultSet.getDate(1));
-
-
-            return output;
+                    resultSet.getDate(1)
+            );
 
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
@@ -553,12 +579,10 @@ public class AppHandler {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
 
-
-            SubContext output = new SubContext(
+            return new SubContext(
                     resultSet.getString(1),
-                    resultSet.getString(2));
-
-            return output;
+                    resultSet.getString(2)
+            );
 
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
@@ -629,13 +653,10 @@ public class AppHandler {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
 
-
-                Level temp = new Level(
-                        resultSet.getString(1),
-                        resultSet.getString(2));
-
-            return temp;
-
+            return new Level(
+                    resultSet.getString(1),
+                    resultSet.getString(2)
+            );
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -707,11 +728,10 @@ public class AppHandler {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
 
-            Context output = new Context(
+            return new Context(
                     resultSet.getString(1),
-                    resultSet.getString(2));
-
-            return output;
+                    resultSet.getString(2)
+            );
 
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
@@ -784,11 +804,10 @@ public class AppHandler {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
 
-            Language output = new Language(
+            return new Language(
                     resultSet.getString(1),
-                    resultSet.getString(2));
-
-            return output;
+                    resultSet.getString(2)
+            );
 
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
@@ -1018,9 +1037,80 @@ public class AppHandler {
                 String pass = rs.getString("Pass");
                 String salt = rs.getString("Salt");
                 String adminID = rs.getString("AdminID");
-
                 return new Admin(email, pass, salt, adminID);
             }
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<String> queryAllActivityIDs() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT activityID FROM UserActivity";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+            ArrayList<String> output = new ArrayList<>();
+            while (resultSet.next()) {
+                String temp = resultSet.getString(1);
+                output.add(temp);
+
+            }
+            return output;
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<String> queryAllUserIDs() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT UserID FROM RegularUser";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+
+            ArrayList<String> output = new ArrayList<>();
+
+            while (resultSet.next()) {
+                String temp = resultSet.getString(1);
+                output.add(temp);
+
+            }
+            return output;
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {

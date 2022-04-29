@@ -1,13 +1,13 @@
 package team_atlas;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static team_atlas.AppHandler.MAIN_FRAME;
 
-// TODO Add button about required details
 /**
  * The registration panel of the application.
  * @author Dominik Deak
@@ -25,11 +25,16 @@ public class RegisterScreen {
     JTextField passwordField;
     JLabel confirmPasswordLabel;
     JTextField confirmPasswordField;
-    JButton registerButton;
-    JButton backToLoginButton;
+    JButton registerButton, backToLoginButton, informationButton;
 
     RegisterScreen() {
         System.out.println("Registration panel started");
+        informationButton.addActionListener(e -> JOptionPane.showMessageDialog(MAIN_FRAME, """
+                Your password must contain:
+                    - A capital letter
+                    - A lowercase letter
+                    - A number
+                And it must be at least 8 characters long"""));
         backToLoginButton.addActionListener(e -> AppHandler.startLoginScreen());
         registerButton.addActionListener(e -> registerUser());
     }
@@ -41,19 +46,27 @@ public class RegisterScreen {
         String password = passwordField.getText();
         String confirmedPassword = confirmPasswordField.getText();
 
-        if (firstName.isEmpty() || lastName.isEmpty() || emailAddress.isEmpty() || password.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || emailAddress.isEmpty() || password.isEmpty() || confirmedPassword.isEmpty()) {
             JOptionPane.showMessageDialog(MAIN_FRAME, "You must fill out all fields");
-        } else if (firstName.contains(" ") || lastName.contains(" ") || emailAddress.contains(" ") || password.contains(" ")) {
+        } else if (firstName.contains(" ") || lastName.contains(" ") || emailAddress.contains(" ") || password.contains(" ") || confirmedPassword.contains(" ")) {
             JOptionPane.showMessageDialog(MAIN_FRAME, "You must not enter any whitespaces");
         } else {
             boolean detailsValid = validateInput(firstName, lastName, emailAddress, password, confirmedPassword);
             if (detailsValid) {
                 User user = AppHandler.queryUser(emailAddress);
-                if (user != null) {
+                Admin admin = AppHandler.queryAdmin(emailAddress);
+                if (user != null || admin != null) {
                     JOptionPane.showMessageDialog(MAIN_FRAME, "Email address is already in use");
                 } else {
-                    String userID = "u" + new Random().nextInt(10) + (10000000 + new Random().nextInt(90000000));
-                    // TODO Check if the ID exists in the database
+                    ArrayList<String> existingIDs = AppHandler.queryAllUserIDs();
+                    String userID;
+                    if (existingIDs != null) {
+                        do {
+                            userID = "u" + new Random().nextInt(10) + (10000000 + new Random().nextInt(90000000));
+                        } while (existingIDs.contains(userID));
+                    } else {
+                        userID = "u" + new Random().nextInt(10) + (10000000 + new Random().nextInt(90000000));
+                    }
                     String salt = PasswordUtility.generateSalt();
                     String saltedPassword = PasswordUtility.generatePassWithSalt(password, salt);
                     user = new User(emailAddress, saltedPassword, salt, firstName, lastName, userID, false);
