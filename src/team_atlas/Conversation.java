@@ -1,21 +1,14 @@
 package team_atlas;
 
+/**
+ * The class representing the conversation entities in the database.
+ * @author Andrzej Baum
+ */
 public class Conversation {
-    private String ConversationID;
-    private String languageID;
-    private String levelID;
-    private String ContextID;
-    private String SubContextID;
-    private String Grammar;
-    private String KeyVocab;
-    private String PersonAText;
-    private String PersonAKey;
-    private String PersonBText;
-    private String PersonBKey;
+    private String ConversationID, languageID, levelID, ContextID, SubContextID, Grammar, KeyVocab, PersonAText, PersonAKey, PersonBText, PersonBKey;
 
     Conversation(String ConversationID, String languageID ,String levelID ,String ContextID, String SubContextID,
-                 String Grammar ,String KeyVocab, String PersonAText ,String PersonAKey ,String PersonBText ,String PersonBKey){
-
+                 String Grammar ,String KeyVocab, String PersonAText ,String PersonAKey ,String PersonBText ,String PersonBKey) {
         this.ConversationID = ConversationID;
         this.languageID = languageID;
         this.levelID = levelID;

@@ -3,17 +3,17 @@ package team_atlas;
 import javax.swing.*;
 
 /**
+ * The admin home screen.
+ * Only accessible if an admin logs into the application.
+ * Contains four buttons that start the four admin panels,
+ * and a button that logs the admin out.
  * @author Dominik Deak
  */
 public class AdminHomeScreen {
 
     JPanel adminHomePanel;
     JLabel welcomeLabel;
-    JButton studentProgressButton;
-    JButton overallProgressButton;
-    JButton pairHistoryButton;
-    JButton userDataButton;
-    JButton logoutButton;
+    JButton studentProgressButton, overallProgressButton, pairHistoryButton, userDataButton, logoutButton;
 
     AdminHomeScreen() {
         System.out.println("Admin home panel started");

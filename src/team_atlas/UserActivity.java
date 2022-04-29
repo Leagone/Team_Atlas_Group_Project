@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
+ * The class representing the user activity entities in the database.
  * @author Andrzej Baum, Dominik Deak
  */
 public class UserActivity {

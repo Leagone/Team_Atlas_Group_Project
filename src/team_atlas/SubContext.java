@@ -1,9 +1,12 @@
 package team_atlas;
 
+/**
+ * The class representing the sub-context entities in the database.
+ * @author Andrzej Baum
+ */
 public class SubContext {
 
-    private String subContextID;
-    private String subContext;
+    private final String subContextID, subContext;
 
     SubContext(String subContextID, String subContext){
         this.subContextID = subContextID;
@@ -14,4 +17,7 @@ public class SubContext {
         return subContext;
     }
 
+    public String getSubContextID() {
+        return subContextID;
+    }
 }

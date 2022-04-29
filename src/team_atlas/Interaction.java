@@ -3,19 +3,13 @@ package team_atlas;
 import java.util.Date;
 
 /**
+ * The class representing the interaction entities in the database.
  * @author Andrzej Baum
  */
 public class Interaction {
 
-    private final String user1Email;
-    private final String user2email;
-    private final String pairID;
-    private final String conversationID;
+    private final String user1Email, user2email, pairID, conversationID, language, level, context, subContext;
     private final Date interactionDateAndTime;
-    private final String language;
-    private final String level;
-    private final String context;
-    private final String subContext;
     private final int hintsUsed;
     private final boolean conversationCompleted;
 

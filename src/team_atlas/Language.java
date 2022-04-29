@@ -1,17 +1,23 @@
 package team_atlas;
 
+/**
+ * The class representing the language entities in the database.
+ * @author Andrzej Baum
+ */
 public class Language {
 
-    private String laguageID;
-    private String laguage;
+    private final String languageID, language;
 
-    Language(String laguageID, String laguage){
-        this.laguageID = laguageID;
-        this.laguage = laguage;
+    Language(String languageID, String language){
+        this.languageID = languageID;
+        this.language = language;
     }
 
     public String getLanguage() {
-        return laguage;
+        return language;
     }
 
+    public String getLanguageID() {
+        return languageID;
+    }
 }

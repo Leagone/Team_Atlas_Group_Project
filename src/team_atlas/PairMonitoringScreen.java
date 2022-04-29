@@ -16,7 +16,10 @@ import java.util.concurrent.ThreadLocalRandom;
 import static team_atlas.AppHandler.MAIN_FRAME;
 
 /**
- * The pair interaction monitoring panel of the application.
+ * The pair interaction history analytics monitoring panel of the application.
+ * Contains two email fields, a button to list the interaction history of the entered users,
+ * four buttons to display four analytic charts, a button that takes the admin back to the admin home panel,
+ * and a button that logs the admin out.
  * @author Dominik Deak
  */
 public class PairMonitoringScreen {
@@ -29,7 +32,7 @@ public class PairMonitoringScreen {
     String firstPersonEmail, secondPersonEmail;
 
     /**
-     * The table column names.
+     * The interaction history table column names.
      */
     private final String[] HISTORY_COLUMN_NAMES = {
             "Date and Time", "Language", "Level", "Context",
@@ -37,14 +40,13 @@ public class PairMonitoringScreen {
     };
 
     /**
-     * Holds all interactions between the two users.
+     * Holds all Interaction objects between the two users.
      */
     private ArrayList<Interaction> interactions;
 
     PairMonitoringScreen() {
         System.out.println("Pair interaction history monitoring panel started");
         insertSampleData();
-
         historyButton.addActionListener(e -> {
             boolean validInput = validateInput();
             if (validInput) {
@@ -63,7 +65,6 @@ public class PairMonitoringScreen {
                 showLevelChart(firstPersonEmail, secondPersonEmail);
             }
         });
-
         dateGraphButton.addActionListener(e -> {
             boolean validInput = validateInput();
             if (validInput) {
@@ -76,11 +77,14 @@ public class PairMonitoringScreen {
                 showHintsChart(firstPersonEmail, secondPersonEmail);
             }
         });
-
         backButton.addActionListener(e -> AppHandler.startAdminHomeScreen());
         logoutButton.addActionListener(e -> AppHandler.logout());
     }
 
+    /**
+     * Validates the entered email addresses.
+     * @return true if the details are valid, false otherwise
+     */
     private boolean validateInput() {
         firstPersonEmail = firstPersonField.getText();
         secondPersonEmail = secondPersonField.getText();
@@ -113,6 +117,12 @@ public class PairMonitoringScreen {
         }
     }
 
+    /**
+     * Displays the interaction history of the two users in a JTable.
+     * Orders the interactions by date in ascending order.
+     * @param firstPersonEmail The email of the first person
+     * @param secondPersonEmail The email of the second person
+     */
     private void displayInteractionHistory(String firstPersonEmail, String secondPersonEmail) {
         interactions = AppHandler.queryInteractionsBetween(firstPersonEmail, secondPersonEmail);
         if (interactions == null) {
@@ -122,7 +132,6 @@ public class PairMonitoringScreen {
             DefaultTableModel tableModel = new DefaultTableModel();
             JTable historyTable = new JTable(tableModel);
             Object[][] tableData = new Object[interactions.size()][HISTORY_COLUMN_NAMES.length];
-
             for (int i = 0; i < interactions.size(); i++) {
                 tableData[i][0] = interactions.get(i).getInteractionDateAndTime().toString();
                 tableData[i][1] = interactions.get(i).getLanguage();
@@ -132,12 +141,17 @@ public class PairMonitoringScreen {
                 tableData[i][5] = interactions.get(i).isConversationCompleted();
                 tableData[i][6] = interactions.get(i).getHintsUsed();
             }
-
             tableModel.setDataVector(tableData, HISTORY_COLUMN_NAMES);
             historyScrollPane.setViewportView(historyTable);
         }
     }
 
+    /**
+     * Displays a pie chart with the languages used in the interactions.
+     * Only displays languages that were used at least once.
+     * @param firstPersonEmail The email of the first person
+     * @param secondPersonEmail The email of the second person
+     */
     private void showLanguageChart(String firstPersonEmail, String secondPersonEmail) {
         interactions = AppHandler.queryInteractionsBetween(firstPersonEmail, secondPersonEmail);
         if (interactions == null) {
@@ -188,6 +202,12 @@ public class PairMonitoringScreen {
         }
     }
 
+    /**
+     * Displays a pie chart with the levels used in the interactions.
+     * Only displays levels that were used at least once.
+     * @param firstPersonEmail The email of the first person
+     * @param secondPersonEmail The email of the second person
+     */
     private void showLevelChart(String firstPersonEmail, String secondPersonEmail) {
         interactions = AppHandler.queryInteractionsBetween(firstPersonEmail, secondPersonEmail);
         if (interactions == null) {
@@ -230,6 +250,11 @@ public class PairMonitoringScreen {
         }
     }
 
+    /**
+     * Displays a graph showing the total number of interactions from the earliest to the latest date.
+     * @param firstPersonEmail The email of the first person
+     * @param secondPersonEmail The email of the second person
+     */
     private void showDateGraph(String firstPersonEmail, String secondPersonEmail) {
         interactions = AppHandler.queryInteractionsBetween(firstPersonEmail, secondPersonEmail);
         if (interactions == null) {
@@ -245,7 +270,6 @@ public class PairMonitoringScreen {
                 dateString = dateFormat.format(interaction.getInteractionDateAndTime());
                 dataset.addValue(totalInteractions, "Number of Interactions", dateString);
             }
-
             JFreeChart chart = ChartFactory.createLineChart(
                     "Total Interactions by Date", "Date", "Number of Interactions",
                     dataset, PlotOrientation.VERTICAL, true, true, false
@@ -257,6 +281,12 @@ public class PairMonitoringScreen {
         }
     }
 
+    /**
+     * Displays a bar chart showing the total number of hints the users have used for each difficulty level.
+     * Only displays levels where at least one hint was used.
+     * @param firstPersonEmail The email of the first person
+     * @param secondPersonEmail The email of the second person
+     */
     private void showHintsChart(String firstPersonEmail, String secondPersonEmail) {
         interactions = AppHandler.queryInteractionsBetween(firstPersonEmail, secondPersonEmail);
         if (interactions == null) {
@@ -302,6 +332,10 @@ public class PairMonitoringScreen {
         }
     }
 
+    /**
+     * Inserts ten randomly generated interactions into the database.
+     * Used for demonstrating this panel in case there is a lack of interactions in the database.
+     */
     private void insertSampleData() {
         /* Admin login details for testing:
         * Email: dominik@admin.com

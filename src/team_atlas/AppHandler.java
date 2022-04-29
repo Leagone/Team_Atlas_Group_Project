@@ -12,14 +12,15 @@ import java.util.Locale;
 
 /**
  * The Main class where the application starts and runs.
- * Handles the switching of panels and database queries.
+ * Handles the switching of panels and database insertion/query statements.
+ * Holds information about the currently logged-in person.
  * @author Andrzej Baum, Dominik Deak
  */
 public class AppHandler {
 
     /**
-     * The window of the application.
-     * The application switches panels displayed within the frame.
+     * The window frame of the application.
+     * The application switches panels displayed within this frame.
      */
     static final JFrame MAIN_FRAME = new JFrame("");
 
@@ -37,11 +38,13 @@ public class AppHandler {
 
     /**
      * The activity of the current user.
+     * If no user is logged-in, the object is null.
      */
     static UserActivity currentActivity = null;
 
     /**
      * The main method where the application starts.
+     * Sets the size and location of the frame and overrides the windowClosing method to call the exit() method.
      * Starts the login screen upon launching the app.
      * @param args The command line arguments
      */
@@ -60,7 +63,8 @@ public class AppHandler {
     }
 
     /**
-     * Switches the application to the login panel.
+     * Creates a LoginScreen object and
+     * switches the panel in the frame of the application to the login panel.
      */
     static void startLoginScreen() {
         LoginScreen loginScreen = new LoginScreen();
@@ -70,7 +74,8 @@ public class AppHandler {
     }
 
     /**
-     * Switches the application to the registration panel.
+     * Creates a RegisterScreen object and
+     * switches the panel in the frame of the application to the registration panel.
      */
     static void startRegisterScreen() {
         RegisterScreen registerScreen = new RegisterScreen();
@@ -80,7 +85,8 @@ public class AppHandler {
     }
 
     /**
-     * Switches the application to the student home panel.
+     * Creates a StudentHomeScreen object and
+     * switches the panel in the frame of the application to the student home panel.
      */
     static void startStudentHomeScreen() {
         StudentHomeScreen studentHomeScreen = new StudentHomeScreen();
@@ -90,7 +96,8 @@ public class AppHandler {
     }
 
     /**
-     * Switches the application to the teacher home panel.
+     * Creates a TeacherHomeScreen object and
+     * switches the panel in the frame of the application to the teacher home panel.
      */
     static void startTeacherHomeScreen() {
         TeacherHomeScreen teacherHomeScreen = new TeacherHomeScreen();
@@ -100,7 +107,8 @@ public class AppHandler {
     }
 
     /**
-     * Switches the application to the admin home panel.
+     * Creates a AdminHomeScreen object and
+     * switches the panel in the frame of the application to the admin home panel.
      */
     static void startAdminHomeScreen() {
         AdminHomeScreen adminHomeScreen = new AdminHomeScreen();
@@ -159,7 +167,8 @@ public class AppHandler {
     }
 
     /**
-     * Switches the application to the pair interaction history monitoring panel.
+     * Creates a PairMonitoringScreen object and
+     * switches the panel in the frame of the application to the pair interaction history analytics monitoring panel.
      */
     static void startPairHistoryScreen() {
         PairMonitoringScreen pairMonitoringScreen = new PairMonitoringScreen();
@@ -171,7 +180,7 @@ public class AppHandler {
     /**
      * Logs the current user or admin out of the application and switches back to the login screen.
      * Sets the logout timestamp for users and saves their user activity into the database.
-     * Intended to be called when a logged-in user/admin presses the logout button on any screen.
+     * Intended to be called when a logged-in user/admin presses a logout button on a panel.
      */
     static void logout() {
         if (currentUser != null) {
@@ -219,13 +228,11 @@ public class AppHandler {
     private static void insert(String toQuery) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
-        //String toFind = toQuery;
         try {
             System.out.println("Inserting");
             System.out.println(toQuery);
             statement = connection.createStatement();
             statement.executeQuery(toQuery);
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -248,7 +255,7 @@ public class AppHandler {
 
     /**
      * Adds users to the database.
-     * @param user The user object to be added to the database
+     * @param user The User object to be added
      */
     public static void addUser(User user) {
         String emailAddress = user.getEmailAddress();
@@ -258,14 +265,6 @@ public class AppHandler {
         String userID = user.getUserID();
         String salt = user.getSalt();
         boolean isTeacher = user.isTeacher();
-        int isTeacherInt;
-
-        if (isTeacher) {
-            isTeacherInt = 1;
-        } else {
-            isTeacherInt = 0;
-        }
-
         String Statement = "INSERT INTO RegularUser (" +
                 "EmailAddress," +
                 "Pass," +
@@ -284,18 +283,19 @@ public class AppHandler {
                 "" + isTeacher + "," +
                 "'" + salt + "'" +
                 ");";
-
         System.out.println(Statement);
-
         insert(Statement);
     }
 
+    /**
+     * Adds user activities to the database.
+     * @param activity the UserActivity object to be added
+     */
     public static void addActivity(UserActivity activity) {
         Date loginTimeStamp = activity.getLoginTimestamp();
         Date logoutTimeStamp = activity.getLogoutTimestamp();
         String emailAddress = activity.getEmailAddress();
         String ID = activity.getActivityID();
-
         String Statement = "INSERT INTO UserActivity (" +
                 "activityID," +
                 "loginTimestamp," +
@@ -308,11 +308,14 @@ public class AppHandler {
                 "'" + logoutTimeStamp + "'," +
                 "'" + emailAddress + "'" +
                 ");";
-
         System.out.println(Statement);
         insert(Statement);
     }
 
+    /**
+     * Adds pair interactions to the database.
+     * @param interaction the Interaction object to be added
+     */
     public static void addInteraction(Interaction interaction) {
         String User1 = interaction.getEmailAddressUser1();
         String User2 = interaction.getEmailAddressUser2();
@@ -321,14 +324,12 @@ public class AppHandler {
         String dateAndTime = interaction.getInteractionDateAndTime().toString();
         int hintsUSed = interaction.getHintsUsed();
         boolean isCompletedInfo = interaction.isConversationCompleted();
-
         int isCompleted;
         if (isCompletedInfo) {
             isCompleted = 1;
         } else {
             isCompleted = 0;
         }
-
         String Statement = "INSERT INTO UserConversationInteraction (" +
                 "EmailAddress1," +
                 "ConversationID," +
@@ -350,75 +351,32 @@ public class AppHandler {
         insert(Statement);
     }
 
+    /**
+     * Queries a conversation from the database using its ID.
+     * @param conversationID The ID of the conversation
+     * @return A Conversation object if there is a match, null otherwise
+     */
     public static Conversation queryConversation(String conversationID) {
-            Connection connection = ConnectDatabase.getConnection();
-            Statement statement = null;
-            String toFind = conversationID.toUpperCase();
-            String toQuery = "SELECT * FROM Conversations WHERE ConversationID='" + toFind + "'";
-            //String toFind = toQuery;
-            try {
-                statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(toQuery);
-
-                return new Conversation(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getString(6),
-                        resultSet.getString(7),
-                        resultSet.getString(8),
-                        resultSet.getString(9),
-                        resultSet.getString(11),
-                        resultSet.getString(10)
-                );
-            } catch (SQLException exception) {
-                System.err.println("SQLException: " + exception.getMessage());
-            } finally {
-                if (statement != null) {
-                    try {
-                        statement.close();
-                    } catch (SQLException exception) {
-                        System.err.println("SQLException: " + exception.getMessage());
-                    }
-                }
-                if (connection != null) {
-                    try {
-                        connection.close();
-                    } catch (SQLException exception) {
-                        System.err.println("SQLException: " + exception.getMessage());
-                    }
-                }
-            }
-            return null;
-    } // TESTED
-
-    public static ArrayList<Interaction> queryAllInteractions() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
-        String toQuery = "SELECT * FROM UserConversationInteraction";
-        //String toFind = toQuery;
+        String toFind = conversationID.toUpperCase();
+        String toQuery = "SELECT * FROM Conversations WHERE ConversationID='" + toFind + "'";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
-            ArrayList<Interaction> output = new ArrayList<>();
-
-            while (resultSet.next()) {
-                Interaction temp = new Interaction(
-                        resultSet.getString(1),
-                        resultSet.getString(7),
-                        resultSet.getString(3),
-                        resultSet.getString(2),
-                        resultSet.getDate(4),
-                        resultSet.getInt(5),
-                        resultSet.getBoolean(6));
-                output.add(temp);
-            }
-            return output;
-
-
+            return new Conversation(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    resultSet.getString(8),
+                    resultSet.getString(9),
+                    resultSet.getString(11),
+                    resultSet.getString(10)
+            );
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -440,12 +398,65 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries all pair interactions from the database.
+     * @return An arraylist of Interaction objects if there are any, null otherwise
+     */
+    public static ArrayList<Interaction> queryAllInteractions() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM UserConversationInteraction";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+            ArrayList<Interaction> output = new ArrayList<>();
+            while (resultSet.next()) {
+                Interaction temp = new Interaction(
+                        resultSet.getString(1),
+                        resultSet.getString(7),
+                        resultSet.getString(3),
+                        resultSet.getString(2),
+                        resultSet.getDate(4),
+                        resultSet.getInt(5),
+                        resultSet.getBoolean(6));
+                output.add(temp);
+            }
+            return output;
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Queries all pair interactions from the database using the email addresses of a user pair.
+     * The order of the entered email addresses does not matter,
+     * as it returns the distinct values from both select statements.
+     * @param person1Email The email address of the first user.
+     * @param person2Email The email address of the second user.
+     * @return An arraylist of Interaction objects if there are any matches, null otherwise
+     */
     public static ArrayList<Interaction> queryInteractionsBetween(String person1Email, String person2Email) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toQuery = "SELECT * FROM UserConversationInteraction " +
                          "WHERE EmailAddress1='" + person1Email + "' AND EmailAddress2='" + person2Email + "' " +
-                         "UNION ALL " +
+                         "UNION " +
                          "SELECT * FROM UserConversationInteraction " +
                          "WHERE EmailAddress1='" + person2Email + "' AND EmailAddress2='" + person1Email + "'";
         try {
@@ -490,6 +501,10 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries all user activities from the database.
+     * @return An arraylist of UserActivity objects if there are any, null otherwise
+     */
     public static ArrayList<UserActivity> queryAllActivity() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -497,9 +512,7 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             ArrayList<UserActivity> output = new ArrayList<>();
-
             while (resultSet.next()) {
                 UserActivity temp = new UserActivity(
                         resultSet.getString(4),
@@ -511,7 +524,6 @@ public class AppHandler {
                 output.add(temp);
             }
             return output;
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -533,6 +545,12 @@ public class AppHandler {
         return null;
     }
 
+    // FIXME Possible bug when multiple activities are found
+    /**
+     * Queries a user activity from the database using the email address of a user.
+     * @param emailAddress The email address of a user.
+     * @return A UserActivity object if there is a match, null otherwise
+     */
     public static UserActivity queryActivity(String emailAddress) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -541,14 +559,12 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             return new UserActivity(
                     resultSet.getString(4),
                     resultSet.getDate(2),
                     resultSet.getString(1),
                     resultSet.getDate(1)
             );
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -570,6 +586,11 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries a sub-context from the database using its ID.
+     * @param subContextID The ID of the sub-context
+     * @return A SubContext object if there is a match, null otherwise
+     */
     public static SubContext querySubContext(String subContextID) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -578,12 +599,10 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             return new SubContext(
                     resultSet.getString(1),
                     resultSet.getString(2)
             );
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -605,6 +624,10 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries all sub-contexts from the database.
+     * @return An arraylist of SubContext objects if there are any, null otherwise
+     */
     public static ArrayList<SubContext> queryAllSubContext() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -612,9 +635,7 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             ArrayList<SubContext> output = new ArrayList<>();
-
             while (resultSet.next()) {
                 SubContext temp = new SubContext(
                         resultSet.getString(1),
@@ -622,7 +643,6 @@ public class AppHandler {
                 output.add(temp);
             }
             return output;
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -644,7 +664,12 @@ public class AppHandler {
         return null;
     }
 
-    public static Level queryLevel(String levelID){
+    /**
+     * Queries a level from the database using its ID.
+     * @param levelID The ID of the level
+     * @return A Level object if there is a match, null otherwise
+     */
+    public static Level queryLevel(String levelID) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toFind = levelID.toUpperCase();
@@ -652,7 +677,6 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             return new Level(
                     resultSet.getString(1),
                     resultSet.getString(2)
@@ -678,6 +702,10 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries all levels from the database.
+     * @return An arraylist of Level object if there are any, null otherwise
+     */
     public static ArrayList<Level> queryAllLevels() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -685,19 +713,14 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             ArrayList<Level> output = new ArrayList<>();
-
             while (resultSet.next()) {
-
                 Level temp = new Level(
                         resultSet.getString(1),
                         resultSet.getString(2));
                 output.add(temp);
             }
-
             return output;
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -719,6 +742,11 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries a context from the database using its ID.
+     * @param contextID The ID of the context
+     * @return A Context object if there is a match, null otherwise
+     */
     public static Context queryContext(String contextID) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -727,12 +755,10 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             return new Context(
                     resultSet.getString(1),
                     resultSet.getString(2)
             );
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -754,6 +780,10 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries all contexts from the database.
+     * @return An arraylist of Context objects if there are any, null otherwise
+     */
     public static ArrayList<Context> queryAllContext() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -761,9 +791,7 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             ArrayList<Context> output = new ArrayList<>();
-
             while (resultSet.next()) {
 
                 Context temp = new Context(
@@ -771,9 +799,7 @@ public class AppHandler {
                         resultSet.getString(2));
                 output.add(temp);
             }
-
             return output;
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -795,6 +821,11 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries a language from the database using its ID.
+     * @param languageID The ID of the language
+     * @return A Language object if there is a match, null otherwise
+     */
     public static Language queryLanguage(String languageID) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -808,7 +839,6 @@ public class AppHandler {
                     resultSet.getString(1),
                     resultSet.getString(2)
             );
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -830,6 +860,10 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries all languages from the database.
+     * @return An arraylist of Language objects if there are any, null otherwise
+     */
     public static ArrayList<Language> queryAllLanguages() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -837,9 +871,7 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             ArrayList<Language> output = new ArrayList<>();
-
             while (resultSet.next()) {
                 Language temp = new Language(
                         resultSet.getString(1),
@@ -848,7 +880,6 @@ public class AppHandler {
 
             }
             return output;
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -871,10 +902,9 @@ public class AppHandler {
     }
 
     /**
-     * Finds a user with a certain email address in the database.
-     *
+     * Queries a user from the database using their email address.
      * @param emailAddress The email address of the user
-     * @return A user object of the found user, null if no user is found
+     * @return A User object if there is a match, null otherwise
      */
     public static User queryUser(String emailAddress) {
         Connection connection = ConnectDatabase.getConnection();
@@ -883,7 +913,6 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(toQuery);
-
             if (!rs.isBeforeFirst()) {
                 System.out.println("No Data");
                 return null;
@@ -895,7 +924,6 @@ public class AppHandler {
                 String lName = rs.getString("LastName");
                 String userID = rs.getString("UserID");
                 boolean isTeacher = rs.getBoolean("IsTeacher");
-
                 return new User(email, pass, salt, fName, lName, userID, isTeacher);
             }
         } catch (SQLException exception) {
@@ -920,11 +948,10 @@ public class AppHandler {
     }
 
     /**
-     * Finds a user with a certain email address and password in the database.
-     *
+     * Queries a user from the database using their email address and password.
      * @param emailAddress The email address of the user
-     * @param password     The password of the user
-     * @return A user object of the found user, null if no user is found
+     * @param password The password of the user
+     * @return A User object if there is a match, null otherwise
      */
     public static User queryUserWithPass(String emailAddress, String password) {
         Connection connection = ConnectDatabase.getConnection();
@@ -933,7 +960,6 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(toQuery);
-
             if (!rs.isBeforeFirst()) {
                 System.out.println("No Data");
                 return null;
@@ -945,7 +971,6 @@ public class AppHandler {
                 String lName = rs.getString("LastName");
                 String userID = rs.getString("UserID");
                 boolean isTeacher = rs.getBoolean("IsTeacher");
-
                 return new User(email, pass, salt, fName, lName, userID, isTeacher);
             }
         } catch (SQLException exception) {
@@ -970,10 +995,9 @@ public class AppHandler {
     }
 
     /**
-     * Finds an admin with a certain email address in the database.
-     *
+     * Queries an admin from the database using their email address.
      * @param emailAddress The email address of the admin
-     * @return An admin object of the found admin, null if no admin is found
+     * @return An Admin object if there is a match, null otherwise
      */
     public static Admin queryAdmin(String emailAddress) {
         Connection connection = ConnectDatabase.getConnection();
@@ -982,7 +1006,6 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(toQuery);
-
             if (!rs.isBeforeFirst()) {
                 System.out.println("No Data");
                 return null;
@@ -991,7 +1014,6 @@ public class AppHandler {
                 String pass = rs.getString("Pass");
                 String salt = rs.getString("Salt");
                 String adminID = rs.getString("AdminID");
-
                 return new Admin(email, pass, salt, adminID);
             }
         } catch (SQLException exception) {
@@ -1016,11 +1038,10 @@ public class AppHandler {
     }
 
     /**
-     * Finds an admin with a certain email address and password in the database.
-     *
+     * Queries an admin from the database using their email address and password.
      * @param emailAddress The email address of the admin
-     * @param password     The password of the admin
-     * @return An admin object of the found admin, null if no admin is found
+     * @param password The password of the admin
+     * @return An Admin object if there is a match, null otherwise
      */
     public static Admin queryAdminWithPass(String emailAddress, String password) {
         Connection connection = ConnectDatabase.getConnection();
@@ -1060,6 +1081,10 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries all user activity IDs from the database.
+     * @return An arraylist of strings (activity IDs) if there are any, null otherwise
+     */
     public static ArrayList<String> queryAllActivityIDs() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -1071,7 +1096,6 @@ public class AppHandler {
             while (resultSet.next()) {
                 String temp = resultSet.getString(1);
                 output.add(temp);
-
             }
             return output;
         } catch (SQLException exception) {
@@ -1095,6 +1119,10 @@ public class AppHandler {
         return null;
     }
 
+    /**
+     * Queries all user IDs from the database.
+     * @return An arraylist of strings (user IDs) if there are any, null otherwise
+     */
     public static ArrayList<String> queryAllUserIDs() {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -1102,13 +1130,10 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             ArrayList<String> output = new ArrayList<>();
-
             while (resultSet.next()) {
                 String temp = resultSet.getString(1);
                 output.add(temp);
-
             }
             return output;
         } catch (SQLException exception) {

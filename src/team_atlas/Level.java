@@ -1,9 +1,12 @@
 package team_atlas;
 
+/**
+ * The class representing the level entities in the database.
+ * @author Andrzej Baum
+ */
 public class Level {
 
-    private String levelID;
-    private String level;
+    private final String levelID, level;
 
     Level(String levelID,String level){
         this.levelID = levelID;
@@ -14,4 +17,7 @@ public class Level {
         return level;
     }
 
+    public String getLevelID() {
+        return levelID;
+    }
 }

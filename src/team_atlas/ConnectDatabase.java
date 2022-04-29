@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * The class that connects the application to the database.
+ * @author Andrzej Baum
+ */
 public class ConnectDatabase {
 
     public static Connection getConnection() {
