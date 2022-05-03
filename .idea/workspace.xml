@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Fixed no Main class bug">
-      <change afterPath="$PROJECT_DIR$/src/team_atlas/ContextScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/team_atlas/Contextcreen.java.form" afterDir="false" />
+    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="udpate">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/ContextScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/ContextScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/Contextcreen.java.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/Contextcreen.java.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamAtlas.db" beforeDir="false" afterPath="$PROJECT_DIR$/teamAtlas.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Andrzej-PANEL" />
+        <entry key="$PROJECT_DIR$" value="Anas_" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -78,6 +81,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AppHandler" />
         <item itemvalue="Application.AppHandler" />
         <item itemvalue="Application.AppHandler" />
         <item itemvalue="Application.AppHandler" />

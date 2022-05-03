@@ -37,7 +37,7 @@ public class AppHandler {
      * The currently logged-in user.
      * If no user is logged-in, the object is null.
      */
-    static User currentUser = null;
+    static User currentUser = queryUser("test11@test.com");
 
     /**
      * The activity of the current user.
@@ -60,7 +60,8 @@ public class AppHandler {
         });
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        startLoginScreen();
+        //startLoginScreen();
+        startPersonalProgressScreen();
 
 
     }
@@ -125,13 +126,18 @@ public class AppHandler {
      */
     static void startLangSelectionScreen() {
         LanguageScreen languageScreen = new LanguageScreen();
+        conversationQuery = conversationQuery + languageScreen.langSelect;
         MAIN_FRAME.setContentPane(languageScreen.MainLangPanel);
         MAIN_FRAME.setTitle("Team Atlas Language App - Language Selection");
         MAIN_FRAME.setVisible(true);
     }
 
     static void startConSelectionScreen(String langID) {
-
+        ContextScreen contextScreen = new ContextScreen();
+        conversationQuery = conversationQuery + contextScreen.conSelect;
+        MAIN_FRAME.setContentPane(contextScreen.MainConPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Language Selection");
+        MAIN_FRAME.setVisible(true);
     }
 
     static void startSubConSelectionScreen(String langID, String conID) {

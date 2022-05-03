@@ -37,6 +37,7 @@ public class PersonalProgressScreen {
     private JProgressBar progressBar1;
     private JLabel levelLabel;
     private JLabel exp;
+    private JLabel lvl;
 
 
     PersonalProgressScreen(User currentUser) {
@@ -92,7 +93,6 @@ public class PersonalProgressScreen {
 
         HashMap<String, Integer> output = new HashMap<>();
 
-        HashMap<String, Integer> langOverwiev = new HashMap<>();
 
         int hintsCount = 0;
         int completedCount = 0;
@@ -102,14 +102,6 @@ public class PersonalProgressScreen {
         String bestLang;
         String worstLang;
 
-        ArrayList<Language> languages = AppHandler.queryAllLanguages();
-
-        for (int i = 0; i < languages.size(); i++) {
-
-            Language currentLang = languages.get(i);
-            langOverwiev.put(currentLang.getLanguageID(), 0);
-
-        }
 
 
         for (int i = 0; i < interaciton.size(); i++) {
