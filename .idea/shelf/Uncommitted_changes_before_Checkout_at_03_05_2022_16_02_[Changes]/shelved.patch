@@ -1,0 +1,519 @@
+Index: src/team_atlas/AppHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package team_atlas;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.event.WindowAdapter;\r\nimport java.awt.event.WindowEvent;\r\nimport java.sql.*;\r\nimport java.text.ParseException;\r\nimport java.text.SimpleDateFormat;\r\nimport java.util.ArrayList;\r\nimport java.util.Date;\r\nimport java.util.Locale;\r\n\r\n/**\r\n * The Main class where the application starts and runs.\r\n * Handles the switching of panels and database insertion/query statements.\r\n * Holds information about the currently logged-in person.\r\n * @author Andrzej Baum, Dominik Deak\r\n */\r\npublic class AppHandler {\r\n\r\n    /**\r\n     * The window frame of the application.\r\n     * The application switches panels displayed within this frame.\r\n     */\r\n    static final JFrame MAIN_FRAME = new JFrame(\"\");\r\n\r\n    /**\r\n     * The currently logged-in admin.\r\n     * If no admin is logged-in, the object is null.\r\n     */\r\n    static Admin currentAdmin = null;\r\n\r\n    /**\r\n     * The currently logged-in user.\r\n     * If no user is logged-in, the object is null.\r\n     */\r\n    static User currentUser = null;\r\n\r\n    /**\r\n     * The activity of the current user.\r\n     * If no user is logged-in, the object is null.\r\n     */\r\n    static UserActivity currentActivity = null;\r\n\r\n    /**\r\n     * The main method where the application starts.\r\n     * Sets the size and location of the frame and overrides the windowClosing method to call the exit() method.\r\n     * Starts the login screen upon launching the app.\r\n     * @param args The command line arguments\r\n     */\r\n    public static void main(String[] args) {\r\n        System.out.println(\"Application started\");\r\n        MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n        MAIN_FRAME.addWindowListener(new WindowAdapter() {\r\n            @Override\r\n            public void windowClosing(WindowEvent e) {\r\n                exit();\r\n            }\r\n        });\r\n        MAIN_FRAME.setSize(500, 800);\r\n        MAIN_FRAME.setLocationRelativeTo(null);\r\n        startLoginScreen();\r\n\r\n\r\n    }\r\n\r\n    /**\r\n     * Creates a LoginScreen object and\r\n     * switches the panel in the frame of the application to the login panel.\r\n     */\r\n    static void startLoginScreen() {\r\n        LoginScreen loginScreen = new LoginScreen();\r\n        MAIN_FRAME.setContentPane(loginScreen.loginPanel);\r\n        MAIN_FRAME.setTitle(\"Team Atlas Language App - Login\");\r\n        MAIN_FRAME.setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Creates a RegisterScreen object and\r\n     * switches the panel in the frame of the application to the registration panel.\r\n     */\r\n    static void startRegisterScreen() {\r\n        RegisterScreen registerScreen = new RegisterScreen();\r\n        MAIN_FRAME.setContentPane(registerScreen.registerPanel);\r\n        MAIN_FRAME.setTitle(\"Team Atlas Language App - Register\");\r\n        MAIN_FRAME.setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Creates a StudentHomeScreen object and\r\n     * switches the panel in the frame of the application to the student home panel.\r\n     */\r\n    static void startStudentHomeScreen() {\r\n        StudentHomeScreen studentHomeScreen = new StudentHomeScreen();\r\n        MAIN_FRAME.setContentPane(studentHomeScreen.studentHomePanel);\r\n        MAIN_FRAME.setTitle(\"Team Atlas Language App - Student Home\");\r\n        MAIN_FRAME.setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Creates a TeacherHomeScreen object and\r\n     * switches the panel in the frame of the application to the teacher home panel.\r\n     */\r\n    static void startTeacherHomeScreen() {\r\n        TeacherHomeScreen teacherHomeScreen = new TeacherHomeScreen();\r\n        MAIN_FRAME.setContentPane(teacherHomeScreen.teacherHomePanel);\r\n        MAIN_FRAME.setTitle(\"Team Atlas Language App - Teacher Home\");\r\n        MAIN_FRAME.setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Creates a AdminHomeScreen object and\r\n     * switches the panel in the frame of the application to the admin home panel.\r\n     */\r\n    static void startAdminHomeScreen() {\r\n        AdminHomeScreen adminHomeScreen = new AdminHomeScreen();\r\n        MAIN_FRAME.setContentPane(adminHomeScreen.adminHomePanel);\r\n        MAIN_FRAME.setTitle(\"Team Atlas Language App - Admin Home\");\r\n        MAIN_FRAME.setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Switches the application to the language selection panel.\r\n     */\r\n    static void startLangSelectionScreen() {\r\n        LanguageScreen languageScreen = new LanguageScreen();\r\n        MAIN_FRAME.setContentPane(languageScreen.MainLangPanel);\r\n        MAIN_FRAME.setTitle(\"Team Atlas Language App - Language Selection\");\r\n        MAIN_FRAME.setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Switches the application to the level/context/sub-context selection panel.\r\n     */\r\n    static void selectionScreen() {\r\n        SelectScreen selectScreen = new SelectScreen();\r\n        MAIN_FRAME.setContentPane(selectScreen.Main);\r\n        MAIN_FRAME.setTitle(\"Team Atlas Language App - Selection Screen\");\r\n        MAIN_FRAME.setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Switches the application to the interaction pair selection panel.\r\n     */\r\n    static void startPairSelectionScreen() {\r\n        // TODO Switch to the interaction pair selection panel\r\n    }\r\n\r\n    /**\r\n     * Switches the application to the personal student progress analytics panel.\r\n     */\r\n    static void startPersonalProgressScreen() {\r\n        // TODO Switch to the personal student progress analytics panel\r\n    }\r\n\r\n    /**\r\n     * Switches the application to the searched student progress analytics panel.\r\n     */\r\n    static void startStudentProgressScreen() {\r\n        // TODO Switch the application to the searched student progress analytics panel\r\n    }\r\n\r\n    /**\r\n     * Switches the application to the overall progress analytics panel.\r\n     */\r\n    static void startOverallProgressScreen() {\r\n        // TODO Switch to the overall progress analytics panel\r\n    }\r\n\r\n    /**\r\n     * Switches the application to the user data monitoring panel.\r\n     */\r\n    static void startUserDataMonitoringScreen() {\r\n        // TODO Switch to the user data monitoring panel\r\n    }\r\n\r\n    /**\r\n     * Creates a PairMonitoringScreen object and\r\n     * switches the panel in the frame of the application to the pair interaction history analytics monitoring panel.\r\n     */\r\n    static void startPairHistoryScreen() {\r\n        PairMonitoringScreen pairMonitoringScreen = new PairMonitoringScreen();\r\n        MAIN_FRAME.setContentPane(pairMonitoringScreen.pairMonitoringPanel);\r\n        MAIN_FRAME.setTitle(\"Team Atlas Language App - Pair Interaction History\");\r\n        MAIN_FRAME.setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Logs the current user or admin out of the application and switches back to the login screen.\r\n     * Sets the logout timestamp for users and saves their user activity into the database.\r\n     * Intended to be called when a logged-in user/admin presses a logout button on a panel.\r\n     */\r\n    static void logout() {\r\n        if (currentUser != null) {\r\n            if (currentUser.isTeacher()) {\r\n                System.out.println(\"Teacher: '\" + currentUser.getEmailAddress() + \"' logged out\");\r\n            } else {\r\n                System.out.println(\"Student: '\" + currentUser.getEmailAddress() + \"' logged out\");\r\n            }\r\n            currentActivity.setLogoutTimestamp();\r\n            addActivity(currentActivity);\r\n            currentUser = null;\r\n            currentActivity = null;\r\n            startLoginScreen();\r\n        }\r\n        if (currentAdmin != null) {\r\n            System.out.println(\"Admin: '\" + currentAdmin.getEmailAddress() + \"' logged out\");\r\n            currentAdmin = null;\r\n            startLoginScreen();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Sets the logout timestamp for users and saves their user activity into the database.\r\n     * Intended to be called when a logged-in user/admin closes the application window.\r\n     */\r\n    static void exit() {\r\n        if (currentUser != null) {\r\n            if (currentUser.isTeacher()) {\r\n                System.out.println(\"Teacher: '\" + currentUser.getEmailAddress() + \"' exited the application and was logged out\");\r\n            } else {\r\n                System.out.println(\"Student: '\" + currentUser.getEmailAddress() + \"' exited the application and was logged out\");\r\n            }\r\n            currentActivity.setLogoutTimestamp();\r\n            addActivity(currentActivity);\r\n        }\r\n        if (currentAdmin != null) {\r\n            System.out.println(\"Admin: '\" + currentAdmin.getEmailAddress() + \"' exited the application and was logged out\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Passes INSERT statements to the database.\r\n     * @param toQuery The INSERT statement to pass\r\n     */\r\n    private static void insert(String toQuery) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        try {\r\n            System.out.println(\"Inserting\");\r\n            System.out.println(toQuery);\r\n            statement = connection.createStatement();\r\n            statement.executeQuery(toQuery);\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Adds users to the database.\r\n     * @param user The User object to be added\r\n     */\r\n    public static void addUser(User user) {\r\n        String emailAddress = user.getEmailAddress();\r\n        String password = user.getPassword();\r\n        String firstName = user.getFirstName();\r\n        String lastName = user.getLastName();\r\n        String userID = user.getUserID();\r\n        String salt = user.getSalt();\r\n        boolean isTeacher = user.isTeacher();\r\n        String Statement = \"INSERT INTO RegularUser (\" +\r\n                \"EmailAddress,\" +\r\n                \"Pass,\" +\r\n                \"UserID,\" +\r\n                \"FirstName,\" +\r\n                \"LastName,\" +\r\n                \"IsTeacher,\" +\r\n                \"Salt\" +\r\n                \")\" +\r\n                \" VALUES (\" +\r\n                \"'\" + emailAddress + \"',\" +\r\n                \"'\" + password + \"',\" +\r\n                \"'\" + userID + \"',\" +\r\n                \"'\" + firstName + \"',\" +\r\n                \"'\" + lastName + \"',\" +\r\n                \"\" + isTeacher + \",\" +\r\n                \"'\" + salt + \"'\" +\r\n                \");\";\r\n        System.out.println(Statement);\r\n        insert(Statement);\r\n    }\r\n\r\n    /**\r\n     * Adds user activities to the database.\r\n     * @param activity the UserActivity object to be added\r\n     */\r\n    public static void addActivity(UserActivity activity) {\r\n        Date loginTimeStamp = activity.getLoginTimestamp();\r\n        Date logoutTimeStamp = activity.getLogoutTimestamp();\r\n        String emailAddress = activity.getEmailAddress();\r\n        String ID = activity.getActivityID();\r\n        String Statement = \"INSERT INTO UserActivity (\" +\r\n                \"activityID,\" +\r\n                \"loginTimestamp,\" +\r\n                \"logoutTimestamp,\" +\r\n                \"EmailAddress\" +\r\n                \")\" +\r\n                \" VALUES (\" +\r\n                \"'\" + ID + \"',\" +\r\n                \"'\" + loginTimeStamp + \"',\" +\r\n                \"'\" + logoutTimeStamp + \"',\" +\r\n                \"'\" + emailAddress + \"'\" +\r\n                \");\";\r\n        System.out.println(Statement);\r\n        insert(Statement);\r\n    }\r\n\r\n    /**\r\n     * Adds pair interactions to the database.\r\n     * @param interaction the Interaction object to be added\r\n     */\r\n    public static void addInteraction(Interaction interaction) {\r\n        String User1 = interaction.getEmailAddressUser1();\r\n        String User2 = interaction.getEmailAddressUser2();\r\n        String pairID = interaction.getPairID();\r\n        String conversationID = interaction.getConversationID();\r\n        String dateAndTime = interaction.getInteractionDateAndTime().toString();\r\n        int hintsUSed = interaction.getHintsUsed();\r\n        boolean isCompletedInfo = interaction.isConversationCompleted();\r\n        int isCompleted;\r\n        if (isCompletedInfo) {\r\n            isCompleted = 1;\r\n        } else {\r\n            isCompleted = 0;\r\n        }\r\n        String Statement = \"INSERT INTO UserConversationInteraction (\" +\r\n                \"EmailAddress1,\" +\r\n                \"ConversationID,\" +\r\n                \"pairID,\" +\r\n                \"interactionDateAndTime,\" +\r\n                \"NumOfHintsUSed,\" +\r\n                \"ConversationCompleted,\" +\r\n                \"EmailAddress2\" +\r\n                \")\" +\r\n                \" VALUES (\" +\r\n                \"'\" + User1 + \"',\" +\r\n                \"'\" + conversationID + \"',\" +\r\n                \"'\" + pairID + \"',\" +\r\n                \"'\" + dateAndTime + \"',\" +\r\n                \"\" + hintsUSed + \",\" +\r\n                \"\" + isCompleted + \",\" +\r\n                \"'\" + User2 + \"'\" +\r\n                \");\";\r\n        insert(Statement);\r\n    }\r\n\r\n    /**\r\n     * Queries a conversation from the database using its ID.\r\n     * @param conversationID The ID of the conversation\r\n     * @return A Conversation object if there is a match, null otherwise\r\n     */\r\n    public static Conversation queryConversation(String conversationID) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toFind = conversationID.toUpperCase();\r\n        String toQuery = \"SELECT * FROM Conversations WHERE ConversationID='\" + toFind + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            return new Conversation(\r\n                    resultSet.getString(1),\r\n                    resultSet.getString(2),\r\n                    resultSet.getString(3),\r\n                    resultSet.getString(4),\r\n                    resultSet.getString(5),\r\n                    resultSet.getString(6),\r\n                    resultSet.getString(7),\r\n                    resultSet.getString(8),\r\n                    resultSet.getString(9),\r\n                    resultSet.getString(11),\r\n                    resultSet.getString(10)\r\n            );\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all pair interactions from the database.\r\n     * @return An arraylist of Interaction objects if there are any, null otherwise\r\n     */\r\n    public static ArrayList<Interaction> queryAllInteractions() {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM UserConversationInteraction\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<Interaction> output = new ArrayList<>();\r\n            while (resultSet.next()) {\r\n                Interaction temp = new Interaction(\r\n                        resultSet.getString(1),\r\n                        resultSet.getString(7),\r\n                        resultSet.getString(3),\r\n                        resultSet.getString(2),\r\n                        resultSet.getDate(4),\r\n                        resultSet.getInt(5),\r\n                        resultSet.getBoolean(6));\r\n                output.add(temp);\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all pair interactions from the database using the email addresses of a user pair.\r\n     * The order of the entered email addresses does not matter,\r\n     * as it returns the distinct values from both select statements.\r\n     * @param person1Email The email address of the first user.\r\n     * @param person2Email The email address of the second user.\r\n     * @return An arraylist of Interaction objects if there are any matches, null otherwise\r\n     */\r\n    public static ArrayList<Interaction> queryInteractionsBetween(String person1Email, String person2Email) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM UserConversationInteraction \" +\r\n                         \"WHERE EmailAddress1='\" + person1Email + \"' AND EmailAddress2='\" + person2Email + \"' \" +\r\n                         \"UNION \" +\r\n                         \"SELECT * FROM UserConversationInteraction \" +\r\n                         \"WHERE EmailAddress1='\" + person2Email + \"' AND EmailAddress2='\" + person1Email + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<Interaction> output = new ArrayList<>();\r\n            SimpleDateFormat dateFormat = new SimpleDateFormat(\"EE MMM dd HH:mm:ss z yyyy\", Locale.ENGLISH);\r\n            Date date;\r\n            while (resultSet.next()) {\r\n                date = dateFormat.parse(resultSet.getString(4));\r\n                Interaction temp = new Interaction(\r\n                        resultSet.getString(1),\r\n                        resultSet.getString(7),\r\n                        resultSet.getString(3),\r\n                        resultSet.getString(2),\r\n                        date,\r\n                        resultSet.getInt(5),\r\n                        resultSet.getBoolean(6));\r\n                output.add(temp);\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } catch (ParseException exception) {\r\n            System.err.println(\"ParseException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all user activities from the database.\r\n     * @return An arraylist of UserActivity objects if there are any, null otherwise\r\n     */\r\n    public static ArrayList<UserActivity> queryAllActivity() {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM UserActivity\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<UserActivity> output = new ArrayList<>();\r\n            while (resultSet.next()) {\r\n                UserActivity temp = new UserActivity(\r\n                        resultSet.getString(4),\r\n                        resultSet.getDate(2),\r\n                        resultSet.getString(1),\r\n                        resultSet.getDate(1)\r\n\r\n                );\r\n                output.add(temp);\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    // FIXME Possible bug when multiple activities are found\r\n    /**\r\n     * Queries a user activity from the database using the email address of a user.\r\n     * @param emailAddress The email address of a user.\r\n     * @return A UserActivity object if there is a match, null otherwise\r\n     */\r\n    public static UserActivity queryActivity(String emailAddress) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toFind = emailAddress.toLowerCase();\r\n        String toQuery = \"SELECT * FROM UserActivity WHERE EmailAddress='\" + toFind + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            return new UserActivity(\r\n                    resultSet.getString(4),\r\n                    resultSet.getDate(2),\r\n                    resultSet.getString(1),\r\n                    resultSet.getDate(1)\r\n            );\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries a sub-context from the database using its ID.\r\n     * @param subContextID The ID of the sub-context\r\n     * @return A SubContext object if there is a match, null otherwise\r\n     */\r\n    public static SubContext querySubContext(String subContextID) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toFind = subContextID.toUpperCase();\r\n        String toQuery = \"SELECT * FROM SubContext WHERE SubContextID='\" + toFind + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            return new SubContext(\r\n                    resultSet.getString(1),\r\n                    resultSet.getString(2)\r\n            );\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all sub-contexts from the database.\r\n     * @return An arraylist of SubContext objects if there are any, null otherwise\r\n     */\r\n    public static ArrayList<SubContext> queryAllSubContext() {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM SubContext\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<SubContext> output = new ArrayList<>();\r\n            while (resultSet.next()) {\r\n                SubContext temp = new SubContext(\r\n                        resultSet.getString(1),\r\n                        resultSet.getString(2));\r\n                output.add(temp);\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries a level from the database using its ID.\r\n     * @param levelID The ID of the level\r\n     * @return A Level object if there is a match, null otherwise\r\n     */\r\n    public static Level queryLevel(String levelID) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toFind = levelID.toUpperCase();\r\n        String toQuery = \"SELECT * FROM Levels WHERE levelID='\" + toFind + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            return new Level(\r\n                    resultSet.getString(1),\r\n                    resultSet.getString(2)\r\n            );\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all levels from the database.\r\n     * @return An arraylist of Level object if there are any, null otherwise\r\n     */\r\n    public static ArrayList<Level> queryAllLevels() {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM Levels\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<Level> output = new ArrayList<>();\r\n            while (resultSet.next()) {\r\n                Level temp = new Level(\r\n                        resultSet.getString(1),\r\n                        resultSet.getString(2));\r\n                output.add(temp);\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries a context from the database using its ID.\r\n     * @param contextID The ID of the context\r\n     * @return A Context object if there is a match, null otherwise\r\n     */\r\n    public static Context queryContext(String contextID) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toFind = contextID.toUpperCase();\r\n        String toQuery = \"SELECT * FROM Context WHERE contextID = '\" + toFind + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            return new Context(\r\n                    resultSet.getString(1),\r\n                    resultSet.getString(2)\r\n            );\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all contexts from the database.\r\n     * @return An arraylist of Context objects if there are any, null otherwise\r\n     */\r\n    public static ArrayList<Context> queryAllContext() {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM Context\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<Context> output = new ArrayList<>();\r\n            while (resultSet.next()) {\r\n\r\n                Context temp = new Context(\r\n                        resultSet.getString(1),\r\n                        resultSet.getString(2));\r\n                output.add(temp);\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries a language from the database using its ID.\r\n     * @param languageID The ID of the language\r\n     * @return A Language object if there is a match, null otherwise\r\n     */\r\n    public static Language queryLanguage(String languageID) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toFind = languageID.toUpperCase();\r\n        String toQuery = \"SELECT * FROM Lang WHERE languageID='\" + toFind + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n\r\n            return new Language(\r\n                    resultSet.getString(1),\r\n                    resultSet.getString(2)\r\n            );\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all languages from the database.\r\n     * @return An arraylist of Language objects if there are any, null otherwise\r\n     */\r\n    public static ArrayList<Language> queryAllLanguages() {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM Lang\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<Language> output = new ArrayList<>();\r\n            while (resultSet.next()) {\r\n                Language temp = new Language(\r\n                        resultSet.getString(1),\r\n                        resultSet.getString(2));\r\n                output.add(temp);\r\n\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries a user from the database using their email address.\r\n     * @param emailAddress The email address of the user\r\n     * @return A User object if there is a match, null otherwise\r\n     */\r\n    public static User queryUser(String emailAddress) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM RegularUser WHERE EmailAddress='\" + emailAddress + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet rs = statement.executeQuery(toQuery);\r\n            if (!rs.isBeforeFirst()) {\r\n                System.out.println(\"No Data\");\r\n                return null;\r\n            } else {\r\n                String email = rs.getString(\"EmailAddress\");\r\n                String pass = rs.getString(\"Pass\");\r\n                String salt = rs.getString(\"Salt\");\r\n                String fName = rs.getString(\"FirstName\");\r\n                String lName = rs.getString(\"LastName\");\r\n                String userID = rs.getString(\"UserID\");\r\n                boolean isTeacher = rs.getBoolean(\"IsTeacher\");\r\n                return new User(email, pass, salt, fName, lName, userID, isTeacher);\r\n            }\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries a user from the database using their email address and password.\r\n     * @param emailAddress The email address of the user\r\n     * @param password The password of the user\r\n     * @return A User object if there is a match, null otherwise\r\n     */\r\n    public static User queryUserWithPass(String emailAddress, String password) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM RegularUser WHERE EmailAddress='\" + emailAddress + \"' AND Pass = '\" + password + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet rs = statement.executeQuery(toQuery);\r\n            if (!rs.isBeforeFirst()) {\r\n                System.out.println(\"No Data\");\r\n                return null;\r\n            } else {\r\n                String email = rs.getString(\"EmailAddress\");\r\n                String pass = rs.getString(\"Pass\");\r\n                String salt = rs.getString(\"Salt\");\r\n                String fName = rs.getString(\"FirstName\");\r\n                String lName = rs.getString(\"LastName\");\r\n                String userID = rs.getString(\"UserID\");\r\n                boolean isTeacher = rs.getBoolean(\"IsTeacher\");\r\n                return new User(email, pass, salt, fName, lName, userID, isTeacher);\r\n            }\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries an admin from the database using their email address.\r\n     * @param emailAddress The email address of the admin\r\n     * @return An Admin object if there is a match, null otherwise\r\n     */\r\n    public static Admin queryAdmin(String emailAddress) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM Administrator WHERE EmailAddress='\" + emailAddress + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet rs = statement.executeQuery(toQuery);\r\n            if (!rs.isBeforeFirst()) {\r\n                System.out.println(\"No Data\");\r\n                return null;\r\n            } else {\r\n                String email = rs.getString(\"EmailAddress\");\r\n                String pass = rs.getString(\"Pass\");\r\n                String salt = rs.getString(\"Salt\");\r\n                String adminID = rs.getString(\"AdminID\");\r\n                return new Admin(email, pass, salt, adminID);\r\n            }\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries an admin from the database using their email address and password.\r\n     * @param emailAddress The email address of the admin\r\n     * @param password The password of the admin\r\n     * @return An Admin object if there is a match, null otherwise\r\n     */\r\n    public static Admin queryAdminWithPass(String emailAddress, String password) {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT * FROM Administrator WHERE EmailAddress='\" + emailAddress + \"' AND Pass = '\" + password + \"'\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet rs = statement.executeQuery(toQuery);\r\n            if (!rs.isBeforeFirst()) {\r\n                System.out.println(\"No Data\");\r\n                return null;\r\n            } else {\r\n                String email = rs.getString(\"EmailAddress\");\r\n                String pass = rs.getString(\"Pass\");\r\n                String salt = rs.getString(\"Salt\");\r\n                String adminID = rs.getString(\"AdminID\");\r\n                return new Admin(email, pass, salt, adminID);\r\n            }\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all user activity IDs from the database.\r\n     * @return An arraylist of strings (activity IDs) if there are any, null otherwise\r\n     */\r\n    public static ArrayList<String> queryAllActivityIDs() {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT activityID FROM UserActivity\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<String> output = new ArrayList<>();\r\n            while (resultSet.next()) {\r\n                String temp = resultSet.getString(1);\r\n                output.add(temp);\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n\r\n    /**\r\n     * Queries all user IDs from the database.\r\n     * @return An arraylist of strings (user IDs) if there are any, null otherwise\r\n     */\r\n    public static ArrayList<String> queryAllUserIDs() {\r\n        Connection connection = ConnectDatabase.getConnection();\r\n        Statement statement = null;\r\n        String toQuery = \"SELECT UserID FROM RegularUser\";\r\n        try {\r\n            statement = connection.createStatement();\r\n            ResultSet resultSet = statement.executeQuery(toQuery);\r\n            ArrayList<String> output = new ArrayList<>();\r\n            while (resultSet.next()) {\r\n                String temp = resultSet.getString(1);\r\n                output.add(temp);\r\n            }\r\n            return output;\r\n        } catch (SQLException exception) {\r\n            System.err.println(\"SQLException: \" + exception.getMessage());\r\n        } finally {\r\n            if (statement != null) {\r\n                try {\r\n                    statement.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n            if (connection != null) {\r\n                try {\r\n                    connection.close();\r\n                } catch (SQLException exception) {\r\n                    System.err.println(\"SQLException: \" + exception.getMessage());\r\n                }\r\n            }\r\n        }\r\n        return null;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/team_atlas/AppHandler.java b/src/team_atlas/AppHandler.java
+--- a/src/team_atlas/AppHandler.java	(revision 1336d5b508e2c05bed808dac8bd39e95bff511d1)
++++ b/src/team_atlas/AppHandler.java	(date 1651587229810)
+@@ -59,7 +59,8 @@
+         });
+         MAIN_FRAME.setSize(500, 800);
+         MAIN_FRAME.setLocationRelativeTo(null);
+-        startLoginScreen();
++        //startLoginScreen();
++        startOverallProgressScreen();
+ 
+ 
+     }
+@@ -451,6 +452,51 @@
+         return null;
+     }
+ 
++    /**
++     * Queries all pair interactions from the database of particular user.
++     * @return An arraylist of Interaction objects if there are any, null otherwise
++     */
++    public static ArrayList<Interaction> queryAllInteractionsOf(String emailAddres) {
++        Connection connection = ConnectDatabase.getConnection();
++        Statement statement = null;
++        String toQuery = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + emailAddres + "' OR EmailAddress2='" + emailAddres + "' ";
++        try {
++            statement = connection.createStatement();
++            ResultSet resultSet = statement.executeQuery(toQuery);
++            ArrayList<Interaction> output = new ArrayList<>();
++            while (resultSet.next()) {
++                Interaction temp = new Interaction(
++                        resultSet.getString(1),
++                        resultSet.getString(7),
++                        resultSet.getString(3),
++                        resultSet.getString(2),
++                        resultSet.getDate(4),
++                        resultSet.getInt(5),
++                        resultSet.getBoolean(6));
++                output.add(temp);
++            }
++            return output;
++        } catch (SQLException exception) {
++            System.err.println("SQLException: " + exception.getMessage());
++        } finally {
++            if (statement != null) {
++                try {
++                    statement.close();
++                } catch (SQLException exception) {
++                    System.err.println("SQLException: " + exception.getMessage());
++                }
++            }
++            if (connection != null) {
++                try {
++                    connection.close();
++                } catch (SQLException exception) {
++                    System.err.println("SQLException: " + exception.getMessage());
++                }
++            }
++        }
++        return null;
++    }
++
+     /**
+      * Queries all pair interactions from the database using the email addresses of a user pair.
+      * The order of the entered email addresses does not matter,
+@@ -932,7 +978,8 @@
+                 String lName = rs.getString("LastName");
+                 String userID = rs.getString("UserID");
+                 boolean isTeacher = rs.getBoolean("IsTeacher");
+-                return new User(email, pass, salt, fName, lName, userID, isTeacher);
++                Integer experience = rs.getInt("Experience");
++                return new User(email, pass, salt, fName, lName, userID, isTeacher, experience);
+             }
+         } catch (SQLException exception) {
+             System.err.println("SQLException: " + exception.getMessage());
+@@ -979,7 +1026,8 @@
+                 String lName = rs.getString("LastName");
+                 String userID = rs.getString("UserID");
+                 boolean isTeacher = rs.getBoolean("IsTeacher");
+-                return new User(email, pass, salt, fName, lName, userID, isTeacher);
++                Integer experience = rs.getInt("Experience");
++                return new User(email, pass, salt, fName, lName, userID, isTeacher, experience);
+             }
+         } catch (SQLException exception) {
+             System.err.println("SQLException: " + exception.getMessage());
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1651581497313)
++++ b/.idea/modules.xml	(date 1651581497313)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/Team_Atlas_Group_Project.iml" filepath="$PROJECT_DIR$/Team_Atlas_Group_Project.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: src/team_atlas/startPersonalProgressScreen.form
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/team_atlas/startPersonalProgressScreen.form b/src/team_atlas/startPersonalProgressScreen.form
+new file mode 100644
+--- /dev/null	(date 1651590081147)
++++ b/src/team_atlas/startPersonalProgressScreen.form	(date 1651590081147)
+@@ -0,0 +1,193 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="team_atlas.startPersonalProgressScreen">
++  <grid id="27dc6" binding="completedPerTotal" layout-manager="GridLayoutManager" row-count="11" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
++    <margin top="0" left="0" bottom="0" right="0"/>
++    <constraints>
++      <xy x="27" y="29" width="849" height="391"/>
++    </constraints>
++    <properties/>
++    <border type="none"/>
++    <children>
++      <vspacer id="7ac9e">
++        <constraints>
++          <grid row="1" column="6" row-span="9" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
++        </constraints>
++      </vspacer>
++      <component id="c79a5" class="javax.swing.JButton" binding="backHome">
++        <constraints>
++          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Back Home"/>
++        </properties>
++      </component>
++      <component id="a9be4" class="javax.swing.JButton" binding="logOut">
++        <constraints>
++          <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Logout"/>
++        </properties>
++      </component>
++      <vspacer id="870db">
++        <constraints>
++          <grid row="1" column="0" row-span="9" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
++        </constraints>
++      </vspacer>
++      <component id="f8d30" class="javax.swing.JLabel" binding="userDetails">
++        <constraints>
++          <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++      <hspacer id="5470c">
++        <constraints>
++          <grid row="0" column="0" row-span="1" col-span="7" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
++        </constraints>
++      </hspacer>
++      <hspacer id="58b57">
++        <constraints>
++          <grid row="10" column="0" row-span="1" col-span="7" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
++        </constraints>
++      </hspacer>
++      <component id="1e64e" class="javax.swing.JLabel" binding="allHints">
++        <constraints>
++          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Hints used:"/>
++        </properties>
++      </component>
++      <component id="45a68" class="javax.swing.JLabel" binding="hintPerInteraction">
++        <constraints>
++          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Avarage hints per itneraction"/>
++        </properties>
++      </component>
++      <component id="b3341" class="javax.swing.JLabel" binding="bestLang">
++        <constraints>
++          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Best Language"/>
++        </properties>
++      </component>
++      <component id="e043f" class="javax.swing.JLabel" binding="worstLang">
++        <constraints>
++          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Wort Language"/>
++        </properties>
++      </component>
++      <component id="8ebbe" class="javax.swing.JLabel" binding="conversationCompleted">
++        <constraints>
++          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Conversations completed"/>
++        </properties>
++      </component>
++      <hspacer id="98c1f">
++        <constraints>
++          <grid row="2" column="1" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
++        </constraints>
++      </hspacer>
++      <hspacer id="bec49">
++        <constraints>
++          <grid row="8" column="1" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
++        </constraints>
++      </hspacer>
++      <component id="a340" class="javax.swing.JLabel" binding="progress">
++        <constraints>
++          <grid row="6" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Progress"/>
++        </properties>
++      </component>
++      <component id="6617" class="javax.swing.JLabel" binding="completedVsTotal">
++        <constraints>
++          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value="Avarage completed"/>
++        </properties>
++      </component>
++      <component id="57ff1" class="javax.swing.JLabel" binding="hintCount">
++        <constraints>
++          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++      <component id="abf86" class="javax.swing.JLabel" binding="hintAvarage">
++        <constraints>
++          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++      <component id="3098d" class="javax.swing.JLabel" binding="completedCount">
++        <constraints>
++          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++      <component id="772f5" class="javax.swing.JLabel" binding="langID">
++        <constraints>
++          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++      <component id="8dcaa" class="javax.swing.JLabel" binding="wLangId">
++        <constraints>
++          <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++      <component id="7ac91" class="javax.swing.JLabel" binding="comVsTotCount">
++        <constraints>
++          <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++      <component id="b0eb6" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
++        <constraints>
++          <grid row="7" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties/>
++      </component>
++      <component id="1cb7e" class="javax.swing.JLabel" binding="levelLabel">
++        <constraints>
++          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++      <component id="cedbb" class="javax.swing.JLabel" binding="exp">
++        <constraints>
++          <grid row="7" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
++        </constraints>
++        <properties>
++          <text value=""/>
++        </properties>
++      </component>
++    </children>
++  </grid>
++</form>
+Index: src/team_atlas/RegisterScreen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package team_atlas;\r\n\r\nimport javax.swing.*;\r\nimport java.util.ArrayList;\r\nimport java.util.Random;\r\nimport java.util.regex.Matcher;\r\nimport java.util.regex.Pattern;\r\n\r\nimport static team_atlas.AppHandler.MAIN_FRAME;\r\n\r\n/**\r\n * The registration panel of the application.\r\n * Contains first/last name fields, an email address field, and password/password confirmation fields.\r\n * Contains a button that displays information about the password requirements,\r\n * a button that takes the person back to the login screen and a register button.\r\n * @author Dominik Deak\r\n */\r\npublic class RegisterScreen {\r\n\r\n    JPanel registerPanel, firstNameLabel, lastNameLabel, emailLabel, passwordLabel, confirmPasswordLabel;\r\n    JTextField firstNameField, lastNameField, emailField, passwordField, confirmPasswordField;\r\n    JButton registerButton, backToLoginButton, informationButton;\r\n\r\n    RegisterScreen() {\r\n        System.out.println(\"Registration panel started\");\r\n        informationButton.addActionListener(e -> JOptionPane.showMessageDialog(MAIN_FRAME, \"\"\"\r\n                Your password must contain:\r\n                    - A capital letter\r\n                    - A lowercase letter\r\n                    - A number\r\n                And it must be at least 8 characters long\"\"\"));\r\n        backToLoginButton.addActionListener(e -> AppHandler.startLoginScreen());\r\n        registerButton.addActionListener(e -> registerUser());\r\n    }\r\n\r\n    /**\r\n     * Registers a new user after successful validation,\r\n     * and if the details are unique to all database entries.\r\n     * For security reasons, registered users will only be added as students.\r\n     */\r\n    private void registerUser() {\r\n        String firstName = firstNameField.getText();\r\n        String lastName = lastNameField.getText();\r\n        String emailAddress = emailField.getText();\r\n        String password = passwordField.getText();\r\n        String confirmedPassword = confirmPasswordField.getText();\r\n        if (firstName.isEmpty() || lastName.isEmpty() || emailAddress.isEmpty() || password.isEmpty() || confirmedPassword.isEmpty()) {\r\n            JOptionPane.showMessageDialog(MAIN_FRAME, \"You must fill out all fields\");\r\n        } else if (firstName.contains(\" \") || lastName.contains(\" \") || emailAddress.contains(\" \") || password.contains(\" \") || confirmedPassword.contains(\" \")) {\r\n            JOptionPane.showMessageDialog(MAIN_FRAME, \"You must not enter any whitespaces\");\r\n        } else {\r\n            boolean detailsValid = validateInput(firstName, lastName, emailAddress, password, confirmedPassword);\r\n            if (detailsValid) {\r\n                User user = AppHandler.queryUser(emailAddress);\r\n                Admin admin = AppHandler.queryAdmin(emailAddress);\r\n                if (user != null || admin != null) {\r\n                    JOptionPane.showMessageDialog(MAIN_FRAME, \"Email address is already in use\");\r\n                } else {\r\n                    ArrayList<String> existingIDs = AppHandler.queryAllUserIDs();\r\n                    String userID;\r\n                    if (existingIDs != null) {\r\n                        do {\r\n                            userID = \"u\" + new Random().nextInt(10) + (10000000 + new Random().nextInt(90000000));\r\n                        } while (existingIDs.contains(userID));\r\n                    } else {\r\n                        userID = \"u\" + new Random().nextInt(10) + (10000000 + new Random().nextInt(90000000));\r\n                    }\r\n                    String salt = PasswordUtility.generateSalt();\r\n                    String saltedPassword = PasswordUtility.generatePassWithSalt(password, salt);\r\n                    user = new User(emailAddress, saltedPassword, salt, firstName, lastName, userID, false);\r\n                    AppHandler.addUser(user);\r\n                    JOptionPane.showMessageDialog(MAIN_FRAME, \"Registration successful\");\r\n                    AppHandler.startLoginScreen();\r\n                }\r\n            } else {\r\n                JOptionPane.showMessageDialog(MAIN_FRAME, \"Invalid details entered\");\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Validates user input using regex.\r\n     * @param firstName The first name of the person\r\n     * @param lastName The last name of the person\r\n     * @param emailAddress The email address of the person\r\n     * @param password The password of the person\r\n     * @param confirmedPassword The confirmed password of the person\r\n     * @return true if the entered details match the specified regex patters, false otherwise\r\n     */\r\n    private boolean validateInput(String firstName, String lastName, String emailAddress, String password, String confirmedPassword) {\r\n        boolean firstNameValid = false;\r\n        boolean lastNameValid = false;\r\n        boolean emailAddressValid = false;\r\n        boolean passwordValid = false;\r\n        // Starts with capital letter, followed by lowercase letters\r\n        String nameRegex = \"^[A-Z][a-zA-Z]*$\";\r\n        // Explanation: https://www.w3schools.blog/validate-email-regular-expression-regex-java\r\n        String emailAddressRegex = \"^[_A-Za-z\\\\d-]+(\\\\.[_A-Za-z\\\\d-]+)*@[A-Za-z\\\\d-]+(\\\\.[A-Za-z\\\\d]+)*(\\\\.[A-Za-z]{2,})$\";\r\n        // At least 8 characters, containing an uppercase letter, lowercase letter, number\r\n        String passwordRegex = \"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\\\d).{8,}$\";\r\n        Pattern pattern = Pattern.compile(nameRegex);\r\n        Matcher matcher = pattern.matcher(firstName);\r\n        if (matcher.matches()) {\r\n            firstNameValid = true;\r\n        }\r\n        matcher = pattern.matcher(lastName);\r\n        if (matcher.matches()) {\r\n            lastNameValid = true;\r\n        }\r\n        pattern = Pattern.compile(emailAddressRegex);\r\n        matcher = pattern.matcher(emailAddress);\r\n        if (matcher.matches()) {\r\n            emailAddressValid = true;\r\n        }\r\n        if (password.equals(confirmedPassword)) {\r\n            pattern = Pattern.compile(passwordRegex);\r\n            matcher = pattern.matcher(password);\r\n            if (matcher.matches()) {\r\n                passwordValid = true;\r\n            }\r\n        }\r\n        return firstNameValid && lastNameValid && emailAddressValid && passwordValid;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/team_atlas/RegisterScreen.java b/src/team_atlas/RegisterScreen.java
+--- a/src/team_atlas/RegisterScreen.java	(revision 1336d5b508e2c05bed808dac8bd39e95bff511d1)
++++ b/src/team_atlas/RegisterScreen.java	(date 1651587033851)
+@@ -67,7 +67,7 @@
+                     }
+                     String salt = PasswordUtility.generateSalt();
+                     String saltedPassword = PasswordUtility.generatePassWithSalt(password, salt);
+-                    user = new User(emailAddress, saltedPassword, salt, firstName, lastName, userID, false);
++                    user = new User(emailAddress, saltedPassword, salt, firstName, lastName, userID, false, 0);
+                     AppHandler.addUser(user);
+                     JOptionPane.showMessageDialog(MAIN_FRAME, "Registration successful");
+                     AppHandler.startLoginScreen();
+Index: src/team_atlas/startPersonalProgressScreen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/team_atlas/startPersonalProgressScreen.java b/src/team_atlas/startPersonalProgressScreen.java
+new file mode 100644
+--- /dev/null	(date 1651590081151)
++++ b/src/team_atlas/startPersonalProgressScreen.java	(date 1651590081151)
+@@ -0,0 +1,134 @@
++package team_atlas;
++
++import javax.swing.*;
++import java.util.ArrayList;
++import java.util.HashMap;
++
++public class startPersonalProgressScreen {
++
++    private User currentUser;
++    private ArrayList<Interaction> interactions;
++    private HashMap<String, Integer> extractInfo;
++    private int experience;
++    private int level = 0;
++    private JButton backHome;
++    private JButton logOut;
++    private JLabel userDetails;
++    private JLabel allHints;
++    private JLabel hintPerInteraction;
++    private JLabel conversationCompleted;
++    private JPanel completedPerTotal;
++    private JLabel completedVsTotal;
++    private JLabel bestLang;
++    private JLabel worstLang;
++    private JLabel progress;
++    private JLabel hintCount;
++    private JLabel hintAvarage;
++    private JLabel completedCount;
++    private JLabel langID;
++    private JLabel wLangId;
++    private JLabel comVsTotCount;
++    private JProgressBar progressBar1;
++    private JLabel levelLabel;
++    private JLabel exp;
++
++
++    startPersonalProgressScreen(User currentUser) {
++
++        this.currentUser = currentUser;
++        this.experience = currentUser.getExperience();
++        interactions = AppHandler.queryAllInteractionsOf(currentUser.getEmailAddress());
++        this.extractInfo = extractInfo(interactions);
++
++        backHome.addActionListener(e -> AppHandler.startAdminHomeScreen());
++        logOut.addActionListener(e -> AppHandler.logout());
++
++        progressBar1.setValue(0);
++
++        int min = 0;
++        int max = 100;
++        int experienceToDisply = experience;
++        boolean sentilen = true;
++
++        while(sentilen){
++            if(experienceToDisply  > max){
++                max = max + 20;
++                experienceToDisply = experienceToDisply - max;
++                level++;
++            }else{
++                progressBar1.setValue(experienceToDisply);
++                progressBar1 = new JProgressBar(min, max);
++            }
++        }
++
++        userDetails.setText("Current user" + currentUser.getFirstName() + " " + currentUser.getLastName());
++        hintCount.setText(Integer.toString(extractInfo.get(0)));
++        hintAvarage.setText(Integer.toString(extractInfo.get(1)));
++        completedCount.setText(Integer.toString(extractInfo.get(2)));
++        langID.setText("None");
++        wLangId.setText("None");
++        comVsTotCount.setText(Integer.toString(extractInfo.get(5)));
++        levelLabel.setText(Integer.toString(level));
++        exp.setText(Integer.toString(experience));
++
++
++
++
++
++    }
++
++
++
++    public HashMap<String, Integer> extractInfo(ArrayList<Interaction> interaciton) {
++
++        HashMap<String, Integer> output = new HashMap<>();
++
++        HashMap<String, Integer> langOverwiev = new HashMap<>();
++
++        int hintsCount = 0;
++        int completedCount = 0;
++        int totalConversationCount = 0;
++        int avarageHintPerInteraction = 0;
++        int avarageCompletedCount = 0;
++        String bestLang;
++        String worstLang;
++
++        ArrayList<Language> languages = AppHandler.queryAllLanguages();
++
++        for (int i = 0; i < languages.size(); i++) {
++
++            Language currentLang = languages.get(i);
++            langOverwiev.put(currentLang.getLanguageID(), 0);
++
++        }
++
++
++        for (int i = 0; i < interaciton.size(); i++) {
++            Interaction currentInteraction = interaciton.get(i);
++            int hintsUsed = currentInteraction.getHintsUsed();
++            hintsCount = hintsCount + hintsUsed;
++
++            if (currentInteraction.isConversationCompleted() == true) {
++                completedCount++;
++            }
++            totalConversationCount++;
++
++
++        }
++
++        avarageHintPerInteraction = hintsCount / totalConversationCount;
++        avarageCompletedCount = completedCount / totalConversationCount;
++
++        output.put("allHints", hintsCount);
++        output.put("hintPerInteraction", avarageHintPerInteraction);
++        output.put("conversationCompleted", totalConversationCount);
++        output.put("bestLang", 0);
++        output.put("worstLang", 0);
++        output.put("completedVsTotal", avarageCompletedCount);
++        output.put("experience", currentUser.getExperience());
++
++
++        return output;
++    }
++
++}
+Index: src/team_atlas/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package team_atlas;\r\n\r\n/**\r\n * The class representing the user entities in the database.\r\n * @author Andrzej Baum, Dominik Deak\r\n */\r\npublic class User {\r\n\r\n    private final String emailAddress, password, salt, firstName, lastName, userID;\r\n    private final boolean isTeacher;\r\n\r\n    User(String emailAddress, String password, String salt, String firstName, String lastName, String userID, Boolean isTeacher) {\r\n        this.emailAddress = emailAddress;\r\n        this.password = password;\r\n        this.salt = salt;\r\n        this.firstName = firstName;\r\n        this.lastName = lastName;\r\n        this.userID = userID;\r\n        this.isTeacher = isTeacher;\r\n    }\r\n\r\n    public String getEmailAddress() {\r\n        return emailAddress;\r\n    }\r\n\r\n    public String getPassword() {\r\n        return password;\r\n    }\r\n\r\n    public String getSalt() {\r\n        return salt;\r\n    }\r\n\r\n    public String getFirstName() {\r\n        return firstName;\r\n    }\r\n\r\n    public String getLastName() {\r\n        return lastName;\r\n    }\r\n\r\n    public String getUserID() {\r\n        return userID;\r\n    }\r\n\r\n    public boolean isTeacher() {\r\n        return isTeacher;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/team_atlas/User.java b/src/team_atlas/User.java
+--- a/src/team_atlas/User.java	(revision 1336d5b508e2c05bed808dac8bd39e95bff511d1)
++++ b/src/team_atlas/User.java	(date 1651587033845)
+@@ -7,9 +7,10 @@
+ public class User {
+ 
+     private final String emailAddress, password, salt, firstName, lastName, userID;
++    private int experience;
+     private final boolean isTeacher;
+ 
+-    User(String emailAddress, String password, String salt, String firstName, String lastName, String userID, Boolean isTeacher) {
++    User(String emailAddress, String password, String salt, String firstName, String lastName, String userID, Boolean isTeacher, int experience) {
+         this.emailAddress = emailAddress;
+         this.password = password;
+         this.salt = salt;
+@@ -17,12 +18,19 @@
+         this.lastName = lastName;
+         this.userID = userID;
+         this.isTeacher = isTeacher;
++        this.experience = experience;
+     }
+ 
+     public String getEmailAddress() {
+         return emailAddress;
+     }
+ 
++    public void addExperience(int experience){
++        this.experience = this.experience + experience;
++    }
++
++    public int getExperience(){return experience;}
++
+     public String getPassword() {
+         return password;
+     }

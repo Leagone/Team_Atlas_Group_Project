@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+// TODO Get rid of all warnings
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database insertion/query statements.
@@ -38,15 +39,11 @@ public class AppHandler {
 
     /**
      * The activity of the current user.
-     * If no user is logged-in, the object is null.
      */
     static UserActivity currentActivity = null;
 
-    static String interactionQuery = "";
-
     /**
      * The main method where the application starts.
-     * Sets the size and location of the frame and overrides the windowClosing method to call the exit() method.
      * Starts the login screen upon launching the app.
      * @param args The command line arguments
      */
@@ -124,14 +121,20 @@ public class AppHandler {
      * Switches the application to the language selection panel.
      */
     static void startLangSelectionScreen() {
-        // TODO Switch to the language selection panel
+        LanguageScreen languageScreen = new LanguageScreen();
+        MAIN_FRAME.setContentPane(languageScreen.MainLangPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Language Selection");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
      * Switches the application to the level/context/sub-context selection panel.
      */
-    static void startLvlConSubConSelectionScreen() {
-        // TODO Switch to the level/context/sub-context selection panel
+    static void selectionScreen() {
+        SelectScreen selectScreen = new SelectScreen();
+        MAIN_FRAME.setContentPane(selectScreen.Main);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Selection Screen");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
@@ -1026,6 +1029,7 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(toQuery);
+
             if (!rs.isBeforeFirst()) {
                 System.out.println("No Data");
                 return null;
@@ -1125,6 +1129,7 @@ public class AppHandler {
                 String pass = rs.getString("Pass");
                 String salt = rs.getString("Salt");
                 String adminID = rs.getString("AdminID");
+
                 return new Admin(email, pass, salt, adminID);
             }
         } catch (SQLException exception) {
