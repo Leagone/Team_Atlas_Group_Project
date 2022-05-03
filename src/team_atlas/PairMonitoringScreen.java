@@ -251,7 +251,7 @@ public class PairMonitoringScreen {
     }
 
     /**
-     * Displays a graph showing the total number of interactions from the earliest to the latest date.
+     * Displays a graph showing the total number of interactions from the earliest to the latest interaction date.
      * @param firstPersonEmail The email of the first person
      * @param secondPersonEmail The email of the second person
      */
@@ -337,9 +337,6 @@ public class PairMonitoringScreen {
      * Used for demonstrating this panel in case there is a lack of interactions in the database.
      */
     private void insertSampleData() {
-        /* Admin login details for testing:
-        * Email: dominik@admin.com
-        * Password: Admin123 */
         System.out.println("Inserting sample interaction data into database");
         Random random = new Random();
         for (int i = 0; i < 10; i++) {

@@ -545,13 +545,12 @@ public class AppHandler {
         return null;
     }
 
-    // FIXME Possible bug when multiple activities are found
     /**
      * Queries a user activity from the database using the email address of a user.
      * @param emailAddress The email address of a user.
      * @return A UserActivity object if there is a match, null otherwise
      */
-    public static UserActivity queryActivity(String emailAddress) {
+    public static ArrayList<UserActivity> queryActivity(String emailAddress) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toFind = emailAddress.toLowerCase();
@@ -559,12 +558,18 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-            return new UserActivity(
-                    resultSet.getString(4),
-                    resultSet.getDate(2),
-                    resultSet.getString(1),
-                    resultSet.getDate(1)
-            );
+            ArrayList<UserActivity> output = new ArrayList<>();
+            while (resultSet.next()) {
+                UserActivity temp = new UserActivity(
+                        resultSet.getString(4),
+                        resultSet.getDate(2),
+                        resultSet.getString(1),
+                        resultSet.getDate(1)
+
+                );
+                output.add(temp);
+            }
+            return output;
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {

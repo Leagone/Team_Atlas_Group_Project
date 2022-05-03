@@ -61,7 +61,7 @@ public class PasswordUtility {
      * Hashes a password with a salt, using the 'PBKDF2WithHmacSHA512' algorithm.
      * @param password The password to be hashed
      * @param salt The salt to be using during hashing
-     * @return A Base64 encoded bytearray
+     * @return A Base64 encoded byte array
      */
     static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec keySpec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
