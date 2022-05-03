@@ -1,11 +1,10 @@
 package team_atlas;
 
 import javax.swing.*;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+//Author Chris Sofroniou w1780164
 
 public class LanguageScreen  {
     JButton italianButton;
@@ -17,6 +16,7 @@ public class LanguageScreen  {
     JPanel BluePanel;
     JPanel MainLangPanel;
 
+    String langSelect;
 
     public LanguageScreen(){
 
@@ -26,7 +26,7 @@ public class LanguageScreen  {
         frenchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //PANELS REQUIRED TO MAKE THIS FUNCTION
+               langSelect = "L4";
             }
         });
 
@@ -35,7 +35,7 @@ public class LanguageScreen  {
         russianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //PANELS REQUIRED TO MAKE THIS FUNCTION
+                langSelect = "L6";
             }
         });
 
@@ -43,7 +43,7 @@ public class LanguageScreen  {
         spanishButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //PANELS REQUIRED TO MAKE THIS FUNCTION
+                langSelect = "L1";
             }
         });
 
@@ -52,7 +52,7 @@ public class LanguageScreen  {
         italianButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //PANELS REQUIRED TO MAKE THIS FUNCTION
+                langSelect = "L5";
             }
         });
 
@@ -61,7 +61,7 @@ public class LanguageScreen  {
         germanButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //PANELS REQUIRED TO MAKE THIS FUNCTION
+                langSelect = "L2";
             }
         });
 
@@ -70,7 +70,7 @@ public class LanguageScreen  {
         portugeseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //PANELS REQUIRED TO MAKE THIS FUNCTION
+                langSelect = "L3";
             }
         });
     }
