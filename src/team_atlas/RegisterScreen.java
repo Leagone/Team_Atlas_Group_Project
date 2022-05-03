@@ -68,7 +68,7 @@ public class RegisterScreen {
                     }
                     String salt = PasswordUtility.generateSalt();
                     String saltedPassword = PasswordUtility.generatePassWithSalt(password, salt);
-                    user = new User(emailAddress, saltedPassword, salt, firstName, lastName, userID, false);
+                    user = new User(emailAddress, saltedPassword, salt, firstName, lastName, userID, false, 0);
                     AppHandler.addUser(user);
                     JOptionPane.showMessageDialog(MAIN_FRAME, "Registration successful");
                     AppHandler.startLoginScreen();

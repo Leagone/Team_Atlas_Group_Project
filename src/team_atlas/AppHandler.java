@@ -59,7 +59,8 @@ public class AppHandler {
         });
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        startLoginScreen();
+        //startLoginScreen();
+        startOverallProgressScreen();
     }
 
     /**
@@ -406,6 +407,51 @@ public class AppHandler {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toQuery = "SELECT * FROM UserConversationInteraction";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+            ArrayList<Interaction> output = new ArrayList<>();
+            while (resultSet.next()) {
+                Interaction temp = new Interaction(
+                        resultSet.getString(1),
+                        resultSet.getString(7),
+                        resultSet.getString(3),
+                        resultSet.getString(2),
+                        resultSet.getDate(4),
+                        resultSet.getInt(5),
+                        resultSet.getBoolean(6));
+                output.add(temp);
+            }
+            return output;
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Queries all pair interactions from the database of particular user.
+     * @return An arraylist of Interaction objects if there are any, null otherwise
+     */
+    public static ArrayList<Interaction> queryAllInteractionsOf(String emailAddres) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + emailAddres + "' OR EmailAddress2='" + emailAddres + "' ";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
@@ -929,7 +975,8 @@ public class AppHandler {
                 String lName = rs.getString("LastName");
                 String userID = rs.getString("UserID");
                 boolean isTeacher = rs.getBoolean("IsTeacher");
-                return new User(email, pass, salt, fName, lName, userID, isTeacher);
+                Integer experience = rs.getInt("Experience");
+                return new User(email, pass, salt, fName, lName, userID, isTeacher, experience);
             }
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
@@ -976,7 +1023,8 @@ public class AppHandler {
                 String lName = rs.getString("LastName");
                 String userID = rs.getString("UserID");
                 boolean isTeacher = rs.getBoolean("IsTeacher");
-                return new User(email, pass, salt, fName, lName, userID, isTeacher);
+                Integer experience = rs.getInt("Experience");
+                return new User(email, pass, salt, fName, lName, userID, isTeacher, experience);
             }
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());

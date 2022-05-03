@@ -7,9 +7,10 @@ package team_atlas;
 public class User {
 
     private final String emailAddress, password, salt, firstName, lastName, userID;
+    private int experience;
     private final boolean isTeacher;
 
-    User(String emailAddress, String password, String salt, String firstName, String lastName, String userID, Boolean isTeacher) {
+    User(String emailAddress, String password, String salt, String firstName, String lastName, String userID, Boolean isTeacher, int experience) {
         this.emailAddress = emailAddress;
         this.password = password;
         this.salt = salt;
@@ -17,11 +18,18 @@ public class User {
         this.lastName = lastName;
         this.userID = userID;
         this.isTeacher = isTeacher;
+        this.experience = experience;
     }
 
     public String getEmailAddress() {
         return emailAddress;
     }
+
+    public void addExperience(int experience){
+        this.experience = this.experience + experience;
+    }
+
+    public int getExperience(){return experience;}
 
     public String getPassword() {
         return password;
