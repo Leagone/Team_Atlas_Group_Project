@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class startPersonalProgressScreen {
+public class PersonalProgressScreen {
 
+    public JPanel studentProgressPanel;
     private User currentUser;
     private ArrayList<Interaction> interactions;
     private HashMap<String, Integer> extractInfo;
@@ -17,7 +18,6 @@ public class startPersonalProgressScreen {
     private JLabel allHints;
     private JLabel hintPerInteraction;
     private JLabel conversationCompleted;
-    private JPanel completedPerTotal;
     private JLabel completedVsTotal;
     private JLabel bestLang;
     private JLabel worstLang;
@@ -33,7 +33,9 @@ public class startPersonalProgressScreen {
     private JLabel exp;
 
 
-    startPersonalProgressScreen(User currentUser) {
+    PersonalProgressScreen(User currentUser) {
+
+
 
         this.currentUser = currentUser;
         this.experience = currentUser.getExperience();
@@ -58,16 +60,17 @@ public class startPersonalProgressScreen {
             }else{
                 progressBar1.setValue(experienceToDisply);
                 progressBar1 = new JProgressBar(min, max);
+                sentilen = false;
             }
         }
 
-        userDetails.setText("Current user" + currentUser.getFirstName() + " " + currentUser.getLastName());
-        hintCount.setText(Integer.toString(extractInfo.get(0)));
-        hintAvarage.setText(Integer.toString(extractInfo.get(1)));
-        completedCount.setText(Integer.toString(extractInfo.get(2)));
+        userDetails.setText("Current user " + currentUser.getFirstName() + " " + currentUser.getLastName());
+        hintCount.setText(Integer.toString(extractInfo.get("allHints")));
+        hintAvarage.setText(Integer.toString(extractInfo.get("hintPerInteraction")));
+        completedCount.setText(Integer.toString(extractInfo.get("conversationCompleted")));
         langID.setText("None");
         wLangId.setText("None");
-        comVsTotCount.setText(Integer.toString(extractInfo.get(5)));
+        comVsTotCount.setText(Integer.toString(extractInfo.get("completedVsTotal")));
         levelLabel.setText(Integer.toString(level));
         exp.setText(Integer.toString(experience));
 
@@ -116,8 +119,10 @@ public class startPersonalProgressScreen {
 
         }
 
-        avarageHintPerInteraction = hintsCount / totalConversationCount;
-        avarageCompletedCount = completedCount / totalConversationCount;
+        if(totalConversationCount != 0){
+            avarageHintPerInteraction = hintsCount / totalConversationCount;
+            avarageCompletedCount = completedCount / totalConversationCount;
+        }
 
         output.put("allHints", hintsCount);
         output.put("hintPerInteraction", avarageHintPerInteraction);

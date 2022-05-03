@@ -59,8 +59,8 @@ public class AppHandler {
         });
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        //startLoginScreen();
-        startOverallProgressScreen();
+        startLoginScreen();
+
     }
 
     /**
@@ -143,14 +143,26 @@ public class AppHandler {
      * Switches the application to the personal student progress analytics panel.
      */
     static void startPersonalProgressScreen() {
-        // TODO Switch to the personal student progress analytics panel
+        PersonalProgressScreen personalProgressScreen = new PersonalProgressScreen(currentUser);
+        MAIN_FRAME.setContentPane(personalProgressScreen.studentProgressPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Personal progress");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
      * Switches the application to the searched student progress analytics panel.
      */
-    static void startStudentProgressScreen() {
-        // TODO Switch the application to the searched student progress analytics panel
+    static void startStudentProgressScreen(String emailAddres) {
+        User userToDisply = AppHandler.queryUser(emailAddres);
+        if(userToDisply != null){
+            PersonalProgressScreen personalProgressScreen = new PersonalProgressScreen(userToDisply);
+            MAIN_FRAME.setContentPane(personalProgressScreen.studentProgressPanel);
+            MAIN_FRAME.setTitle("Team Atlas Language App - Student Home");
+            MAIN_FRAME.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No such user");
+        }
+
     }
 
     /**
