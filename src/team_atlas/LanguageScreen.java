@@ -27,6 +27,8 @@ public class LanguageScreen  {
             @Override
             public void actionPerformed(ActionEvent e) {
                langSelect = "L4";
+               AppHandler.startConSelectionScreen(langSelect);
+
             }
         });
 

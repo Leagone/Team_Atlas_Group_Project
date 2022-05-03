@@ -31,6 +31,8 @@ public class AppHandler {
      */
     static Admin currentAdmin = null;
 
+    static String conversationQuery ="";
+
     /**
      * The currently logged-in user.
      * If no user is logged-in, the object is null.
@@ -125,6 +127,18 @@ public class AppHandler {
         MAIN_FRAME.setContentPane(languageScreen.MainLangPanel);
         MAIN_FRAME.setTitle("Team Atlas Language App - Language Selection");
         MAIN_FRAME.setVisible(true);
+    }
+
+    static void startConSelectionScreen(String langID) {
+
+    }
+
+    static void startSubConSelectionScreen(String langID, String conID) {
+
+    }
+
+    static void startLevelSelectionScreen(String langID, String conID, String subCon) {
+
     }
 
     /**
