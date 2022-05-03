@@ -983,6 +983,49 @@ public class AppHandler {
         return null;
     }
 
+    public static ArrayList<User> queryAllUsers() {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toQuery = "SELECT * FROM RegularUser";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+            ArrayList<User> output = new ArrayList<>();
+            while (resultSet.next()) {
+                String email = resultSet.getString("EmailAddress");
+                String pass = resultSet.getString("Pass");
+                String salt = resultSet.getString("Salt");
+                String fName = resultSet.getString("FirstName");
+                String lName = resultSet.getString("LastName");
+                String userID = resultSet.getString("UserID");
+                boolean isTeacher = resultSet.getBoolean("IsTeacher");
+                Integer experience = resultSet.getInt("Experience");
+                User temp = new User(email, pass, salt, fName, lName, userID, isTeacher, experience);
+                output.add(temp);
+
+            }
+            return output;
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Queries a user from the database using their email address.
      * @param emailAddress The email address of the user
