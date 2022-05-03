@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_02__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_03__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_03__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_1.xml" afterDir="false" />
+    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Fixed no Main class bug">
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/ContextScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/Contextcreen.java.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +41,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="238" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sqlite-jdbc-3.30.1.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/team_atlas" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -114,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651596422461</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fixed no Main class bug">
+      <created>1651602764358</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1651602764358</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,6 +150,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Panel" />
     <MESSAGE value="Added more panels&#10;Changed the admin and teacher panel a bit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added more panels&#10;Changed the admin and teacher panel a bit" />
+    <MESSAGE value="Fixed no Main class bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed no Main class bug" />
   </component>
 </project>

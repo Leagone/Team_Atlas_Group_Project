@@ -6,6 +6,12 @@ import java.util.HashMap;
 
 public class PersonalProgressScreen {
 
+    /**
+     * Panel to display various analytical indices
+     * Count and displays the right values
+     * @author Andrzej Baum
+     */
+
     public JPanel studentProgressPanel;
     private User currentUser;
     private ArrayList<Interaction> interactions;
@@ -58,7 +64,6 @@ public class PersonalProgressScreen {
                 experienceToDisply = experienceToDisply - max;
                 level++;
             }else{
-                // test
                 progressBar1.setValue(experienceToDisply);
                 progressBar1 = new JProgressBar(min, max);
                 sentilen = false;
