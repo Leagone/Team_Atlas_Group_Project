@@ -58,6 +58,7 @@ public class PersonalProgressScreen {
                 experienceToDisply = experienceToDisply - max;
                 level++;
             }else{
+                // test
                 progressBar1.setValue(experienceToDisply);
                 progressBar1 = new JProgressBar(min, max);
                 sentilen = false;

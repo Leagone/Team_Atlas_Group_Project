@@ -42,6 +42,8 @@ public class AppHandler {
      */
     static UserActivity currentActivity = null;
 
+    static String interactionQuery = "";
+
     /**
      * The main method where the application starts.
      * Sets the size and location of the frame and overrides the windowClosing method to call the exit() method.
