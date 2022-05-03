@@ -62,6 +62,7 @@ public class AppHandler {
         MAIN_FRAME.setLocationRelativeTo(null);
         startLoginScreen();
 
+
     }
 
     /**
