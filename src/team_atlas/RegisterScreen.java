@@ -17,7 +17,8 @@ import static team_atlas.AppHandler.MAIN_FRAME;
  */
 public class RegisterScreen {
 
-    JPanel registerPanel, firstNameLabel, lastNameLabel, emailLabel, passwordLabel, confirmPasswordLabel;
+    JPanel registerPanel;
+    JLabel firstNameLabel, lastNameLabel, emailLabel, passwordLabel, confirmPasswordLabel;
     JTextField firstNameField, lastNameField, emailField, passwordField, confirmPasswordField;
     JButton registerButton, backToLoginButton, informationButton;
 
