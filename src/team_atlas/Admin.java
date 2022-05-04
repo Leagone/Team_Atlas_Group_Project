@@ -2,6 +2,7 @@ package team_atlas;
 
 /**
  * The class representing the admin entities in the database.
+ *
  * @author Dominik Deak
  */
 public class Admin {

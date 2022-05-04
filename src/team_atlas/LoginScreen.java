@@ -9,6 +9,7 @@ import static team_atlas.AppHandler.MAIN_FRAME;
  * Contains an email and password field with a register and login button.
  * Upon successful login, it takes the user/admin to their respective home screen.
  * Clicking the register button takes the person to the registration screen.
+ *
  * @author Dominik Deak
  */
 public class LoginScreen {

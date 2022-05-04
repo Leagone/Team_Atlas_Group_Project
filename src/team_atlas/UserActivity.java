@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * The class representing the user activity entities in the database.
+ *
  * @author Andrzej Baum, Dominik Deak
  */
 public class UserActivity {
@@ -28,7 +29,7 @@ public class UserActivity {
         }
     }
 
-    UserActivity(String emailAddress, Date loginTimestamp ,String activityID ,Date logoutTimestamp) {
+    UserActivity(String emailAddress, Date loginTimestamp, String activityID, Date logoutTimestamp) {
         this.emailAddress = emailAddress;
         this.loginTimestamp = loginTimestamp;
         this.activityID = activityID;

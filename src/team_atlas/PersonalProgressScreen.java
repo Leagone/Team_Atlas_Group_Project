@@ -9,14 +9,15 @@ public class PersonalProgressScreen {
     /**
      * Panel to display various analytical indices
      * Count and displays the right values
+     *
      * @author Andrzej Baum
      */
 
     public JPanel studentProgressPanel;
-    private User currentUser;
-    private ArrayList<Interaction> interactions;
-    private HashMap<String, Integer> extractInfo;
-    private int experience;
+    private final User currentUser;
+    private final ArrayList<Interaction> interactions;
+    private final HashMap<String, Integer> extractInfo;
+    private final int experience;
     private int level = 0;
     private JButton backHome;
     private JButton logOut;
@@ -43,13 +44,12 @@ public class PersonalProgressScreen {
     PersonalProgressScreen(User currentUser) {
 
 
-
         this.currentUser = currentUser;
         this.experience = currentUser.getExperience();
         interactions = AppHandler.queryAllInteractionsOf(currentUser.getEmailAddress());
         this.extractInfo = extractInfo(interactions);
 
-        backHome.addActionListener(e -> AppHandler.startAdminHomeScreen());
+        backHome.addActionListener(e -> AppHandler.startStudentHomeScreen());
         logOut.addActionListener(e -> AppHandler.logout());
 
         progressBar1.setValue(0);
@@ -59,12 +59,12 @@ public class PersonalProgressScreen {
         int experienceToDisply = experience;
         boolean sentilen = true;
 
-        while(sentilen){
-            if(experienceToDisply  > max){
+        while (sentilen) {
+            if (experienceToDisply > max) {
                 max = max + 20;
                 experienceToDisply = experienceToDisply - max;
                 level++;
-            }else{
+            } else {
                 progressBar1.setValue(experienceToDisply);
                 progressBar1 = new JProgressBar(min, max);
                 sentilen = false;
@@ -82,11 +82,7 @@ public class PersonalProgressScreen {
         exp.setText(Integer.toString(experience));
 
 
-
-
-
     }
-
 
 
     public HashMap<String, Integer> extractInfo(ArrayList<Interaction> interaciton) {
@@ -103,7 +99,6 @@ public class PersonalProgressScreen {
         String worstLang;
 
 
-
         for (int i = 0; i < interaciton.size(); i++) {
             Interaction currentInteraction = interaciton.get(i);
             int hintsUsed = currentInteraction.getHintsUsed();
@@ -117,7 +112,7 @@ public class PersonalProgressScreen {
 
         }
 
-        if(totalConversationCount != 0){
+        if (totalConversationCount != 0) {
             avarageHintPerInteraction = hintsCount / totalConversationCount;
             avarageCompletedCount = completedCount / totalConversationCount;
         }

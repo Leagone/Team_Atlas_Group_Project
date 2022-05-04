@@ -7,6 +7,7 @@ import javax.swing.*;
  * Only accessible if an admin logs into the application.
  * Contains four buttons that start the four admin panels,
  * and a button that logs the admin out.
+ *
  * @author Dominik Deak
  */
 public class AdminHomeScreen {

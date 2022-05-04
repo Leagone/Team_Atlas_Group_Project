@@ -5,16 +5,24 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The class representing panel to select sub context
+ * Takes Array list of Conversation objects from
+ * context selection screen
+ *
+ * @author Andrzej Baum
+ */
+
 public class startSubContextSelectionScreen {
 
+    public JPanel MainSubConPanel;
     private JButton backHome;
     private JButton Logout;
-    public JPanel MainSubConPanel;
     private JComboBox comboBox1;
     private JButton proceed;
 
 
-    private ArrayList<Conversation> conversation;
+    private final ArrayList<Conversation> conversation;
     private ArrayList<Conversation> conversationtoPass;
     private Set<String> avalibleSubContext;
     private String[] stringSubContextArray;
@@ -23,9 +31,9 @@ public class startSubContextSelectionScreen {
 
         this.conversation = conversations;
 
-        backHome.addActionListener(e -> AppHandler.startAdminHomeScreen());
+        backHome.addActionListener(e -> AppHandler.startStudentHomeScreen());
         Logout.addActionListener(e -> AppHandler.logout());
-        proceed.addActionListener(e-> AppHandler.startLevelSelectionScreen(conversationtoPass));
+        proceed.addActionListener(e -> AppHandler.startLevelSelectionScreen(conversationtoPass));
     }
 
 

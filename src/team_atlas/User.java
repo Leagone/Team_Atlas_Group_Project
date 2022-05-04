@@ -2,13 +2,14 @@ package team_atlas;
 
 /**
  * The class representing the user entities in the database.
+ *
  * @author Andrzej Baum, Dominik Deak
  */
 public class User {
 
     private final String emailAddress, password, salt, firstName, lastName, userID;
-    private int experience;
     private final boolean isTeacher;
+    private int experience;
 
     User(String emailAddress, String password, String salt, String firstName, String lastName, String userID, Boolean isTeacher, int experience) {
         this.emailAddress = emailAddress;
@@ -25,11 +26,13 @@ public class User {
         return emailAddress;
     }
 
-    public void addExperience(int experience){
+    public void addExperience(int experience) {
         this.experience = this.experience + experience;
     }
 
-    public int getExperience(){return experience;}
+    public int getExperience() {
+        return experience;
+    }
 
     public String getPassword() {
         return password;

@@ -5,16 +5,24 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The class representing panel to select level of conversation
+ * Takes Array list of Conversation objects from
+ * sub context selection screen
+ *
+ * @author Andrzej Baum
+ */
+
 public class startLevelSelectionScreen {
 
+    public JPanel MainLevelPanel;
     private JButton backHome;
     private JButton Logout;
-    public JPanel MainLevelPanel;
     private JComboBox comboBox1;
     private JButton proceed;
 
 
-    private ArrayList<Conversation> conversation;
+    private final ArrayList<Conversation> conversation;
     private ArrayList<Conversation> conversationtoPass;
     private Set<String> avalibleLevels;
     private String[] stringSubContextArray;
@@ -23,7 +31,7 @@ public class startLevelSelectionScreen {
 
         this.conversation = conversations;
 
-        backHome.addActionListener(e -> AppHandler.startAdminHomeScreen());
+        backHome.addActionListener(e -> AppHandler.startStudentHomeScreen());
         Logout.addActionListener(e -> AppHandler.logout());
         proceed.addActionListener(e -> AppHandler.startUserSelectionScreen(conversationtoPass));
     }
@@ -61,7 +69,6 @@ public class startLevelSelectionScreen {
                 }
 
             }
-
 
 
         });

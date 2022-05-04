@@ -13,6 +13,7 @@ import static team_atlas.AppHandler.MAIN_FRAME;
  * Contains first/last name fields, an email address field, and password/password confirmation fields.
  * Contains a button that displays information about the password requirements,
  * a button that takes the person back to the login screen and a register button.
+ *
  * @author Dominik Deak
  */
 public class RegisterScreen {
@@ -81,10 +82,11 @@ public class RegisterScreen {
 
     /**
      * Validates user input using regex.
-     * @param firstName The first name of the person
-     * @param lastName The last name of the person
-     * @param emailAddress The email address of the person
-     * @param password The password of the person
+     *
+     * @param firstName         The first name of the person
+     * @param lastName          The last name of the person
+     * @param emailAddress      The email address of the person
+     * @param password          The password of the person
      * @param confirmedPassword The confirmed password of the person
      * @return true if the entered details match the specified regex patters, false otherwise
      */

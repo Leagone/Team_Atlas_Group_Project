@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * The class representing the interaction entities in the database.
+ *
  * @author Andrzej Baum
  */
 public class Interaction {

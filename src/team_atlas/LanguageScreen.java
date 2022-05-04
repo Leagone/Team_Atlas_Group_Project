@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 //Author Chris Sofroniou w1780164
 
-public class LanguageScreen  {
+public class LanguageScreen {
     JButton italianButton;
     JButton russianButton;
     JButton frenchButton;
@@ -18,7 +18,7 @@ public class LanguageScreen  {
 
     String langSelect;
 
-    public LanguageScreen(){
+    public LanguageScreen() {
 
 
         //listeners For the French Button
@@ -26,8 +26,8 @@ public class LanguageScreen  {
         frenchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               langSelect = "L4";
-               AppHandler.startContextSelectionScreen(langSelect);
+                langSelect = "L4";
+                AppHandler.startContextSelectionScreen(langSelect);
 
             }
         });

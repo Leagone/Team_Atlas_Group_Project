@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 /**
  * The class that initialises the connection to the database.
+ *
  * @author Andrzej Baum
  */
 public class Connect {

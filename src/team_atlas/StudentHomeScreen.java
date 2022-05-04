@@ -7,6 +7,7 @@ import javax.swing.*;
  * Only accessible if a student logs into the application.
  * Contains two buttons that start the two student panels,
  * and a button that logs the student out.
+ *
  * @author Dominik Deak
  */
 public class StudentHomeScreen {

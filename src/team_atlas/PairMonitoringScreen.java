@@ -20,16 +20,10 @@ import static team_atlas.AppHandler.MAIN_FRAME;
  * Contains two email fields, a button to list the interaction history of the entered users,
  * four buttons to display four analytic charts, a button that takes the admin back to the admin home panel,
  * and a button that logs the admin out.
+ *
  * @author Dominik Deak
  */
 public class PairMonitoringScreen {
-
-    JPanel pairMonitoringPanel;
-    JLabel emailLabel;
-    JTextField firstPersonField, secondPersonField;
-    JButton historyButton, languageChartButton, levelChartButton, dateGraphButton, hintsChartButton, backButton, logoutButton;
-    JScrollPane historyScrollPane;
-    String firstPersonEmail, secondPersonEmail;
 
     /**
      * The interaction history table column names.
@@ -38,7 +32,12 @@ public class PairMonitoringScreen {
             "Date and Time", "Language", "Level", "Context",
             "Sub-context", "Completed", "Number of hints used"
     };
-
+    JPanel pairMonitoringPanel;
+    JLabel emailLabel;
+    JTextField firstPersonField, secondPersonField;
+    JButton historyButton, languageChartButton, levelChartButton, dateGraphButton, hintsChartButton, backButton, logoutButton;
+    JScrollPane historyScrollPane;
+    String firstPersonEmail, secondPersonEmail;
     /**
      * Holds all Interaction objects between the two users.
      */
@@ -83,6 +82,7 @@ public class PairMonitoringScreen {
 
     /**
      * Validates the entered email addresses.
+     *
      * @return true if the details are valid, false otherwise
      */
     private boolean validateInput() {
@@ -120,7 +120,8 @@ public class PairMonitoringScreen {
     /**
      * Displays the interaction history of the two users in a JTable.
      * Orders the interactions by date in ascending order.
-     * @param firstPersonEmail The email of the first person
+     *
+     * @param firstPersonEmail  The email of the first person
      * @param secondPersonEmail The email of the second person
      */
     private void displayInteractionHistory(String firstPersonEmail, String secondPersonEmail) {
@@ -149,7 +150,8 @@ public class PairMonitoringScreen {
     /**
      * Displays a pie chart with the languages used in the interactions.
      * Only displays languages that were used at least once.
-     * @param firstPersonEmail The email of the first person
+     *
+     * @param firstPersonEmail  The email of the first person
      * @param secondPersonEmail The email of the second person
      */
     private void showLanguageChart(String firstPersonEmail, String secondPersonEmail) {
@@ -205,7 +207,8 @@ public class PairMonitoringScreen {
     /**
      * Displays a pie chart with the levels used in the interactions.
      * Only displays levels that were used at least once.
-     * @param firstPersonEmail The email of the first person
+     *
+     * @param firstPersonEmail  The email of the first person
      * @param secondPersonEmail The email of the second person
      */
     private void showLevelChart(String firstPersonEmail, String secondPersonEmail) {
@@ -252,7 +255,8 @@ public class PairMonitoringScreen {
 
     /**
      * Displays a graph showing the total number of interactions from the earliest to the latest interaction date.
-     * @param firstPersonEmail The email of the first person
+     *
+     * @param firstPersonEmail  The email of the first person
      * @param secondPersonEmail The email of the second person
      */
     private void showDateGraph(String firstPersonEmail, String secondPersonEmail) {
@@ -284,7 +288,8 @@ public class PairMonitoringScreen {
     /**
      * Displays a bar chart showing the total number of hints the users have used for each difficulty level.
      * Only displays levels where at least one hint was used.
-     * @param firstPersonEmail The email of the first person
+     *
+     * @param firstPersonEmail  The email of the first person
      * @param secondPersonEmail The email of the second person
      */
     private void showHintsChart(String firstPersonEmail, String secondPersonEmail) {

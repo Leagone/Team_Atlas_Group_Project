@@ -3,27 +3,35 @@ package team_atlas;
 import javax.swing.*;
 import java.util.*;
 
+/**
+ * The class representing panel to select User to have a conversation with
+ * Takes Array list of Conversation objects from
+ * Level selection screen
+ *
+ * @author Andrzej Baum
+ */
+
 public class startUserSelectionScreen {
 
+    public JPanel UserSelectionPanel;
     private JButton backHome;
     private JButton Logout;
-    public JPanel UserSelectionPanel;
     private JComboBox comboBox1;
     private JButton proceed;
 
 
-    private ArrayList<Conversation> conversation;
+    private final ArrayList<Conversation> conversation;
     private ArrayList<User> avalibleUsers;
 
     private Set<String> avalibleUsersNames;
     private HashMap<String, String> avalibleUsersDetail;
-    private String[]  avalibleUsersNamesArray;
+    private String[] avalibleUsersNamesArray;
 
     startUserSelectionScreen(ArrayList<Conversation> conversation) {
 
         this.conversation = conversation;
 
-        backHome.addActionListener(e -> AppHandler.startAdminHomeScreen());
+        backHome.addActionListener(e -> AppHandler.startStudentHomeScreen());
         Logout.addActionListener(e -> AppHandler.logout());
         proceed.addActionListener(e -> System.out.println("to be implemented"));
     }
@@ -59,9 +67,9 @@ public class startUserSelectionScreen {
             String choosenStudenID = null;
 
 
-            for (Map.Entry mapElement : avalibleUsersDetail.entrySet()){
+            for (Map.Entry mapElement : avalibleUsersDetail.entrySet()) {
 
-                if(mapElement.getValue() == user){
+                if (mapElement.getValue() == user) {
                     choosenStudenID = (String) mapElement.getKey();
                 }
 

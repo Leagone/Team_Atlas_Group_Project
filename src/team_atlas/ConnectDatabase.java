@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 
 /**
  * The class that connects the application to the database.
+ *
  * @author Andrzej Baum
  */
 public class ConnectDatabase {

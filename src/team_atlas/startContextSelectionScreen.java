@@ -5,16 +5,23 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The class representing panel to select the context
+ * Takes langId from Language Selection screen
+ *
+ * @author Andrzej Baum
+ */
+
 public class startContextSelectionScreen {
 
+    public JPanel MainContextSelectionPanel;
     private JButton backHome;
     private JButton Logout;
-    public JPanel MainContextSelectionPanel;
     private JComboBox comboBox1;
     private JButton proceed;
 
 
-    private String langID;
+    private final String langID;
 
     private ArrayList<Conversation> conversationtoPass;
     private ArrayList<Conversation> conversation;
@@ -25,9 +32,9 @@ public class startContextSelectionScreen {
 
         this.langID = langID;
 
-        backHome.addActionListener(e -> AppHandler.startAdminHomeScreen());
+        backHome.addActionListener(e -> AppHandler.startStudentHomeScreen());
         Logout.addActionListener(e -> AppHandler.logout());
-        proceed.addActionListener(e-> AppHandler.startSubContextSelectionScreen(conversationtoPass));
+        proceed.addActionListener(e -> AppHandler.startSubContextSelectionScreen(conversationtoPass));
 
     }
 
@@ -59,7 +66,7 @@ public class startContextSelectionScreen {
 
             for (int i = 0; i < conversation.size(); i++) {
 
-                if(conversation.get(i).getContextID() == conID){
+                if (conversation.get(i).getContextID() == conID) {
                     this.conversationtoPass.add(conversation.get(i));
                 }
 

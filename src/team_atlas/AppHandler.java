@@ -3,7 +3,10 @@ package team_atlas;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,10 +14,12 @@ import java.util.Date;
 import java.util.Locale;
 
 // TODO Get rid of all warnings
+
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database insertion/query statements.
  * Holds information about the currently logged-in person.
+ *
  * @author Andrzej Baum, Dominik Deak
  */
 public class AppHandler {
@@ -46,6 +51,7 @@ public class AppHandler {
     /**
      * The main method where the application starts.
      * Starts the login screen upon launching the app.
+     *
      * @param args The command line arguments
      */
     public static void main(String[] args) {
@@ -59,7 +65,7 @@ public class AppHandler {
         });
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        startLangSelectionScreen();
+        startLoginScreen();
 
 
     }
@@ -194,7 +200,7 @@ public class AppHandler {
      */
     static void startStudentProgressScreen(String emailAddres) {
         User userToDisply = AppHandler.queryUser(emailAddres);
-        if(userToDisply != null){
+        if (userToDisply != null) {
             PersonalProgressScreen personalProgressScreen = new PersonalProgressScreen(userToDisply);
             MAIN_FRAME.setContentPane(personalProgressScreen.studentProgressPanel);
             MAIN_FRAME.setTitle("Team Atlas Language App - Student Home");
@@ -276,6 +282,7 @@ public class AppHandler {
 
     /**
      * Passes INSERT statements to the database.
+     *
      * @param toQuery The INSERT statement to pass
      */
     private static void insert(String toQuery) {
@@ -308,6 +315,7 @@ public class AppHandler {
 
     /**
      * Adds users to the database.
+     *
      * @param user The User object to be added
      */
     public static void addUser(User user) {
@@ -342,6 +350,7 @@ public class AppHandler {
 
     /**
      * Adds user activities to the database.
+     *
      * @param activity the UserActivity object to be added
      */
     public static void addActivity(UserActivity activity) {
@@ -367,6 +376,7 @@ public class AppHandler {
 
     /**
      * Adds pair interactions to the database.
+     *
      * @param interaction the Interaction object to be added
      */
     public static void addInteraction(Interaction interaction) {
@@ -406,6 +416,7 @@ public class AppHandler {
 
     /**
      * Queries a conversation from the database using its ID.
+     *
      * @param conversationID The ID of the conversation
      * @return A Conversation object if there is a match, null otherwise
      */
@@ -453,6 +464,7 @@ public class AppHandler {
 
     /**
      * Queries a conversation list from the database using its language.
+     *
      * @param langID The ID of the language
      * @return A Array list of Conversation objects if there is a match, null otherwise
      */
@@ -508,6 +520,7 @@ public class AppHandler {
 
     /**
      * Queries all pair interactions from the database.
+     *
      * @return An arraylist of Interaction objects if there are any, null otherwise
      */
     public static ArrayList<Interaction> queryAllInteractions() {
@@ -553,6 +566,7 @@ public class AppHandler {
 
     /**
      * Queries all pair interactions from the database of particular user.
+     *
      * @return An arraylist of Interaction objects if there are any, null otherwise
      */
     public static ArrayList<Interaction> queryAllInteractionsOf(String emailAddres) {
@@ -600,6 +614,7 @@ public class AppHandler {
      * Queries all pair interactions from the database using the email addresses of a user pair.
      * The order of the entered email addresses does not matter,
      * as it returns the distinct values from both select statements.
+     *
      * @param person1Email The email address of the first user.
      * @param person2Email The email address of the second user.
      * @return An arraylist of Interaction objects if there are any matches, null otherwise
@@ -608,10 +623,10 @@ public class AppHandler {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
         String toQuery = "SELECT * FROM UserConversationInteraction " +
-                         "WHERE EmailAddress1='" + person1Email + "' AND EmailAddress2='" + person2Email + "' " +
-                         "UNION " +
-                         "SELECT * FROM UserConversationInteraction " +
-                         "WHERE EmailAddress1='" + person2Email + "' AND EmailAddress2='" + person1Email + "'";
+                "WHERE EmailAddress1='" + person1Email + "' AND EmailAddress2='" + person2Email + "' " +
+                "UNION " +
+                "SELECT * FROM UserConversationInteraction " +
+                "WHERE EmailAddress1='" + person2Email + "' AND EmailAddress2='" + person1Email + "'";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
@@ -656,6 +671,7 @@ public class AppHandler {
 
     /**
      * Queries all user activities from the database.
+     *
      * @return An arraylist of UserActivity objects if there are any, null otherwise
      */
     public static ArrayList<UserActivity> queryAllActivity() {
@@ -700,6 +716,7 @@ public class AppHandler {
 
     /**
      * Queries a user activity from the database using the email address of a user.
+     *
      * @param emailAddress The email address of a user.
      * @return A UserActivity object if there is a match, null otherwise
      */
@@ -746,6 +763,7 @@ public class AppHandler {
 
     /**
      * Queries a sub-context from the database using its ID.
+     *
      * @param subContextID The ID of the sub-context
      * @return A SubContext object if there is a match, null otherwise
      */
@@ -784,6 +802,7 @@ public class AppHandler {
 
     /**
      * Queries all sub-contexts from the database.
+     *
      * @return An arraylist of SubContext objects if there are any, null otherwise
      */
     public static ArrayList<SubContext> queryAllSubContext() {
@@ -824,6 +843,7 @@ public class AppHandler {
 
     /**
      * Queries a level from the database using its ID.
+     *
      * @param levelID The ID of the level
      * @return A Level object if there is a match, null otherwise
      */
@@ -862,6 +882,7 @@ public class AppHandler {
 
     /**
      * Queries all levels from the database.
+     *
      * @return An arraylist of Level object if there are any, null otherwise
      */
     public static ArrayList<Level> queryAllLevels() {
@@ -902,6 +923,7 @@ public class AppHandler {
 
     /**
      * Queries a context from the database using its ID.
+     *
      * @param contextID The ID of the context
      * @return A Context object if there is a match, null otherwise
      */
@@ -940,6 +962,7 @@ public class AppHandler {
 
     /**
      * Queries all contexts from the database.
+     *
      * @return An arraylist of Context objects if there are any, null otherwise
      */
     public static ArrayList<Context> queryAllContext() {
@@ -981,6 +1004,7 @@ public class AppHandler {
 
     /**
      * Queries a language from the database using its ID.
+     *
      * @param languageID The ID of the language
      * @return A Language object if there is a match, null otherwise
      */
@@ -1020,6 +1044,7 @@ public class AppHandler {
 
     /**
      * Queries all languages from the database.
+     *
      * @return An arraylist of Language objects if there are any, null otherwise
      */
     public static ArrayList<Language> queryAllLanguages() {
@@ -1104,6 +1129,7 @@ public class AppHandler {
 
     /**
      * Queries a user from the database using their email address.
+     *
      * @param emailAddress The email address of the user
      * @return A User object if there is a match, null otherwise
      */
@@ -1151,8 +1177,9 @@ public class AppHandler {
 
     /**
      * Queries a user from the database using their email address and password.
+     *
      * @param emailAddress The email address of the user
-     * @param password The password of the user
+     * @param password     The password of the user
      * @return A User object if there is a match, null otherwise
      */
     public static User queryUserWithPass(String emailAddress, String password) {
@@ -1200,6 +1227,7 @@ public class AppHandler {
 
     /**
      * Queries an admin from the database using their email address.
+     *
      * @param emailAddress The email address of the admin
      * @return An Admin object if there is a match, null otherwise
      */
@@ -1243,8 +1271,9 @@ public class AppHandler {
 
     /**
      * Queries an admin from the database using their email address and password.
+     *
      * @param emailAddress The email address of the admin
-     * @param password The password of the admin
+     * @param password     The password of the admin
      * @return An Admin object if there is a match, null otherwise
      */
     public static Admin queryAdminWithPass(String emailAddress, String password) {
@@ -1288,6 +1317,7 @@ public class AppHandler {
 
     /**
      * Queries all user activity IDs from the database.
+     *
      * @return An arraylist of strings (activity IDs) if there are any, null otherwise
      */
     public static ArrayList<String> queryAllActivityIDs() {
@@ -1326,6 +1356,7 @@ public class AppHandler {
 
     /**
      * Queries all user IDs from the database.
+     *
      * @return An arraylist of strings (user IDs) if there are any, null otherwise
      */
     public static ArrayList<String> queryAllUserIDs() {

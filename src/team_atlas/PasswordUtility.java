@@ -12,6 +12,7 @@ import java.util.Random;
 /**
  * A password utility class.
  * Used to generate salts and hashed passwords using the 'PBKDF2WithHmacSHA512' algorithm.
+ *
  * @author Dominik Deak
  */
 public class PasswordUtility {
@@ -36,8 +37,9 @@ public class PasswordUtility {
 
     /**
      * Generates a hashed password with a salt by decoding a Base64 bytearray.
+     *
      * @param password The password to be hashed
-     * @param salt The salt to be using during hashing
+     * @param salt     The salt to be using during hashing
      * @return A hashed password
      */
     static String generatePassWithSalt(String password, String salt) {
@@ -47,6 +49,7 @@ public class PasswordUtility {
 
     /**
      * Generates a salt of a given length using a given character set.
+     *
      * @return A salt in the form of a string
      */
     static String generateSalt() {
@@ -59,8 +62,9 @@ public class PasswordUtility {
 
     /**
      * Hashes a password with a salt, using the 'PBKDF2WithHmacSHA512' algorithm.
+     *
      * @param password The password to be hashed
-     * @param salt The salt to be using during hashing
+     * @param salt     The salt to be using during hashing
      * @return A Base64 encoded byte array
      */
     static byte[] hash(char[] password, byte[] salt) {
