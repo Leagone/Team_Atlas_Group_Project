@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="udpate">
+    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Added Context selection screen.">
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/startContextSelectionScreen.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/startContextSelectionScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/startLevelSelectionScreen.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/startLevelSelectionScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/startSubContextSelectionScreen.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/startSubContextSelectionScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/startUserSelectionScreen.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/team_atlas/startUserSelectionScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/ContextScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/ContextScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/Contextcreen.java.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/Contextcreen.java.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/ContextScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/Contextcreen.java.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/LanguageScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/LanguageScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PersonalProgressScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/RegisterScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/RegisterScreen.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/StudentHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/StudentHomeScreen.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/TeacherHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/TeacherHomeScreen.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamAtlas.db" beforeDir="false" afterPath="$PROJECT_DIR$/teamAtlas.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,6 +55,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="238" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/team_atlas" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -125,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651602764358</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added Context selection screen.">
+      <created>1651608944195</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651608944195</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -155,6 +175,7 @@
     <MESSAGE value="Added Panel" />
     <MESSAGE value="Added more panels&#10;Changed the admin and teacher panel a bit" />
     <MESSAGE value="Fixed no Main class bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed no Main class bug" />
+    <MESSAGE value="Added Context selection screen." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Context selection screen." />
   </component>
 </project>

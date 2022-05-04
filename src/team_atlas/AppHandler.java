@@ -31,13 +31,12 @@ public class AppHandler {
      */
     static Admin currentAdmin = null;
 
-    static String conversationQuery ="";
 
     /**
      * The currently logged-in user.
      * If no user is logged-in, the object is null.
      */
-    static User currentUser = queryUser("test11@test.com");
+    static User currentUser = null;
 
     /**
      * The activity of the current user.
@@ -60,8 +59,7 @@ public class AppHandler {
         });
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
-        //startLoginScreen();
-        startPersonalProgressScreen();
+        startLangSelectionScreen();
 
 
     }
@@ -126,37 +124,53 @@ public class AppHandler {
      */
     static void startLangSelectionScreen() {
         LanguageScreen languageScreen = new LanguageScreen();
-        conversationQuery = conversationQuery + languageScreen.langSelect;
         MAIN_FRAME.setContentPane(languageScreen.MainLangPanel);
         MAIN_FRAME.setTitle("Team Atlas Language App - Language Selection");
         MAIN_FRAME.setVisible(true);
     }
 
-    static void startConSelectionScreen(String langID) {
-        ContextScreen contextScreen = new ContextScreen();
-        conversationQuery = conversationQuery + contextScreen.conSelect;
-        MAIN_FRAME.setContentPane(contextScreen.MainConPanel);
-        MAIN_FRAME.setTitle("Team Atlas Language App - Language Selection");
+    /**
+     * Switches the application to the context selection panel.
+     */
+    static void startContextSelectionScreen(String langID) {
+        startContextSelectionScreen selectConversation = new startContextSelectionScreen(langID);
+        MAIN_FRAME.setContentPane(selectConversation.MainContextSelectionPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Context Selection");
         MAIN_FRAME.setVisible(true);
-    }
 
-    static void startSubConSelectionScreen(String langID, String conID) {
-
-    }
-
-    static void startLevelSelectionScreen(String langID, String conID, String subCon) {
 
     }
 
     /**
-     * Switches the application to the level/context/sub-context selection panel.
+     * Switches the application to the sub context selection panel.
      */
-    static void selectionScreen() {
-        SelectScreen selectScreen = new SelectScreen();
-        MAIN_FRAME.setContentPane(selectScreen.Main);
-        MAIN_FRAME.setTitle("Team Atlas Language App - Selection Screen");
+
+    static void startSubContextSelectionScreen(ArrayList<Conversation> conversations) {
+        startSubContextSelectionScreen selectSubContext = new startSubContextSelectionScreen(conversations);
+        MAIN_FRAME.setContentPane(selectSubContext.MainSubConPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - SubContext Selection");
+        MAIN_FRAME.setVisible(true);
+
+    }
+
+    /**
+     * Switches the application to the level selection panel.
+     */
+
+    static void startLevelSelectionScreen(ArrayList<Conversation> conversations) {
+        startLevelSelectionScreen selectLevel = new startLevelSelectionScreen(conversations);
+        MAIN_FRAME.setContentPane(selectLevel.MainLevelPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Level Selection");
         MAIN_FRAME.setVisible(true);
     }
+
+    static void startUserSelectionScreen(ArrayList<Conversation> conversations) {
+        startUserSelectionScreen selectUser = new startUserSelectionScreen(conversations);
+        MAIN_FRAME.setContentPane(selectUser.UserSelectionPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - Level Selection");
+        MAIN_FRAME.setVisible(true);
+    }
+
 
     /**
      * Switches the application to the interaction pair selection panel.
@@ -416,6 +430,61 @@ public class AppHandler {
                     resultSet.getString(11),
                     resultSet.getString(10)
             );
+        } catch (SQLException exception) {
+            System.err.println("SQLException: " + exception.getMessage());
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) {
+                    System.err.println("SQLException: " + exception.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Queries a conversation list from the database using its language.
+     * @param langID The ID of the language
+     * @return A Array list of Conversation objects if there is a match, null otherwise
+     */
+
+    public static ArrayList<Conversation> queryConversationOfLang(String langID) {
+        Connection connection = ConnectDatabase.getConnection();
+        Statement statement = null;
+        String toFind = langID.toUpperCase();
+        String toQuery = "SELECT * FROM Conversations WHERE languageID ='" + toFind + "'";
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(toQuery);
+            ArrayList<Conversation> output = new ArrayList<>();
+            while (resultSet.next()) {
+                Conversation temp = new Conversation(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7),
+                        resultSet.getString(8),
+                        resultSet.getString(9),
+                        resultSet.getString(11),
+                        resultSet.getString(10)
+                );
+                output.add(temp);
+            }
+            return output;
+
+
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {

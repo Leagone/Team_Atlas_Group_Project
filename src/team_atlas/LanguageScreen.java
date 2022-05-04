@@ -27,7 +27,7 @@ public class LanguageScreen  {
             @Override
             public void actionPerformed(ActionEvent e) {
                langSelect = "L4";
-               AppHandler.startConSelectionScreen(langSelect);
+               AppHandler.startContextSelectionScreen(langSelect);
 
             }
         });
@@ -38,6 +38,7 @@ public class LanguageScreen  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 langSelect = "L6";
+                AppHandler.startContextSelectionScreen(langSelect);
             }
         });
 
@@ -46,6 +47,7 @@ public class LanguageScreen  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 langSelect = "L1";
+                AppHandler.startContextSelectionScreen(langSelect);
             }
         });
 
@@ -55,6 +57,7 @@ public class LanguageScreen  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 langSelect = "L5";
+                AppHandler.startContextSelectionScreen(langSelect);
             }
         });
 
@@ -64,6 +67,7 @@ public class LanguageScreen  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 langSelect = "L2";
+                AppHandler.startContextSelectionScreen(langSelect);
             }
         });
 
@@ -73,6 +77,7 @@ public class LanguageScreen  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 langSelect = "L3";
+                AppHandler.startContextSelectionScreen(langSelect);
             }
         });
     }
