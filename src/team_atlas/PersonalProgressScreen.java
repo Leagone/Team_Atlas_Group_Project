@@ -15,8 +15,8 @@ public class PersonalProgressScreen {
 
     public JPanel studentProgressPanel;
     private final User currentUser;
-    private final ArrayList<Interaction> interactions;
-    private final HashMap<String, Integer> extractInfo;
+    private ArrayList<Interaction> interactions;
+    private HashMap<String, Integer> extractInfo;
     private final int experience;
     private int level = 0;
     private JButton backHome;
@@ -46,10 +46,21 @@ public class PersonalProgressScreen {
 
         this.currentUser = currentUser;
         this.experience = currentUser.getExperience();
-        interactions = AppHandler.queryAllInteractionsOf(currentUser.getEmailAddress());
+        this.interactions = AppHandler.queryAllInteractionsOf(this.currentUser.getEmailAddress());
         this.extractInfo = extractInfo(interactions);
 
-        backHome.addActionListener(e -> AppHandler.startStudentHomeScreen());
+        backHome.addActionListener(e -> {
+            if (AppHandler.currentAdmin != null) {
+                AppHandler.startAdminHomeScreen();
+            }
+            if (AppHandler.currentUser != null) {
+                if (AppHandler.currentUser.isTeacher()) {
+                    AppHandler.startTeacherHomeScreen();
+                } else {
+                    AppHandler.startStudentHomeScreen();
+                }
+            }
+        });
         logOut.addActionListener(e -> AppHandler.logout());
 
         progressBar1.setValue(0);

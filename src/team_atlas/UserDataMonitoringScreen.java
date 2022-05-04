@@ -21,7 +21,7 @@ public class UserDataMonitoringScreen {
     private JLabel lNameValue;
     private JLabel expeValue;
     private JLabel teacherValue;
-    private JButton Home;
+    private JButton backHome;
     private JButton logOut;
     public JPanel MonitoringPanel;
     private JButton progress;
@@ -42,7 +42,18 @@ public class UserDataMonitoringScreen {
             teacherValue.setText("No");
         }
 
-        Home.addActionListener(e -> AppHandler.startStudentHomeScreen());
+        backHome.addActionListener(e -> {
+            if (AppHandler.currentAdmin != null) {
+                AppHandler.startAdminHomeScreen();
+            }
+            if (AppHandler.currentUser != null) {
+                if (AppHandler.currentUser.isTeacher()) {
+                    AppHandler.startTeacherHomeScreen();
+                } else {
+                    AppHandler.startStudentHomeScreen();
+                }
+            }
+        });
         logOut.addActionListener(e -> AppHandler.logout());
         progress.addActionListener(e -> AppHandler.startStudentProgressScreen(emailAddres));
 

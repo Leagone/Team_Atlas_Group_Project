@@ -15,13 +15,15 @@ public class TeacherHomeScreen {
     JPanel teacherHomePanel;
     JLabel welcomeLabel;
     JButton rolePlayButton, studentProgressButton, overallProgressButton, logoutButton;
-    private JTextField textField1;
+    JTextField studentEmailField;
 
     TeacherHomeScreen() {
         System.out.println("Teacher home panel started");
-        String textFieldValue = textField1.getText();
         rolePlayButton.addActionListener(e -> AppHandler.startLangSelectionScreen());
-        studentProgressButton.addActionListener(e -> AppHandler.startStudentProgressScreen(textFieldValue));
+        studentProgressButton.addActionListener(e -> {
+            String textFieldValue = studentEmailField.getText();
+            AppHandler.startStudentProgressScreen(textFieldValue);
+        });
         overallProgressButton.addActionListener(e -> AppHandler.startOverallProgressScreen());
         logoutButton.addActionListener(e -> AppHandler.logout());
     }

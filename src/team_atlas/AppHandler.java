@@ -522,13 +522,16 @@ public class AppHandler {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
             ArrayList<Interaction> output = new ArrayList<>();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            Date date;
             while (resultSet.next()) {
+                date = dateFormat.parse(resultSet.getString(4));
                 Interaction temp = new Interaction(
                         resultSet.getString(1),
                         resultSet.getString(7),
                         resultSet.getString(3),
                         resultSet.getString(2),
-                        resultSet.getDate(4),
+                        date,
                         resultSet.getInt(5),
                         resultSet.getBoolean(6));
                 output.add(temp);
@@ -536,6 +539,8 @@ public class AppHandler {
             return output;
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
+        } catch (ParseException exception) {
+            System.err.println("ParseException: " + exception.getMessage());
         } finally {
             if (statement != null) {
                 try {
@@ -568,13 +573,16 @@ public class AppHandler {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
             ArrayList<Interaction> output = new ArrayList<>();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            Date date;
             while (resultSet.next()) {
+                date = dateFormat.parse(resultSet.getString(4));
                 Interaction temp = new Interaction(
                         resultSet.getString(1),
                         resultSet.getString(7),
                         resultSet.getString(3),
                         resultSet.getString(2),
-                        resultSet.getDate(4),
+                        date,
                         resultSet.getInt(5),
                         resultSet.getBoolean(6));
                 output.add(temp);
@@ -582,6 +590,8 @@ public class AppHandler {
             return output;
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
+        } catch (ParseException exception) {
+            System.err.println("ParseException: " + exception.getMessage());
         } finally {
             if (statement != null) {
                 try {

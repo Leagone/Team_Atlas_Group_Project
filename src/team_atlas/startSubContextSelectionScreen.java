@@ -31,7 +31,18 @@ public class startSubContextSelectionScreen {
 
         this.conversation = conversations;
 
-        backHome.addActionListener(e -> AppHandler.startStudentHomeScreen());
+        backHome.addActionListener(e -> {
+            if (AppHandler.currentAdmin != null) {
+                AppHandler.startAdminHomeScreen();
+            }
+            if (AppHandler.currentUser != null) {
+                if (AppHandler.currentUser.isTeacher()) {
+                    AppHandler.startTeacherHomeScreen();
+                } else {
+                    AppHandler.startStudentHomeScreen();
+                }
+            }
+        });
         Logout.addActionListener(e -> AppHandler.logout());
         proceed.addActionListener(e -> AppHandler.startLevelSelectionScreen(conversationtoPass));
     }
