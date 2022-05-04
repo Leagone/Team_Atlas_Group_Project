@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Bug fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_02__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_03__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_03__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_1.xml" afterDir="false" />
+    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Updated my branch with master">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/RegisterScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/RegisterScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/StudentHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/StudentHomeScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/TeacherHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/TeacherHomeScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teamAtlas.db" beforeDir="false" afterPath="$PROJECT_DIR$/teamAtlas.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +37,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "last_opened_file_path": "D:/IdeaProjects/Team_Atlas_Group_Project/src/team_atlas"
   }
 }]]></component>
@@ -158,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651672659570</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Updated my branch with master">
+      <created>1651682655769</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1651682655769</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,6 +187,7 @@
     <MESSAGE value="Added:&#10;Context selection screen&#10;Sub context seletcion screen&#10;Level selection screen&#10;User to have a conversation with screen&#10;Changed:&#10;Background of all the panels to be mathing ( code 444CC5)&#10;&#10;TESTED EVERYTHING" />
     <MESSAGE value="Reformated the code&#10;Changed backHome button to return to Student Home screen&#10;Added notest" />
     <MESSAGE value="Added User Monitoring screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added User Monitoring screen" />
+    <MESSAGE value="Updated my branch with master" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated my branch with master" />
   </component>
 </project>
