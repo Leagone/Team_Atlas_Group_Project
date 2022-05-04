@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * Panel to display Informations about particular user
  *
- * @author Andrzej Baum
+ * @author Andrzej Baum & Owen-Rhys Thomas
  */
 
 public class UserDataMonitoringScreen {
@@ -29,7 +29,8 @@ public class UserDataMonitoringScreen {
 
     UserDataMonitoringScreen(String emailAddres){
 
-        currentUser = AppHandler.queryUser(emailAddres);
+        this.currentUser = AppHandler.queryUser(emailAddres);
+
         emailValue.setText(currentUser.getEmailAddress());
         idValue.setText(currentUser.getUserID());
         fNameValue.setText(currentUser.getLastName());

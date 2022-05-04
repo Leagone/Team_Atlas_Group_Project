@@ -9,7 +9,7 @@ import java.util.Set;
  * The class representing panel to select the context
  * Takes langId from Language Selection screen
  *
- * @author Andrzej Baum
+ * @author Andrzej Baum & Khadija Shahzad & Anas Samadi
  */
 
 public class startContextSelectionScreen {

@@ -10,7 +10,7 @@ import java.util.Set;
  * Takes Array list of Conversation objects from
  * context selection screen
  *
- * @author Andrzej Baum
+ * @author Andrzej Baum & Chris Sofroniou
  */
 
 public class startSubContextSelectionScreen {

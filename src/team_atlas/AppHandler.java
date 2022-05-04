@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-// TODO Get rid of all warnings
 
 /**
  * The Main class where the application starts and runs.

@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Reformated the code&#10;Changed backHome button to return to Student Home screen&#10;Added notest">
-      <change afterPath="$PROJECT_DIR$/src/team_atlas/UserDataMonitoringScreen.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/team_atlas/UserDataMonitoringScreen.java" afterDir="false" />
+    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Added User Monitoring screen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/SelectScreen.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/SelectScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/UserDataMonitoringScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/UserDataMonitoringScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/startContextSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/startContextSelectionScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/startLevelSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/startLevelSelectionScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/startSubContextSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/startSubContextSelectionScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/startUserSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/startUserSelectionScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teamAtlas.db" beforeDir="false" afterPath="$PROJECT_DIR$/teamAtlas.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651669509357</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added User Monitoring screen">
+      <created>1651672659570</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1651672659570</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -180,6 +192,7 @@
     <MESSAGE value="Added Context selection screen." />
     <MESSAGE value="Added:&#10;Context selection screen&#10;Sub context seletcion screen&#10;Level selection screen&#10;User to have a conversation with screen&#10;Changed:&#10;Background of all the panels to be mathing ( code 444CC5)&#10;&#10;TESTED EVERYTHING" />
     <MESSAGE value="Reformated the code&#10;Changed backHome button to return to Student Home screen&#10;Added notest" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformated the code&#10;Changed backHome button to return to Student Home screen&#10;Added notest" />
+    <MESSAGE value="Added User Monitoring screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added User Monitoring screen" />
   </component>
 </project>

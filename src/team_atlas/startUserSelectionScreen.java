@@ -8,7 +8,7 @@ import java.util.*;
  * Takes Array list of Conversation objects from
  * Level selection screen
  *
- * @author Andrzej Baum
+ * @author Andrzej Baum & Chris Sofroniou & Owen-Rhys Thomas
  */
 
 public class startUserSelectionScreen {
