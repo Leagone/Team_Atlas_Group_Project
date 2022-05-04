@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Added User Monitoring screen">
+    <list default="true" id="e48e452f-38ae-4168-917d-a0c2f5236b43" name="Changes" comment="Bug fixes">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_02__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_03__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_03__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_05_2022_16_06__Changes_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AdminHomeScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/AppHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/SelectScreen.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/SelectScreen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/UserDataMonitoringScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/UserDataMonitoringScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/startContextSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/startContextSelectionScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/startLevelSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/startLevelSelectionScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/startSubContextSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/startSubContextSelectionScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/team_atlas/startUserSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/startUserSelectionScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/PairMonitoringScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/RegisterScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/RegisterScreen.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/StudentHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/StudentHomeScreen.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/TeacherHomeScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/TeacherHomeScreen.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/team_atlas/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/team_atlas/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teamAtlas.db" beforeDir="false" afterPath="$PROJECT_DIR$/teamAtlas.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,29 +42,26 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="28eeKH7qXrFnaYdXt2ffHGmeaP1" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
-    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="371" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/team_atlas" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "D:/IdeaProjects/Team_Atlas_Group_Project/src/team_atlas"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IdeaProjects\Team_Atlas_Group_Project\src\team_atlas" />
       <recent name="C:\Users\bauma\Team_Atlas_Group_Project\src\team_atlas" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="AppHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="AppHandler" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="team_atlas.AppHandler" />
       <module name="Team_Atlas_Group_Project" />
       <extension name="coverage">
@@ -87,7 +87,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AppHandler" />
         <item itemvalue="Application.AppHandler" />
         <item itemvalue="Application.AppHandler" />
         <item itemvalue="Application.AppHandler" />

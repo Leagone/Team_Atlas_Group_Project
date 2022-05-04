@@ -31,8 +31,7 @@ public class User {
     }
 
     public String getExperienceString(){
-        String exp = String.valueOf(experience);
-        return exp;
+        return String.valueOf(experience);
     }
 
     public int getExperience() {

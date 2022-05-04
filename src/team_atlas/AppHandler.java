@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-
 /**
  * The Main class where the application starts and runs.
  * Handles the switching of panels and database insertion/query statements.
@@ -34,7 +33,6 @@ public class AppHandler {
      * If no admin is logged-in, the object is null.
      */
     static Admin currentAdmin = null;
-
 
     /**
      * The currently logged-in user.
@@ -140,14 +138,11 @@ public class AppHandler {
         MAIN_FRAME.setContentPane(selectConversation.MainContextSelectionPanel);
         MAIN_FRAME.setTitle("Team Atlas Language App - Context Selection");
         MAIN_FRAME.setVisible(true);
-
-
     }
 
     /**
      * Switches the application to the sub context selection panel.
      */
-
     static void startSubContextSelectionScreen(ArrayList<Conversation> conversations) {
         startSubContextSelectionScreen selectSubContext = new startSubContextSelectionScreen(conversations);
         MAIN_FRAME.setContentPane(selectSubContext.MainSubConPanel);
@@ -159,7 +154,6 @@ public class AppHandler {
     /**
      * Switches the application to the level selection panel.
      */
-
     static void startLevelSelectionScreen(ArrayList<Conversation> conversations) {
         startLevelSelectionScreen selectLevel = new startLevelSelectionScreen(conversations);
         MAIN_FRAME.setContentPane(selectLevel.MainLevelPanel);
@@ -174,12 +168,12 @@ public class AppHandler {
         MAIN_FRAME.setVisible(true);
     }
 
-
     /**
      * Switches the application to the interaction pair selection panel.
      */
     static void startPairSelectionScreen() {
         // TODO Switch to the interaction pair selection panel
+        System.out.println("To be implemented");
     }
 
     /**
@@ -195,17 +189,16 @@ public class AppHandler {
     /**
      * Switches the application to the searched student progress analytics panel.
      */
-    static void startStudentProgressScreen(String emailAddres) {
-        User userToDisply = AppHandler.queryUser(emailAddres);
-        if (userToDisply != null) {
-            PersonalProgressScreen personalProgressScreen = new PersonalProgressScreen(userToDisply);
+    static void startStudentProgressScreen(String emailAddress) {
+        User userToDisplay = AppHandler.queryUser(emailAddress);
+        if (userToDisplay != null) {
+            PersonalProgressScreen personalProgressScreen = new PersonalProgressScreen(userToDisplay);
             MAIN_FRAME.setContentPane(personalProgressScreen.studentProgressPanel);
             MAIN_FRAME.setTitle("Team Atlas Language App - Student Home");
             MAIN_FRAME.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "No such user");
+            JOptionPane.showMessageDialog(MAIN_FRAME, "No such user");
         }
-
     }
 
     /**
@@ -213,13 +206,14 @@ public class AppHandler {
      */
     static void startOverallProgressScreen() {
         // TODO Switch to the overall progress analytics panel
+        System.out.println("To be implemented");
     }
 
     /**
      * Switches the application to the user data monitoring panel.
      */
-    static void startUserDataMonitoringScreen(String emailAddres) {
-        UserDataMonitoringScreen  selectDataMonitoring = new UserDataMonitoringScreen (emailAddres);
+    static void startUserDataMonitoringScreen(String emailAddress) {
+        UserDataMonitoringScreen  selectDataMonitoring = new UserDataMonitoringScreen (emailAddress);
         MAIN_FRAME.setContentPane(selectDataMonitoring.MonitoringPanel);
         MAIN_FRAME.setTitle("Team Atlas Language App - SubContext Selection");
         MAIN_FRAME.setVisible(true);
@@ -466,9 +460,8 @@ public class AppHandler {
      * Queries a conversation list from the database using its language.
      *
      * @param langID The ID of the language
-     * @return A Array list of Conversation objects if there is a match, null otherwise
+     * @return An arraylist of Conversation objects if there is a match, null otherwise
      */
-
     public static ArrayList<Conversation> queryConversationOfLang(String langID) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
@@ -495,8 +488,6 @@ public class AppHandler {
                 output.add(temp);
             }
             return output;
-
-
         } catch (SQLException exception) {
             System.err.println("SQLException: " + exception.getMessage());
         } finally {
@@ -569,10 +560,10 @@ public class AppHandler {
      *
      * @return An arraylist of Interaction objects if there are any, null otherwise
      */
-    public static ArrayList<Interaction> queryAllInteractionsOf(String emailAddres) {
+    public static ArrayList<Interaction> queryAllInteractionsOf(String emailAddress) {
         Connection connection = ConnectDatabase.getConnection();
         Statement statement = null;
-        String toQuery = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + emailAddres + "' OR EmailAddress2='" + emailAddres + "' ";
+        String toQuery = "SELECT * FROM UserConversationInteraction WHERE EmailAddress1='" + emailAddress + "' OR EmailAddress2='" + emailAddress + "' ";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
@@ -974,7 +965,6 @@ public class AppHandler {
             ResultSet resultSet = statement.executeQuery(toQuery);
             ArrayList<Context> output = new ArrayList<>();
             while (resultSet.next()) {
-
                 Context temp = new Context(
                         resultSet.getString(1),
                         resultSet.getString(2));
@@ -1016,7 +1006,6 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(toQuery);
-
             return new Language(
                     resultSet.getString(1),
                     resultSet.getString(2)
@@ -1060,7 +1049,6 @@ public class AppHandler {
                         resultSet.getString(1),
                         resultSet.getString(2));
                 output.add(temp);
-
             }
             return output;
         } catch (SQLException exception) {
@@ -1100,10 +1088,9 @@ public class AppHandler {
                 String lName = resultSet.getString("LastName");
                 String userID = resultSet.getString("UserID");
                 boolean isTeacher = resultSet.getBoolean("IsTeacher");
-                Integer experience = resultSet.getInt("Experience");
+                int experience = resultSet.getInt("Experience");
                 User temp = new User(email, pass, salt, fName, lName, userID, isTeacher, experience);
                 output.add(temp);
-
             }
             return output;
         } catch (SQLException exception) {
@@ -1151,7 +1138,7 @@ public class AppHandler {
                 String lName = rs.getString("LastName");
                 String userID = rs.getString("UserID");
                 boolean isTeacher = rs.getBoolean("IsTeacher");
-                Integer experience = rs.getInt("Experience");
+                int experience = rs.getInt("Experience");
                 return new User(email, pass, salt, fName, lName, userID, isTeacher, experience);
             }
         } catch (SQLException exception) {
@@ -1189,7 +1176,6 @@ public class AppHandler {
         try {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(toQuery);
-
             if (!rs.isBeforeFirst()) {
                 System.out.println("No Data");
                 return null;
@@ -1201,7 +1187,7 @@ public class AppHandler {
                 String lName = rs.getString("LastName");
                 String userID = rs.getString("UserID");
                 boolean isTeacher = rs.getBoolean("IsTeacher");
-                Integer experience = rs.getInt("Experience");
+                int experience = rs.getInt("Experience");
                 return new User(email, pass, salt, fName, lName, userID, isTeacher, experience);
             }
         } catch (SQLException exception) {
