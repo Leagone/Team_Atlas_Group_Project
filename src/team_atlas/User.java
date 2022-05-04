@@ -30,6 +30,11 @@ public class User {
         this.experience = this.experience + experience;
     }
 
+    public String getExperienceString(){
+        String exp = String.valueOf(experience);
+        return exp;
+    }
+
     public int getExperience() {
         return experience;
     }

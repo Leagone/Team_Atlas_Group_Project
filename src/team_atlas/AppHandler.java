@@ -66,8 +66,6 @@ public class AppHandler {
         MAIN_FRAME.setSize(500, 800);
         MAIN_FRAME.setLocationRelativeTo(null);
         startLoginScreen();
-
-
     }
 
     /**
@@ -221,8 +219,11 @@ public class AppHandler {
     /**
      * Switches the application to the user data monitoring panel.
      */
-    static void startUserDataMonitoringScreen() {
-        // TODO Switch to the user data monitoring panel
+    static void startUserDataMonitoringScreen(String emailAddres) {
+        UserDataMonitoringScreen  selectDataMonitoring = new UserDataMonitoringScreen (emailAddres);
+        MAIN_FRAME.setContentPane(selectDataMonitoring.MonitoringPanel);
+        MAIN_FRAME.setTitle("Team Atlas Language App - SubContext Selection");
+        MAIN_FRAME.setVisible(true);
     }
 
     /**
